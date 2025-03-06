@@ -1,111 +1,155 @@
 ﻿
 namespace LearnOfClassesRPG
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
+
+            Console.WriteLine("Подготовка к бою:\r\nВведите имя бойца:");
+            string name = Console.ReadLine();
+
+            Console.WriteLine("Введите начальное здоровье бойца (10-100):");
+            float.TryParse(Console.ReadLine(), out float health);
+
+            Console.WriteLine("Введите значение брони шлема от 0, до 1");
+            float.TryParse(Console.ReadLine(), out float armorOfHelm);
+            Helm.Armor = armorOfHelm;
+
+            Console.WriteLine("Введите значение брони кирасы от 0, до 1");
+            float.TryParse(Console.ReadLine(), out float armorOfShell);
+            Shell.Armor = armorOfShell;
+
+            Console.WriteLine("Введите значение брони сапог от 0, до 1");
+            float.TryParse(Console.ReadLine(), out float armorOfBoots);
+            Boots.Armor = armorOfBoots;
+
+            Unit unit = new Unit(name, health);
+
+            Console.WriteLine($"Общий показатель брони бойца {unit.Name} равен: {unit.Armor}");
+            Console.WriteLine($"Фактическое значение здоровья бойца {unit.Name} равен: {unit.RealHealth()}");
+            Console.ReadKey();
         }
     }
 
-    /// 
-    /// Класс 1. Реализовать класс Unit
-    /// 
-    
     public class Unit
     {
-        // п.1 Поля и свойства
         private float _health;
-        public float Armor;
+        private float _armor;
         public string Name { get; }
-        public int Damage { get; }
-        public float Health { get; }
-
-        // п.2 Конструкторы
-        public Unit() : this("Unknown Unit", 5, 0.6f)
+        public bool IsHaveWeapon { get; } // добавил свойство о наличии у юнита оружия для проверки в п.3.3
+        public float Health => _health;
+        public float Armor
         {
+            get
+            {
+                return (float)Math.Round(_armor, 2);
+            }
         }
-        public Unit(string name, int damage, float armor)
+
+        public Unit()
+        {
+            Name = "Unkniwn Unit";
+            IsHaveWeapon = true;
+            _armor = Helm.Armor + Shell.Armor + Boots.Armor;
+        }
+
+        public Unit(string name, float health) : this()
         {
             Name = name;
-            Damage = damage;
-            Armor = armor;
+            _health = health;
         }
 
-        // п.3 Релизация расчетов здоровья
         public float RealHealth()
         {
-            return Health * (1 + Armor);
+            return _health * (1f + Armor);
         }
 
-        public bool SetDamage(int damage)
+        public bool SetDamage(float damage) //добавил вместо "value" в задании, аргумент damage
         {
-            float newHealth = _health - (damage * Armor); // на сколько важна разница с чем работать? Со свойством Health или сразу с полем _health? 
-            if (newHealth <= 0f)
+            _health -= (damage * Armor);
+            if (_health <= 0f)
             {
                 return true;
             }
-            _health = newHealth;
             return false;
         }
-    }
 
-    /// 
-    /// Класс 2. Реализовать класс Weapon
-    /// 
-    
+        public void EquipWeapon(Weapon weapon) { }
+        public void EquipHelm(Helm helm) { }
+        public void EquipShell(Shell shell) { }
+        public void EquipBoots(Boots boots) { }
+
+
+        public float Damage
+        {
+            get
+            {
+                if (IsHaveWeapon)
+                {
+                    return Weapon.GetDamage() + Damage;
+                }
+                return Damage;
+            }
+            set
+            {
+                Damage = 5;
+            }
+        }
+
+    }
     public class Weapon
     {
-        // п.1 Свойства
         public string Name { get; }
-        public int MinDamage { get; private set; }
-        public int MaxDamage { get; private set; }
-        public float Durability { get; }
 
-        // п.2 Конструкторы
+        //сделал поля статичными, чтобы GetDamage() стал доступным в классе Unit
+        public static float MinDamage { get; private set; }
+        public static float MaxDamage { get; private set; }
+        //public float Durability { get; }
+
+        // п.1 конструкторы
 
         public Weapon(string name)
         {
             Name = name;
-            Durability = 1;
+            //Durability = 1;
         }
 
-        public Weapon(string name, int minDamage, int maxDamage) : this(name)
+        public Weapon(string name, float minDamage, float maxDamage) : this(name)
         {
             SetDamageParams(minDamage, maxDamage);
         }
 
-        // п.3 Логика для проверки, установки и возврата заданных параметорв урона
+        // п.2 логика для проверки и установки заданных параметорв урона
 
-        public void SetDamageParams(int minDamage, int maxDamage)
+        public void SetDamageParams(float minDamage, float maxDamage)
         {
             if (minDamage > maxDamage)
             {
-                int tmp = minDamage;
+                float tmp = minDamage;
                 minDamage = maxDamage;
                 maxDamage = tmp;
                 Console.WriteLine($"Minimal Damage of {Name} is incorrect");
             }
-            if (minDamage < 1)
+            if (minDamage < 1f)
             {
-                minDamage = 1; //??? минимальный урон оружия задается по условию значением f ???
+                minDamage = 1f; //??? минимальный урон оружия задается значением f ???
                 Console.WriteLine("Getting forcing install value of MinDamage");
             }
-            if (maxDamage <= 1)
+            if (maxDamage <= 1f)
             {
-                maxDamage = 10;
+                maxDamage = 10f;
             }
 
             MinDamage = minDamage;
             MaxDamage = maxDamage;
 
         }
-        public int GetDamage()
+
+        // п3. логика возврата урона
+        public static float GetDamage()
         {
             return (MinDamage + MaxDamage) / 2;
         }
-
-    }
+    }    
 }
-
-
