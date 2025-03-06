@@ -1,95 +1,111 @@
-﻿/*
- Задание 1
-С помощью цикла for (или while) выведите первые 10 чисел Фиббоначи (см. Задание из 3 урока)
-
-Задание 2
-Используя цикл for, выведите все чётные числа от 2 до 20
-
-Задание 3
-С помощью вложенных циклов for выведите таблицу умножения от 1 до 5. Каждая строка таблицы должна быть выведена в отдельной строке.
-
-Задание 4
-Дана строка string password = “qwerty”; Напишите программу для ввода пароля, которая считывает пользовательский ввод Console.ReadLine. Подсказка: используйте do-while
-
-Шаблон домашнего задания
-
-
-*/
-
-namespace LerningOfCycle
+﻿
+namespace LearnOfClassesRPG
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            // Задание 1
-
-            int sum = 0;
-            int numFirst = 1;
-            int numSecond = 0;
-
-            Console.WriteLine("Exercise #1\r\nFirst ten Fibonacci number is:");
-
-            for (int i = 0; i < 10; i++)
-            {
-                Console.Write($"{sum}, ");
-                sum = numFirst + numSecond;
-                numFirst = numSecond;
-                numSecond = sum;
-            }
-
-            Console.WriteLine();
-            Console.WriteLine();
-
-            // Задание 2
-
-            Console.WriteLine("Exercise #2\r\nEven numbers from 2 to 20 is:");
-
-            for (int i = 2; i <= 20; i++)
-            {
-                if (i % 2 == 0)
-                {
-                    Console.Write($"{i}, ");
-                }
-            }
-            Console.WriteLine();
-            Console.WriteLine();
-
-            // Задание 3
-
-            Console.WriteLine("Exercise #3\r\nMultiplication table from 1 to 5 is");
-
-            int multTab = 5;
-
-            for (int i = 1; i <= multTab; i++)
-            {
-                for (int j = 1; j <= multTab; j++)
-                {
-                    Console.Write(i * j + "\t");
-                }
-                Console.WriteLine("\r\n");
-            }
-
-            // Задание 4
-
-            Console.WriteLine("Exercise #4\r\nEnter your psassword here:");
-
-            string password = "qwerty";
-            string userPassword = "";
-
-            do
-            {
-                userPassword = Convert.ToString(Console.ReadLine());
-                if (password == userPassword)
-                {
-                    Console.WriteLine("User password is correct!!!");
-                    break;
-                }
-                Console.WriteLine("User password is incorrect\n\bplease try again:");
-            }
-            while (true);
-
-            Console.ReadKey();
         }
     }
+
+    /// 
+    /// Класс 1. Реализовать класс Unit
+    /// 
+    
+    public class Unit
+    {
+        // п.1 Поля и свойства
+        private float _health;
+        public float Armor;
+        public string Name { get; }
+        public int Damage { get; }
+        public float Health { get; }
+
+        // п.2 Конструкторы
+        public Unit() : this("Unknown Unit", 5, 0.6f)
+        {
+        }
+        public Unit(string name, int damage, float armor)
+        {
+            Name = name;
+            Damage = damage;
+            Armor = armor;
+        }
+
+        // п.3 Релизация расчетов здоровья
+        public float RealHealth()
+        {
+            return Health * (1 + Armor);
+        }
+
+        public bool SetDamage(int damage)
+        {
+            float newHealth = _health - (damage * Armor); // на сколько важна разница с чем работать? Со свойством Health или сразу с полем _health? 
+            if (newHealth <= 0f)
+            {
+                return true;
+            }
+            _health = newHealth;
+            return false;
+        }
+    }
+
+    /// 
+    /// Класс 2. Реализовать класс Weapon
+    /// 
+    
+    public class Weapon
+    {
+        // п.1 Свойства
+        public string Name { get; }
+        public int MinDamage { get; private set; }
+        public int MaxDamage { get; private set; }
+        public float Durability { get; }
+
+        // п.2 Конструкторы
+
+        public Weapon(string name)
+        {
+            Name = name;
+            Durability = 1;
+        }
+
+        public Weapon(string name, int minDamage, int maxDamage) : this(name)
+        {
+            SetDamageParams(minDamage, maxDamage);
+        }
+
+        // п.3 Логика для проверки, установки и возврата заданных параметорв урона
+
+        public void SetDamageParams(int minDamage, int maxDamage)
+        {
+            if (minDamage > maxDamage)
+            {
+                int tmp = minDamage;
+                minDamage = maxDamage;
+                maxDamage = tmp;
+                Console.WriteLine($"Minimal Damage of {Name} is incorrect");
+            }
+            if (minDamage < 1)
+            {
+                minDamage = 1; //??? минимальный урон оружия задается по условию значением f ???
+                Console.WriteLine("Getting forcing install value of MinDamage");
+            }
+            if (maxDamage <= 1)
+            {
+                maxDamage = 10;
+            }
+
+            MinDamage = minDamage;
+            MaxDamage = maxDamage;
+
+        }
+        public int GetDamage()
+        {
+            return (MinDamage + MaxDamage) / 2;
+        }
+
+    }
 }
+
+
