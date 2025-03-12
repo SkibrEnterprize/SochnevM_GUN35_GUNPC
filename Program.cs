@@ -5,151 +5,74 @@ namespace LearnOfClassesRPG
     {
         static void Main(string[] args)
         {
-
-            Console.WriteLine("Подготовка к бою:\r\nВведите имя бойца:");
-            string name = Console.ReadLine();
-
-            Console.WriteLine("Введите начальное здоровье бойца (10-100):");
-            float.TryParse(Console.ReadLine(), out float health);
-
-            Console.WriteLine("Введите значение брони шлема от 0, до 1");
-            float.TryParse(Console.ReadLine(), out float armorOfHelm);
-            Helm.Armor = armorOfHelm;
-
-            Console.WriteLine("Введите значение брони кирасы от 0, до 1");
-            float.TryParse(Console.ReadLine(), out float armorOfShell);
-            Shell.Armor = armorOfShell;
-
-            Console.WriteLine("Введите значение брони сапог от 0, до 1");
-            float.TryParse(Console.ReadLine(), out float armorOfBoots);
-            Boots.Armor = armorOfBoots;
-
-            Unit unit = new Unit(name, health);
-
-            Console.WriteLine($"Общий показатель брони бойца {unit.Name} равен: {unit.Armor}");
-            Console.WriteLine($"Фактическое значение здоровья бойца {unit.Name} равен: {unit.RealHealth()}");
+            Dungeon dangeon = new Dungeon();
+            dangeon.ShowRooms();
             Console.ReadKey();
         }
     }
 
-    public class Unit
+    public struct Interval
     {
-        private float _health;
-        private float _armor;
-        public string Name { get; }
-        public bool IsHaveWeapon { get; } // добавил свойство о наличии у юнита оружия для проверки в п.3.3
-        public float Health => _health;
-        public float Armor
+        private Random _random;
+        public int Min { get; }
+        public int Max { get; }
+        public int Get
         {
             get
             {
-                return (float)Math.Round(_armor, 2);
+                return _random.Next(Min, Max);
             }
         }
 
-        public Unit()
+        public Interval(int minValue, int maxValue)
         {
-            Name = "Unkniwn Unit";
-            IsHaveWeapon = true;
-            _armor = Helm.Armor + Shell.Armor + Boots.Armor;
-        }
-
-        public Unit(string name, float health) : this()
-        {
-            Name = name;
-            _health = health;
-        }
-
-        public float RealHealth()
-        {
-            return _health * (1f + Armor);
-        }
-
-        public bool SetDamage(float damage) //добавил вместо "value" в задании, аргумент damage
-        {
-            _health -= (damage * Armor);
-            if (_health <= 0f)
+            _random = new Random();
+            if (minValue > maxValue)
             {
-                return true;
+                (minValue, maxValue) = (maxValue, minValue);
+                ErrorValue();
             }
-            return false;
-        }
-
-        public void EquipWeapon(Weapon weapon) { }
-        public void EquipHelm(Helm helm) { }
-        public void EquipShell(Shell shell) { }
-        public void EquipBoots(Boots boots) { }
-
-
-        public float Damage
-        {
-            get
+            else if (minValue < 0)
             {
-                if (IsHaveWeapon)
-                {
-                    return Weapon.GetDamage() + Damage;
-                }
-                return Damage;
+                minValue = 0;
+                ErrorValue();
             }
-            set
+            else if (maxValue < 0)
             {
-                Damage = 5;
+                maxValue = 0;
+                ErrorValue();
             }
-        }
+            else if (minValue == maxValue)
+            {
+                maxValue += 10;
+                ErrorValue();
+            }
+            //minValue = minValue < 0 ? 0 : minValue; // если веденная величина меньше 0, то присваиваем ей 0
+            //maxValue = maxValue < 0 ? 0 : maxValue;
 
+            //maxValue = maxValue == minValue ? maxValue += 10 : maxValue; // если оба числа равны, то присваиваем Max+10
+
+            Min = minValue;
+            Max = maxValue;
+
+            void ErrorValue()
+            {
+                Console.WriteLine($"Entered Minimal or Maximal value is incorrect");
+
+            }
+
+        }
     }
-    public class Weapon
+
+    public struct Room
     {
-        public string Name { get; }
+        public Unit Unit { get; }
+        public Weapon Weapon { get; }
 
-        //сделал поля статичными, чтобы GetDamage() стал доступным в классе Unit
-        public static float MinDamage { get; private set; }
-        public static float MaxDamage { get; private set; }
-        //public float Durability { get; }
-
-        // п.1 конструкторы
-
-        public Weapon(string name)
+        public Room(Unit unit, Weapon weapon)
         {
-            Name = name;
-            //Durability = 1;
+            Unit = unit;
+            Weapon = weapon;
         }
-
-        public Weapon(string name, float minDamage, float maxDamage) : this(name)
-        {
-            SetDamageParams(minDamage, maxDamage);
-        }
-
-        // п.2 логика для проверки и установки заданных параметорв урона
-
-        public void SetDamageParams(float minDamage, float maxDamage)
-        {
-            if (minDamage > maxDamage)
-            {
-                float tmp = minDamage;
-                minDamage = maxDamage;
-                maxDamage = tmp;
-                Console.WriteLine($"Minimal Damage of {Name} is incorrect");
-            }
-            if (minDamage < 1f)
-            {
-                minDamage = 1f; //??? минимальный урон оружия задается значением f ???
-                Console.WriteLine("Getting forcing install value of MinDamage");
-            }
-            if (maxDamage <= 1f)
-            {
-                maxDamage = 10f;
-            }
-
-            MinDamage = minDamage;
-            MaxDamage = maxDamage;
-
-        }
-
-        // п3. логика возврата урона
-        public static float GetDamage()
-        {
-            return (MinDamage + MaxDamage) / 2;
-        }
-    }    
+    }
 }
