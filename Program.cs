@@ -1,259 +1,108 @@
 ﻿
-namespace LearnOfCollections
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace LearningOfStrings
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter 1,2 or 3 to check task 1,2 or 3");
-            int.TryParse(Console.ReadLine(), out int task);
-            //int task = int.Parse(Console.ReadLine()); // Используйте tryParse
-            switch (task)
+            Console.WriteLine("Добро пожаловать в демонстрацию работы со строками в языке C#\nНажмите \"Enter\" для запуска первого задания\n");
+            Console.ReadKey();
+
+            // Задание 1
+            ConcatinateString();
+
+            // Задание 2
+            GreetUser();
+
+            // Задание 3
+            Console.WriteLine("Задание №3 \'Операции со строками - 1\'\n\nВедите строку:");
+            Console.WriteLine($"\nНовая строка выглядит так:\n{StringOperations(Console.ReadLine())}");
+            EndOfTask();
+
+            // Задание 4
+            Console.WriteLine("Задание №4 \'Операции со строками - 2\'\n\nВедите строку(минимально 5 символов):\n");
+            Console.WriteLine($"\nПервые пять символов введенной строки:\n{ReturnOfFiveSymbol(Console.ReadLine())}");
+            EndOfTask();
+
+            // Задание 5
+            Console.WriteLine("Задание №5 \'Вывод экземпляра StringBuilder\'\nЗаполните массив введением значений пяти строк поочередно(через \'Enter\'):\n");
+            string[] str = new string[5];
+            for (int i = 0; i < 5; i++)
             {
-                case 1:
-                    CheckTaskFirst(); // Выполнение задания в отдельном методе
-                    break;
-                case 2:
-                    CheckTaskSecond();
-                    break;
-                case 3:
-                    CheckTaskThird();
-                    break;
-                default:
-                    Console.WriteLine("Input is incorrect!!!");
-                    break;
+                Console.WriteLine($"Введите строку №{i + 1}");
+                str[i] = Console.ReadLine();
             }
+            Console.WriteLine($"Результат выполнения:\n{StringBuilderReturn(str).ToString()}");
+            EndOfTask();
+
+            // Задание 6
+            Console.WriteLine("Задание №6 \'Регулярные выражения\'\n\nВведена строка:");
+            string str1 = "Сшит колпак, да не по-колпаковски. Надо колпак переколпаковать";
+            Console.WriteLine($"\"{str1}\"\n\nРезультат обработки через регулярные выражения:");
+            Console.WriteLine(RegexExample(str1, "колпа", "червя"));
+            Console.ReadKey();
         }
 
-        private static void CheckTaskFirst()
+        static void ConcatinateString()
         {
-            var listTask = new ListTask();
-            listTask.TaskLoop();
+            Console.WriteLine("Задание №1 \'Конкатенация\'\n\nВедите первую строку:");
+            string str1 = Console.ReadLine();
+            Console.WriteLine("Ведите вторую строку:");
+            string str2 = Console.ReadLine();
+            Console.WriteLine("\nКонкатенация строк выглядит так:\n");
+            Console.WriteLine(String.Concat(str1, str2));
+            EndOfTask();
+
         }
 
-        private static void CheckTaskSecond()
+        static void GreetUser()
         {
-            var dictonaryTask = new DictionaryTask();
-            dictonaryTask.TaskLoop();
+            Console.WriteLine("Задание №2 \'Метод GreetUser\'\n\nВедите имя пользователя:");
+            string name = Console.ReadLine();
+            Console.WriteLine("Ведите возраст пользователя:");
+            string age = Console.ReadLine();
+            Console.WriteLine("\nВывод метода GreetUser():\n");
+            Console.WriteLine($"Hello, {name}!\nYou are {age} years old.");
+            EndOfTask();
+
         }
-        private static void CheckTaskThird()
+
+        static string StringOperations(string str)
         {
-            var doublyLinkedList = new DoublyLinkedList();
-            doublyLinkedList.TaskLoop();
+            string newStr = string.Format("Количество символов в строке - {0}. Строка в верхнем регистре:\"{1}\". Строка в нижнем регистре:\"{2}\"", str.Length, str.ToUpper(), str.ToLower());
+            return newStr;
         }
 
-
-        // Задание 1
-        private class ListTask
+        static string ReturnOfFiveSymbol(string str)
         {
-            private List<string> _listOfString; // Тип данных любой
-            private string _newElement;
-
-            public ListTask()
-            {
-                _listOfString = new List<string>();
-                _listOfString.Add("Element 1");
-                _listOfString.Add("Element 2");
-                _listOfString.Add("Element 3");
-            }
-
-
-            public void TaskLoop()
-            {
-                // проверка ввода и вывод результата
-                {
-                    int cnt = 1;
-                    do
-                    {
-                        Console.WriteLine($"Дополняем список List\nВведите новый элемент #{cnt}. Для отмены операции введите '-exit'");
-                        _newElement = Console.ReadLine();
-                        if (cnt == 1)
-                        {
-                            _listOfString.Add(_newElement);
-                            cnt++;
-                        }
-                        else
-                        {
-                            _listOfString.Insert(_listOfString.Count / 2, _newElement);
-                            cnt++;
-                        }
-
-                    } while (cnt != 3 && _newElement != "-exit"); //);  
-                    PrintOfList();
-                }
-            }
-
-            private void PrintOfList()
-            {
-                Console.WriteLine("\nИтоговый список выгдядит так:");
-                foreach (var item in _listOfString)
-                {
-                    Console.WriteLine(item);
-                }
-            }
-
-
+            return str.Substring(0, 5);
         }
 
-        // Задание 2
-        private class DictionaryTask
+        static StringBuilder StringBuilderReturn(string[] array)
         {
-            private Dictionary<string, int> _dictonary;
-            private string _newStudent;
-            private string _score;
-            public DictionaryTask()
+            Console.WriteLine("\nМассив заполнен удачно и передан в StringBuilder\n");
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (string str in array)
             {
-                _dictonary = new Dictionary<string, int>();
-
+                stringBuilder.Append(str + ' ');
             }
-            public void TaskLoop()
-            {
-                // проверка ввода и вывод результата
-                {
-                    do
-                    {
-                        Console.WriteLine($"Заполняем информацию о средних оценках студентов\nВведите имя студента\n(Для отмены операции введите '-exit'):");
-                        _newStudent = Console.ReadLine();
-                        if (_newStudent == "-exit")
-                        {
-                            break;
-                        }
-                        Console.WriteLine($"Заполняем информацию о средних оценках студентов\nВведите среднюю оценку студента\n(Для отмены операции введите '-exit'):");
-                        _score = Console.ReadLine();
-                        if (_score == "-exit")
-                        {
-                            break;
-                        }
-                        if (int.TryParse(_score, out int score) && score >= 2 && score <= 5)
-                        {
-                            _dictonary.Add(_newStudent, score);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Оценка введена не корректно");
-
-                        }
-                    } while (_newStudent != "-exit" && _score != "-exit"); //);  
-
-                    Console.WriteLine("Введите имя студента для просмотра средней оценки:");
-                    string nameForInfo = Console.ReadLine();
-                    if (_dictonary.TryGetValue(nameForInfo, out int scoreForInfo))
-                    {
-                        Console.WriteLine($"Студент по имени {nameForInfo} имеет среднюю оценку {scoreForInfo}");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Студента с таким именем не существует");
-                    }
-
-                    //PrintOfDictionary();
-                }
-            }
-            //private void PrintOfDictionary()
-            //{
-            //    Console.WriteLine("\nИтоговый список выгдядит так:");
-            //    foreach (var item in _dictonary)
-            //    {
-            //        Console.WriteLine($"{item.Value} средняя оценка {item.Key}");
-            //    }
-            //}
+            return stringBuilder;
         }
 
-        // Задание 3
-        private class DoublyLinkedList
-
+        static string RegexExample(string str, string word1, string word2)
         {
-            private class Node // Узел списка
-            {
-                public string Data { get; set; }
-                public Node Previous { get; set; }
-                public Node Next { get; set; }
-
-                public Node(string data)
-                {
-                    Data = data;
-                    Previous = null;
-                    Next = null;
-                }
-            }
-            private Node _head;
-            private Node _tail;
-            private int _size;
-
-            public DoublyLinkedList()
-            {
-                _head = null;
-                _tail = null;
-                _size = 0;
-            }
-
-            public void AddLast(string data)
-            {
-                Node newNode = new Node(data);
-                if (_head == null)
-                {
-                    _head = newNode;
-                    _tail = newNode;
-                }
-                else
-                {
-                    newNode.Previous = _tail;
-                    _tail.Next = newNode;
-                    _tail = newNode;
-                }
-                _size++;
-            }
-            public void PrintForward()
-            {
-                Node current = _head;
-                while (current != null)
-                {
-                    Console.Write(current.Data + " ");
-                    current = current.Next;
-                }
-                Console.WriteLine();
-            }
-
-            // Вывести список в обратном порядке
-            public void PrintBackward()
-            {
-                Node current = _tail;
-                while (current != null)
-                {
-                    Console.Write(current.Data + " ");
-                    current = current.Previous;
-                }
-                Console.WriteLine();
-            }
-
-            public void TaskLoop()
-            {
-                DoublyLinkedList myList = new DoublyLinkedList();
-                Console.Write("Введите количество элементов в списке (от 3 до 6): ");
-                int count = int.Parse(Console.ReadLine());
-
-                if (count < 3 || count > 6)
-                {
-                    Console.WriteLine("Некорректное количество элементов.  Введено от 3 до 6.");
-                    return;
-                }
-
-                for (int i = 0; i < count; i++)
-                {
-                    Console.Write($"Введите элемент {i + 1}: ");
-                    string data = Console.ReadLine();
-                    myList.AddLast(data);
-                }
-
-                Console.WriteLine("Список в прямом порядке:");
-                myList.PrintForward();
-
-                Console.WriteLine("Список в обратном порядке:");
-                myList.PrintBackward();
-            }
-
+            Regex regex = new Regex(word1);
+            return str = regex.Replace(str, word2); 
         }
-
+        static void EndOfTask()
+        {
+            Console.WriteLine("\nНажмите \"Enter\" для запуска следующего задания");
+            Console.ReadKey();
+            Console.Clear();
+        }
     }
 }
 
