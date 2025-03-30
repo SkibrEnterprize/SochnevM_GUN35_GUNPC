@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "B6ux1Fh8jDI=",
+  "success": true,
+  "projectFilePath": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\GamePrototype.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Unit\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.36\\microsoft.windowsdesktop.app.ref.6.0.36.nupkg.sha512",
+    "C:\\Users\\Unit\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.36\\microsoft.netcore.app.ref.6.0.36.nupkg.sha512",
+    "C:\\Users\\Unit\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.36\\microsoft.aspnetcore.app.ref.6.0.36.nupkg.sha512",
+    "C:\\Users\\Unit\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.36\\microsoft.netcore.app.host.win-x64.6.0.36.nupkg.sha512"
+  ],
+  "logs": []
+}
