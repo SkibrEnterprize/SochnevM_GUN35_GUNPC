@@ -3,28 +3,72 @@
   "WorkspaceRootPath": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\items\\economicitems\\grindstone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:items\\economicitems\\grindstone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\units\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:units\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\utils\\dungeonbuilder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:utils\\dungeonbuilder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\items\\equipitems\\weapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:items\\equipitems\\weapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\utils\\unitfactorydemo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:utils\\unitfactorydemo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\items\\equipitems\\equipitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:items\\equipitems\\equipitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\items\\equipitems\\armour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:items\\equipitems\\armour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\units\\goblin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:units\\goblin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\items\\economicitems\\gold.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:items\\economicitems\\gold.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\items\\economicitems\\healthpotion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:items\\economicitems\\healthpotion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\units\\unit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:units\\unit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\utils\\unitfactorydemo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:utils\\unitfactorydemo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\game\\gameloop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:game\\gameloop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\utils\\easydangeon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:utils\\easydangeon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\utils\\dungeon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:utils\\dungeon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\dungeon\\direction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:dungeon\\direction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\dungeon\\dungeonroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:dungeon\\dungeonroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\utils\\difficulty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:utils\\difficulty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\units\\goblin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:units\\goblin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\combat\\rockpaperscissors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -39,28 +83,12 @@
       "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:items\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\units\\unit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:units\\unit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\utils\\equipslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:utils\\equipslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\items\\equipitems\\weapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:items\\equipitems\\weapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\game\\gameloop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:game\\gameloop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\units\\inventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:units\\inventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\items\\equipitems\\equipitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:items\\equipitems\\equipitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\items\\equipitems\\armourheavy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -71,36 +99,16 @@
       "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:items\\equipitems\\rangeweapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\items\\economicitems\\healthpotion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:items\\economicitems\\healthpotion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\utils\\gameconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:utils\\gameconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\items\\economicitems\\gold.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:items\\economicitems\\gold.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\items\\economicitems\\economicitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:items\\economicitems\\economicitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\items\\economicitems\\grindstone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:items\\economicitems\\grindstone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\readme.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:readme.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|c:\\git_repo\\sochnevm_gun35_gunpc\\dungeon\\direction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DD66E181-5549-4E58-B2BF-1E870F087123}|GamePrototype.csproj|solutionrelative:dungeon\\direction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -110,11 +118,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 14,
+          "SelectedChildIndex": 26,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 15,
+              "Title": "Difficulty.cs",
+              "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Utils\\Difficulty.cs",
+              "RelativeDocumentMoniker": "Utils\\Difficulty.cs",
+              "ToolTip": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Utils\\Difficulty.cs",
+              "RelativeToolTip": "Utils\\Difficulty.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-30T19:34:20.328Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "EasyDangeon.cs",
+              "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Utils\\EasyDangeon.cs",
+              "RelativeDocumentMoniker": "Utils\\EasyDangeon.cs",
+              "ToolTip": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Utils\\EasyDangeon.cs",
+              "RelativeToolTip": "Utils\\EasyDangeon.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-30T19:33:13.455Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
               "Title": "RangeWeapon.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Items\\EquipItems\\RangeWeapon.cs",
               "RelativeDocumentMoniker": "Items\\EquipItems\\RangeWeapon.cs",
@@ -122,12 +156,11 @@
               "RelativeToolTip": "Items\\EquipItems\\RangeWeapon.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-29T19:09:25.21Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-29T19:09:25.21Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 22,
               "Title": "ArmourHeavy.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Items\\EquipItems\\ArmourHeavy.cs",
               "RelativeDocumentMoniker": "Items\\EquipItems\\ArmourHeavy.cs",
@@ -135,12 +168,11 @@
               "RelativeToolTip": "Items\\EquipItems\\ArmourHeavy.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T20:06:03.662Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T20:06:03.662Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 26,
               "Title": "README.txt",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\README.txt",
               "RelativeDocumentMoniker": "README.txt",
@@ -152,45 +184,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 12,
               "Title": "Direction.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Dungeon\\Direction.cs",
               "RelativeDocumentMoniker": "Dungeon\\Direction.cs",
               "ToolTip": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Dungeon\\Direction.cs",
               "RelativeToolTip": "Dungeon\\Direction.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAZAAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T19:20:59.471Z"
+              "WhenOpened": "2025-03-24T19:20:59.471Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DungeonBuilder.cs",
-              "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Utils\\DungeonBuilder.cs",
-              "RelativeDocumentMoniker": "Utils\\DungeonBuilder.cs",
-              "ToolTip": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Utils\\DungeonBuilder.cs",
-              "RelativeToolTip": "Utils\\DungeonBuilder.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAAAAwAAABcAAAAAAAAAA==",
+              "DocumentIndex": 11,
+              "Title": "Dungeon.cs",
+              "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Utils\\Dungeon.cs",
+              "RelativeDocumentMoniker": "Utils\\Dungeon.cs",
+              "ToolTip": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Utils\\Dungeon.cs",
+              "RelativeToolTip": "Utils\\Dungeon.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-24T19:20:59.678Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "UnitFactoryDemo.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Utils\\UnitFactoryDemo.cs",
               "RelativeDocumentMoniker": "Utils\\UnitFactoryDemo.cs",
               "ToolTip": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Utils\\UnitFactoryDemo.cs",
               "RelativeToolTip": "Utils\\UnitFactoryDemo.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAAwBQAAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwAYAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-24T19:20:59.679Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 18,
               "Title": "CombatManager.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Combat\\CombatManager.cs",
               "RelativeDocumentMoniker": "Combat\\CombatManager.cs",
@@ -198,12 +231,11 @@
               "RelativeToolTip": "Combat\\CombatManager.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAABfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T19:20:59.681Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-24T19:20:59.681Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 17,
               "Title": "RockPaperScissors.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Combat\\RockPaperScissors.cs",
               "RelativeDocumentMoniker": "Combat\\RockPaperScissors.cs",
@@ -211,25 +243,24 @@
               "RelativeToolTip": "Combat\\RockPaperScissors.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T19:20:59.682Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-24T19:20:59.682Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 9,
               "Title": "GameLoop.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Game\\GameLoop.cs",
               "RelativeDocumentMoniker": "Game\\GameLoop.cs",
               "ToolTip": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Game\\GameLoop.cs",
               "RelativeToolTip": "Game\\GameLoop.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAkwDMAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAYwG0AAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-24T19:20:59.683Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 13,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -237,11 +268,12 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T19:20:59.685Z"
+              "WhenOpened": "2025-03-24T19:20:59.685Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 16,
               "Title": "Goblin.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Units\\Goblin.cs",
               "RelativeDocumentMoniker": "Units\\Goblin.cs",
@@ -249,25 +281,24 @@
               "RelativeToolTip": "Units\\Goblin.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAQAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T19:20:59.686Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-24T19:20:59.686Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 7,
               "Title": "Unit.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Units\\Unit.cs",
               "RelativeDocumentMoniker": "Units\\Unit.cs",
               "ToolTip": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Units\\Unit.cs",
               "RelativeToolTip": "Units\\Unit.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAcwAYAAAAsAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAowAYAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-24T19:20:59.687Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 21,
               "Title": "Inventory.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Units\\Inventory.cs",
               "RelativeDocumentMoniker": "Units\\Inventory.cs",
@@ -275,12 +306,11 @@
               "RelativeToolTip": "Units\\Inventory.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T19:20:59.688Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-24T19:20:59.688Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 25,
               "Title": "EconomicItem.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Items\\EconomicItems\\EconomicItem.cs",
               "RelativeDocumentMoniker": "Items\\EconomicItems\\EconomicItem.cs",
@@ -292,33 +322,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Units\\Player.cs",
               "RelativeDocumentMoniker": "Units\\Player.cs",
               "ToolTip": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Units\\Player.cs",
               "RelativeToolTip": "Units\\Player.cs",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAmwGYAAABwAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAowEMAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-24T19:20:59.691Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 14,
               "Title": "DungeonRoom.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Dungeon\\DungeonRoom.cs",
               "RelativeDocumentMoniker": "Dungeon\\DungeonRoom.cs",
               "ToolTip": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Dungeon\\DungeonRoom.cs",
               "RelativeToolTip": "Dungeon\\DungeonRoom.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABUAAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-24T19:20:59.692Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Armour.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Items\\EquipItems\\Armour.cs",
               "RelativeDocumentMoniker": "Items\\EquipItems\\Armour.cs",
@@ -331,20 +361,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 2,
               "Title": "Weapon.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Items\\EquipItems\\Weapon.cs",
               "RelativeDocumentMoniker": "Items\\EquipItems\\Weapon.cs",
               "ToolTip": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Items\\EquipItems\\Weapon.cs",
               "RelativeToolTip": "Items\\EquipItems\\Weapon.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-24T19:20:59.696Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 20,
               "Title": "EquipSlot.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Utils\\EquipSlot.cs",
               "RelativeDocumentMoniker": "Utils\\EquipSlot.cs",
@@ -352,12 +382,11 @@
               "RelativeToolTip": "Utils\\EquipSlot.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T19:20:59.698Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-24T19:20:59.698Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 3,
               "Title": "EquipItem.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Items\\EquipItems\\EquipItem.cs",
               "RelativeDocumentMoniker": "Items\\EquipItems\\EquipItem.cs",
@@ -370,7 +399,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 24,
               "Title": "GameConstants.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Utils\\GameConstants.cs",
               "RelativeDocumentMoniker": "Utils\\GameConstants.cs",
@@ -382,7 +411,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 5,
               "Title": "Gold.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Items\\EconomicItems\\Gold.cs",
               "RelativeDocumentMoniker": "Items\\EconomicItems\\Gold.cs",
@@ -390,11 +419,12 @@
               "RelativeToolTip": "Items\\EconomicItems\\Gold.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T19:20:59.701Z"
+              "WhenOpened": "2025-03-24T19:20:59.701Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 6,
               "Title": "HealthPotion.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Items\\EconomicItems\\HealthPotion.cs",
               "RelativeDocumentMoniker": "Items\\EconomicItems\\HealthPotion.cs",
@@ -402,11 +432,12 @@
               "RelativeToolTip": "Items\\EconomicItems\\HealthPotion.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T19:20:59.702Z"
+              "WhenOpened": "2025-03-24T19:20:59.702Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 19,
               "Title": "Item.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Items\\Item.cs",
               "RelativeDocumentMoniker": "Items\\Item.cs",
@@ -414,20 +445,20 @@
               "RelativeToolTip": "Items\\Item.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T19:20:59.706Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-24T19:20:59.706Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 0,
               "Title": "Grindstone.cs",
               "DocumentMoniker": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Items\\EconomicItems\\Grindstone.cs",
               "RelativeDocumentMoniker": "Items\\EconomicItems\\Grindstone.cs",
               "ToolTip": "C:\\git_repo\\SochnevM_GUN35_GUNPC\\Items\\EconomicItems\\Grindstone.cs",
               "RelativeToolTip": "Items\\EconomicItems\\Grindstone.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T19:20:59.707Z"
+              "WhenOpened": "2025-03-24T19:20:59.707Z",
+              "EditorCaption": ""
             }
           ]
         }

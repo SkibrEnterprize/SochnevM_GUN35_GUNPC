@@ -1,4 +1,5 @@
-﻿using GamePrototype.Utils;
+﻿using GamePrototype.Items.EconomicItems;
+using GamePrototype.Utils;
 
 namespace GamePrototype.Items.EquipItems
 {
@@ -9,5 +10,10 @@ namespace GamePrototype.Items.EquipItems
         public uint Damage { get; }
 
         public override EquipSlot Slot => EquipSlot.Weapon;
+
+        //public void Restore(Grindstone grindstone)
+        //{
+        //    Durability += grindstone.DurabilityRestore;
+        //}
     }
 }

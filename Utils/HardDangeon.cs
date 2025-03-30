@@ -4,9 +4,11 @@ using GamePrototype.Items.EquipItems;
 
 namespace GamePrototype.Utils
 {
-    public static class DungeonBuilder
+    public class HardDangeon : Dungeon
     {
-        public static DungeonRoom BuildDungeon()
+        public HardDangeon(string name) : base(name, Difficulty.Hard) { }
+
+        public override DungeonRoom BuildDungeon()
         {
             var enter = new DungeonRoom("Enter");
             var monsterRoom = new DungeonRoom("Monster", UnitFactoryDemo.CreateGoblinEnemy());
@@ -29,4 +31,5 @@ namespace GamePrototype.Utils
             return enter;
         }
     }
+
 }

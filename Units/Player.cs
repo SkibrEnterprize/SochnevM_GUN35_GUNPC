@@ -62,6 +62,12 @@ namespace GamePrototype.Units
             {
                 Health += healthPotion.HealthRestore;
             }
+            else if(economicItem is Grindstone grindstone) // Задание 1
+            {
+                _equipment.TryGetValue(EquipSlot.Weapon, out var item);
+                item.Repair(grindstone.DurabilityRestore);
+
+            }
         }
 
         protected override uint CalculateAppliedDamage(uint damage)

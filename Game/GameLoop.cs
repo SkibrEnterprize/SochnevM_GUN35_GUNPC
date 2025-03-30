@@ -10,8 +10,10 @@ namespace GamePrototype.Game
         private Unit _player;
         private DungeonRoom _dungeon;
         private readonly CombatManager _combatManager = new CombatManager();
-        
-        public void StartGame() 
+        private int _choice;
+        private Difficulty _selectedDifficulty;
+
+        public void StartGame()
         {
             Initialize();
             Console.WriteLine("Entering the dungeon");
@@ -23,33 +25,83 @@ namespace GamePrototype.Game
         private void Initialize()
         {
             Console.WriteLine("Welcome, player!");
-            _dungeon = DungeonBuilder.BuildDungeon();
+            //_dungeon = Utils.Dungeon.BuildDungeon();
             Console.WriteLine("Enter your name");
-            _player = UnitFactoryDemo.CreatePlayer(Console.ReadLine());
+            GeneratePlayer(); // Задание 3
+            Console.WriteLine("Enter difficult of game: 1 - Easy, 2 - Hard");
+            ChooseDifficult(); // Задание 3
+            GenerateDungeon(); // Задание 3
+            //_player = UnitFactoryDemo.CreatePlayer(Console.ReadLine());
             Console.WriteLine($"Hello {_player.Name}");
+        }
+
+        private void GeneratePlayer()
+        {
+            if (_selectedDifficulty == Difficulty.Easy)
+            {
+                _player = UnitFactoryDemo.CreatePlayer(Console.ReadLine(), Difficulty.Easy);
+
+            }
+            else
+            {
+                _player = UnitFactoryDemo.CreatePlayer(Console.ReadLine(), Difficulty.Easy);
+            }
+        }
+
+        private void GenerateDungeon()
+        {
+            if (_selectedDifficulty == Difficulty.Easy)
+            {
+                _dungeon = new EasyDangeon("Easy").BuildDungeon();
+
+            }
+            else
+            {
+                _dungeon = new HardDangeon("Hard").BuildDungeon();
+            }
+        }
+
+        private void ChooseDifficult()
+        {
+
+            _choice = int.Parse(Console.ReadLine());
+
+            switch (_choice)
+            {
+                case 1:
+                    _selectedDifficulty = Difficulty.Easy;
+                    break;
+                case 2:
+                    _selectedDifficulty = Difficulty.Hard;
+                    break;
+                default:
+                    Console.WriteLine("Incorrect input. Your choise selected on Easy");
+                    _selectedDifficulty = Difficulty.Easy;
+                    break;
+            }
         }
 
         private void StartGameLoop()
         {
             var currentRoom = _dungeon;
-            
-            while (currentRoom.IsFinal == false) 
+
+            while (currentRoom.IsFinal == false)
             {
                 StartRoomEncounter(currentRoom, out var success);
-                if (!success) 
+                if (!success)
                 {
                     Console.WriteLine("Game over!");
                     return;
                 }
                 DisplayRouteOptions(currentRoom);
-                while (true) 
+                while (true)
                 {
-                    if (Enum.TryParse<Direction>(Console.ReadLine(), out var direction) ) 
+                    if (Enum.TryParse<Direction>(Console.ReadLine(), out var direction))
                     {
                         currentRoom = currentRoom.Rooms[direction];
                         break;
                     }
-                    else 
+                    else
                     {
                         Console.WriteLine("Wrong direction!");
                     }
@@ -63,18 +115,18 @@ namespace GamePrototype.Game
         private void StartRoomEncounter(DungeonRoom currentRoom, out bool success)
         {
             success = true;
-            if (currentRoom.Loot != null) 
+            if (currentRoom.Loot != null)
             {
                 _player.AddItemToInventory(currentRoom.Loot);
             }
-            if (currentRoom.Enemy != null) 
+            if (currentRoom.Enemy != null)
             {
                 if (_combatManager.StartCombat(_player, currentRoom.Enemy) == _player)
                 {
                     _player.HandleCombatComplete();
                     LootEnemy(currentRoom.Enemy);
                 }
-                else 
+                else
                 {
                     success = false;
                 }
@@ -91,11 +143,11 @@ namespace GamePrototype.Game
             Console.WriteLine("Where to go?");
             foreach (var room in currentRoom.Rooms)
             {
-                Console.Write($"{room.Key} - {(int) room.Key}\t");
+                Console.Write($"{room.Key} - {(int)room.Key}\t");
             }
         }
 
-        
+
         #endregion
     }
 }
