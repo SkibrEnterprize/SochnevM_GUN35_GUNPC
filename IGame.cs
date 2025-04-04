@@ -1,4 +1,4 @@
-﻿namespace GameInConsole
+﻿namespace ReadAndLoadData
 {
     public interface IGame
     {

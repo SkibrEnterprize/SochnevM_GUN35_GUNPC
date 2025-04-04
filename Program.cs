@@ -1,4 +1,4 @@
-﻿namespace GameInConsole
+﻿namespace ReadAndLoadData
 {
     internal class Program
     {
