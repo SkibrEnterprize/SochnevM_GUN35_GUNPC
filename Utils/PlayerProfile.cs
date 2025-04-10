@@ -1,5 +1,4 @@
-﻿
-namespace ReadAndLoadData
+﻿namespace GameInConsole.Utils
 {
     public class PlayerProfile
     {

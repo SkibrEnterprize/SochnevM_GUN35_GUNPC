@@ -1,5 +1,5 @@
-﻿using System.Runtime.CompilerServices;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿
+using GameInConsole.Utils;
 
 namespace ReadAndLoadData
 {
@@ -7,13 +7,13 @@ namespace ReadAndLoadData
     {
         private static string _filePath = Environment.CurrentDirectory;
         private FileSystemSaveLoadService _service = new FileSystemSaveLoadService(_filePath);
-       
+
         public void StartGame()
         {
-            
+
             Console.WriteLine("Привет, мистер! Начинаем игру в наше казино!\nВведите имя:");
-            string playerName = Console.ReadLine();    
-            _service.LoadData("save_slot");
+            string playerName = Console.ReadLine();
+            Console.Write(_service.LoadData($"save_slot_{playerName}"));
         }
 
 
