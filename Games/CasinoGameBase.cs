@@ -2,8 +2,12 @@
 {
     public abstract class CasinoGameBase()
     {
-        protected void OnWinInvoke()
-        {
+        public event Action OnWin;
+        public event Action OnLoose;
+        public event Action OnDraw;
+                
+        protected virtual void OnWinInvoke()
+        {   
             OnWin?.Invoke();
         }
         protected void OnLooseInvoke()
@@ -17,13 +21,7 @@
         protected abstract void FactoryMethod();
         public abstract void PlayGame();
 
-        public Action? OnWin;
-        public Action? OnLoose;
-        public Action? OnDraw;
-
-        public abstract void PrintResultsInConsole();
-        public abstract void GameMechanics();
-        public abstract void CheckConstructValue();
+        public abstract void PrintResultsInConsole();   
 
     }
 

@@ -1,4 +1,6 @@
-﻿namespace GameInConsole.Card
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace GameInConsole.Card
 {
     public struct Card
     {
@@ -10,6 +12,19 @@
             Suits = suits;
             Values = values;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            Card otherCard = (Card)obj;
+            return Suits == otherCard.Suits && Values == otherCard.Values;
+        }
+
+        
     }
 
 }

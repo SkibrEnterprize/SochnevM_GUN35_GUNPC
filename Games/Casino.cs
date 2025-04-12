@@ -12,8 +12,9 @@ namespace ReadAndLoadData
         {
 
             Console.WriteLine("Привет, мистер! Начинаем игру в наше казино!\nВведите имя:");
-            string playerName = Console.ReadLine();
-            Console.Write(_service.LoadData($"save_slot_{playerName}"));
+            _service.LoadData(Console.ReadLine());            
+            Console.ReadKey();
+
         }
 
 

@@ -4,14 +4,15 @@
     {
         public enum CardValues
         {
-            Six, 
-            Seven, 
-            Eight, 
-            Nine, 
-            Ten, 
-            Jack, 
-            Queen, 
-            King, 
+            Jack,
+            Queen,
+            King,
+            Five,
+            Six,
+            Seven,
+            Eight,
+            Nine,
+            Ten,
             Ace
         }
     }
