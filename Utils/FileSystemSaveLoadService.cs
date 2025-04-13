@@ -1,7 +1,7 @@
-﻿namespace ReadAndLoadData
+﻿namespace GameInConsole.Utils
 {
 
-    public class FileSystemSaveLoadService : ISaveLoadService<string>
+    public class FileSystemSaveLoadService : ISaveLoadService
     {
         private string _filePath { get; }
         public FileSystemSaveLoadService(string filePath)
@@ -9,67 +9,62 @@
             _filePath = filePath;
         }
 
-        public void SaveData(string data, string id)
+        public void SaveData(PlayerProfile data, string id)
         {
-            string fileName = $"{id}.txt";
-            string fullPath = Path.Combine(_filePath, fileName);
-
             try
             {
-                File.WriteAllText(fullPath, data.ToString());
-                Console.WriteLine($"Данные успешно сохранены как: {fileName}\nв расположение {_filePath}");
+                string filePath = $"player_data_{id}.txt";
+
+                using (StreamWriter writer = new StreamWriter(filePath))
+                {
+                    writer.WriteLine($"Name: {data.Name}");
+                    writer.WriteLine($"Money: {data.Money}");
+                    writer.WriteLine($"TotalWin: {data.TotalWin}");
+                    writer.WriteLine($"TotalLose: {data.TotalLose}");
+                    writer.WriteLine($"TotalDraw: {data.TotalDraw}");
+                }
+
+                Console.WriteLine($"Данные игрока {id} сохранены в файле {filePath}");
             }
             catch (Exception ex)
             {
-                Console.Error.WriteLine($"Ошибка при сохранении данных: {ex.Message}");
+                Console.WriteLine($"Ошибка при сохранении данных игрока {id}: {ex.Message}");
             }
         }
 
-        public string LoadData(string id)
+        public bool TryToLoadData(string id, out PlayerProfile data)
         {
-            string fileName = $"{id}.txt";
-            string fullPath = Path.Combine(_filePath, fileName);
-
             try
             {
-                if (File.Exists(fullPath))
-                {
+                string filePath = $"player_data_{id}.txt";
 
-                    Console.WriteLine($"О-о-о, вот это встреча!!!\nТак Вы же уже были в нашем Казино!!!\nДанные успешно загружены из: {fileName} из расположения {_filePath}");
-                    return File.ReadAllText(fullPath);
-
-                }
-                else
+                if (File.Exists(filePath))
                 {
-                    Console.WriteLine($"Файл с ID '{id}' не найден в расположении {_filePath}.");
-                    SaveData(fullPath, id);
-                    return null;
+                    using (StreamReader reader = new StreamReader(filePath))
+                    {
+                        data = new PlayerProfile
+                        {
+                            Name = reader.ReadLine()?.Split(':')[1].Trim(),
+                            Money = int.Parse(reader.ReadLine()?.Split(':')[1].Trim()),
+                            TotalWin = int.Parse(reader.ReadLine()?.Split(':')[1].Trim()),
+                            TotalLose = int.Parse(reader.ReadLine()?.Split(':')[1].Trim()),
+                            TotalDraw = int.Parse(reader.ReadLine()?.Split(':')[1].Trim())
+                        };
+
+                        return true;
+                    }
                 }
+
+                data = null;
+                return false;
             }
             catch (Exception ex)
             {
-                Console.Error.WriteLine($"Ошибка при загрузке данных: {ex.Message} из расположения {_filePath}");
-                return null;
+                Console.WriteLine($"Ошибка при загрузке данных игрока {id}: {ex.Message}");
+                data = null;
+                return false;
             }
         }
-
-        //public string Serialize(PlayerProfile profile)
-        //{
-        //    return $"Name:{profile.Name},Money:{profile.Money},TotalWin:{profile.TotalWin},TotalLose:{profile.TotalLose},TotalDraw:{profile.TotalDraw}";
-        //}
-
-        //public PlayerProfile Deserialize(string data)
-        //{
-        //    var parts = data.Split(',');
-        //    PlayerProfile profile = new PlayerProfile();
-        //    profile.Name = parts[0].Replace("Name:", "");
-        //    profile.Money = int.Parse(parts[1].Replace("Money:", ""));
-        //    profile.TotalWin = int.Parse(parts[2].Replace("TotalWin:", ""));
-        //    profile.TotalLose = int.Parse(parts[3].Replace("TotalLose:", ""));
-        //    profile.TotalDraw = int.Parse(parts[4].Replace("TotalDraw:", ""));
-        //    return profile;
-        //}
-
     }
 }
 

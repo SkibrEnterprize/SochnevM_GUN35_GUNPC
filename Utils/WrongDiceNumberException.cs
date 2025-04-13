@@ -1,9 +1,9 @@
-﻿namespace ReadAndLoadData
+﻿namespace GameInConsole.Utils
 {
-    
-        public class WrongDiceNumberException : Exception
-        {
-            public WrongDiceNumberException(string message) : base(message) { }
-        }
+
+    public class WrongDiceNumberException : Exception
+    {
+        public WrongDiceNumberException(string message) : base(message) { }
     }
+}
 

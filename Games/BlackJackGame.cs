@@ -2,7 +2,7 @@
 using GameInConsole.Card;
 using GameInConsole.Games;
 using System.Data;
-using static ReadAndLoadData.Casino;
+using static GameInConsole.Card.Casino;
 
 namespace ReadAndLoadData
 {
@@ -67,8 +67,7 @@ namespace ReadAndLoadData
             Card playerCard2 = _deck.Dequeue();
 
             _playerCardsSum = CalculatePoints(new List<Card> { playerCard1, playerCard2 });
-
-            // Выдаем две карты компьютеру
+            
             Card computerCard1 = _deck.Dequeue();
             Card computerCard2 = _deck.Dequeue();
 
@@ -90,7 +89,7 @@ namespace ReadAndLoadData
                     Console.WriteLine($"Оппонент получает дополнительную карту: {computerCard1.Values}");
 
                 }
-                return;
+                //return;
             }
             if (_playerCardsSum == 21 && _computerCardsSum == 21 || _playerCardsSum > 21 && _computerCardsSum > 21)
             {

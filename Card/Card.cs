@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
+﻿
 namespace GameInConsole.Card
 {
     public struct Card
@@ -23,8 +22,5 @@ namespace GameInConsole.Card
             Card otherCard = (Card)obj;
             return Suits == otherCard.Suits && Values == otherCard.Values;
         }
-
-        
     }
-
 }

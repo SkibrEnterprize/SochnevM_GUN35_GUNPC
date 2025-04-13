@@ -1,4 +1,7 @@
-﻿namespace ReadAndLoadData
+﻿using GameInConsole.Utils;
+using ReadAndLoadData;
+
+namespace GameInConsole.Games
 {
 
     public struct Dice

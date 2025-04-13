@@ -1,4 +1,4 @@
-﻿namespace ReadAndLoadData
+﻿namespace GameInConsole.Card
 {
     public partial class Casino
     {

@@ -1,4 +1,6 @@
-﻿namespace ReadAndLoadData
+﻿using GameInConsole.Games;
+
+namespace ReadAndLoadData
 {
     internal class Program
     {

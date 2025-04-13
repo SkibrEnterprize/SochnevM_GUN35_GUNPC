@@ -1,6 +1,4 @@
-﻿using GameInConsole.Games;
-
-namespace ReadAndLoadData
+﻿namespace GameInConsole.Games
 {
     public class DiceGame : CasinoGameBase
     {

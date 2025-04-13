@@ -1,10 +1,10 @@
-﻿namespace ReadAndLoadData
+﻿namespace GameInConsole.Utils
 {
-           
-        public interface ISaveLoadService<T>
-        {
-            public void SaveData(T data, string id);
-            public T LoadData(string id);
-        }
-    
+
+    public interface ISaveLoadService
+    {
+        public void SaveData(PlayerProfile data, string id);
+        public bool TryToLoadData(string id, out PlayerProfile data);
+    }
+
 }

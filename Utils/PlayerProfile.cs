@@ -11,6 +11,9 @@
         {
             Name = name;
             Money = 100;
+            TotalWin = 0;
+            TotalLose = 0;
+            TotalDraw = 0;
         }
 
         public override string ToString()

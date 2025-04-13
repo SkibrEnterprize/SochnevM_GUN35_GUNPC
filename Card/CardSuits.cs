@@ -1,13 +1,11 @@
-﻿namespace ReadAndLoadData
+﻿namespace GameInConsole.Card
 {
-    public partial class Casino
+    public enum CardSuits
     {
-        public enum CardSuits
-        {
-            Hearts, 
-            Diamonds, 
-            Clubs, 
-            Spades
-        }
+        Hearts,
+        Diamonds,
+        Clubs,
+        Spades
     }
 }
+
