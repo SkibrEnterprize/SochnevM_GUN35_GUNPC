@@ -2,7 +2,6 @@
 using GameInConsole.Card;
 using GameInConsole.Games;
 using System.Data;
-using static GameInConsole.Card.Casino;
 
 namespace ReadAndLoadData
 {
@@ -23,18 +22,12 @@ namespace ReadAndLoadData
         }
         public override void PlayGame()
         {
-            OnWin += PrintResultsInConsole;
-            OnLoose += PrintResultsInConsole;
-            OnDraw += PrintResultsInConsole;
             GameMechanics();
-            OnWin -= PrintResultsInConsole;
-            OnLoose -= PrintResultsInConsole;
-            OnDraw -= PrintResultsInConsole;
         }
 
         protected override void FactoryMethod()
         {
-            while (_deck.Count != 40)
+            while (_deck.Count != _numberOfCards)
             {
 
                 Card newCard = CreateCard();
@@ -63,15 +56,16 @@ namespace ReadAndLoadData
 
         private void GameMechanics()
         {
+            Shuffle();
             Card playerCard1 = _deck.Dequeue();
             Card playerCard2 = _deck.Dequeue();
 
-            _playerCardsSum = CalculatePoints(new List<Card> { playerCard1, playerCard2 });
-            
+            _playerCardsSum = (int)playerCard1.Values + (int)playerCard2.Values;
+
             Card computerCard1 = _deck.Dequeue();
             Card computerCard2 = _deck.Dequeue();
 
-            _computerCardsSum = CalculatePoints(new List<Card> { computerCard1, computerCard2 });
+            _computerCardsSum = (int)computerCard1.Values + (int)computerCard2.Values;
 
             Console.WriteLine($"Вы получили: {playerCard1.Values} и {playerCard2.Values}");
             Console.WriteLine($"Оппонент получает: {computerCard1.Values} и {computerCard2.Values}");
@@ -82,9 +76,9 @@ namespace ReadAndLoadData
                 {
                     Console.WriteLine($"У Вас с оппонентом одинаково по {_playerCardsSum} очков. Раздается еще по карте!");
                     Card playerCard3 = _deck.Dequeue();
-                    _playerCardsSum += CalculatePoints(new List<Card> { playerCard3 });
+                    _playerCardsSum += (int)playerCard3.Values;
                     Card computerCard3 = _deck.Dequeue();
-                    _computerCardsSum += CalculatePoints(new List<Card> { computerCard3 });
+                    _computerCardsSum += (int)computerCard3.Values;
                     Console.WriteLine($"Вы получили дополнительную карту: {playerCard3.Values}");
                     Console.WriteLine($"Оппонент получает дополнительную карту: {computerCard1.Values}");
 
@@ -142,57 +136,14 @@ namespace ReadAndLoadData
         private bool IsPointsEquals(int playerSum, int computerSum)
         {
             return playerSum == computerSum && playerSum < 21 && computerSum < 21;
-        }
-        private int CalculatePoints(List<Card> playerCards)
-        {
-            int sum = 0;
-            foreach (Card card in playerCards)
-            {
-                switch (card.Values)
-                {
-                    case "Jack":
-                        sum += 2;
-                        break;
-                    case "Queen":
-                        sum += 3;
-                        break;
-                    case "King":
-                        sum += 4;
-                        break;
-                    case "Five":
-                        sum += 5;
-                        break;
-                    case "Six":
-                        sum += 6;
-                        break;
-                    case "Seven":
-                        sum += 7;
-                        break;
-                    case "Eight":
-                        sum += 8;
-                        break;
-                    case "Nine":
-                        sum += 9;
-                        break;
-                    case "Ten":
-                        sum += 10;
-                        break;
-                    case "Ace":
-                        sum += 11;
-                        break;
-                    default:
-                        break;
-                }
-            }
-            return sum;
-        }
+        }        
 
         public Card CreateCard()
         {
             Random rnd = new Random();
             CardSuits suit = (CardSuits)rnd.Next((int)CardSuits.Hearts, (int)CardSuits.Spades + 1);
             CardValues value = (CardValues)rnd.Next((int)CardValues.Jack, (int)CardValues.Ace + 1);
-            return new Card(suit.ToString(), value.ToString());
+            return new Card(suit, value);
         }
 
         public void Shuffle()

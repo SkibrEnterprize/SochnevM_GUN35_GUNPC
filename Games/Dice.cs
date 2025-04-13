@@ -6,30 +6,23 @@ namespace GameInConsole.Games
 
     public struct Dice
     {
-        public readonly int Number;
         private int _min;
         private int _max;
-
+        public readonly int Number => new Random().Next(_min, _max + 1);
+       
         public Dice(int min, int max)
         {
 
-            _min = CheckNumber(min);
-            _max = CheckNumber(max);
-            Number = new Random().Next(min, max);
-        }
+            if (min < 1 || max > int.MaxValue)
+            {
+                throw new WrongDiceNumberException(max, "Некорректный диапазон чисел. Минимальное значение должно быть больше или равно 1, а максимальное - меньше или равно int.MaxValue.");
+            }
 
-        public static int CheckNumber(int number)
-        {
-            if (number < 1 || number > int.MaxValue)
-            {
-                throw new WrongDiceNumberException($"Вы указали {number}, а допустимый диапазон от 1 до {int.MinValue}");
-            }
-            else
-            {
-                return number;
-            }
+            _min = min;
+            _max = max;
         }
+    }
 
     }
-}
+
 

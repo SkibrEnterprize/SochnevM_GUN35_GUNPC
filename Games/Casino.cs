@@ -3,7 +3,7 @@ using ReadAndLoadData;
 
 namespace GameInConsole.Games
 {
-    public partial class Casino : IGame
+    public class Casino : IGame
     {
         private static string _filePath = Environment.CurrentDirectory;
         private FileSystemSaveLoadService _service = new FileSystemSaveLoadService(_filePath);
@@ -11,7 +11,7 @@ namespace GameInConsole.Games
         private PlayerProfile _loadedPlayer;
         private int _playerBet;
         private int _computerBet;
-        private int _casinoBank = 100;
+        private int _casinoBank = 200;
         private bool _isGameOver = false;
         public void StartGame()
         {
@@ -79,12 +79,12 @@ namespace GameInConsole.Games
 
         private void CheckMoney()
         {
-            if (_loadedPlayer.Money > _casinoBank)
+            if (_casinoBank<=0)
             {
                 Console.WriteLine($"Вы разорили казино и на его месте построят новое. Итоговый банк - {_loadedPlayer.Money}");
                 _isGameOver = true;
             }
-            else if (_loadedPlayer.Money < 0)
+            else if (_loadedPlayer.Money <= 0)
             {
                 Console.WriteLine("No money? Kicked!");
                 _isGameOver = true;
@@ -114,40 +114,55 @@ namespace GameInConsole.Games
         {
             BlackJackGame blackJackGame = new BlackJackGame(40);
             blackJackGame.OnWin += Game_OnWin;
+            blackJackGame.OnWin += blackJackGame.PrintResultsInConsole;
             blackJackGame.OnLoose += Game_OnLoose;
-            blackJackGame.OnLoose += Game_OnDraw;
+            blackJackGame.OnLoose += blackJackGame.PrintResultsInConsole;
+            blackJackGame.OnDraw += Game_OnDraw;
+            blackJackGame.OnDraw += blackJackGame.PrintResultsInConsole;
             blackJackGame.PlayGame();
             blackJackGame.OnWin -= Game_OnWin;
+            blackJackGame.OnWin -= blackJackGame.PrintResultsInConsole;
             blackJackGame.OnLoose -= Game_OnLoose;
-            blackJackGame.OnLoose -= Game_OnDraw;
+            blackJackGame.OnLoose -= blackJackGame.PrintResultsInConsole;
+            blackJackGame.OnDraw -= Game_OnDraw;
+            blackJackGame.OnDraw -= blackJackGame.PrintResultsInConsole;
         }
 
         private void StartDiceGame()
         {
             DiceGame diceGame = new DiceGame(4, 1, 6);
             diceGame.OnWin += Game_OnWin;
+            diceGame.OnWin += diceGame.PrintResultsInConsole;
             diceGame.OnLoose += Game_OnLoose;
-            diceGame.OnLoose += Game_OnDraw;
+            diceGame.OnLoose += diceGame.PrintResultsInConsole;
+            diceGame.OnDraw += Game_OnDraw;
+            diceGame.OnDraw += diceGame.PrintResultsInConsole;
             diceGame.PlayGame();
             diceGame.OnWin -= Game_OnWin;
+            diceGame.OnWin -= diceGame.PrintResultsInConsole;
             diceGame.OnLoose -= Game_OnLoose;
-            diceGame.OnLoose -= Game_OnDraw;
+            diceGame.OnLoose -= diceGame.PrintResultsInConsole;
+            diceGame.OnDraw -= Game_OnDraw;
+            diceGame.OnDraw -= diceGame.PrintResultsInConsole;
         }
 
         private void Game_OnLoose()
         {
             _loadedPlayer.TotalLose++;
             _loadedPlayer.Money -= _playerBet;
+            _casinoBank += _playerBet;
         }
         private void Game_OnDraw()
         {
             _loadedPlayer.TotalDraw++;
+            Console.WriteLine("У Вас ничья - играем снова!");
         }
 
         private void Game_OnWin()
         {
             _loadedPlayer.TotalWin++;
             _loadedPlayer.Money += _computerBet;
+            _casinoBank -= _computerBet;
         }
     }
 }

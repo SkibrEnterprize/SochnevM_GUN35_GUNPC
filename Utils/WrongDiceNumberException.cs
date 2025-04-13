@@ -3,7 +3,12 @@
 
     public class WrongDiceNumberException : Exception
     {
-        public WrongDiceNumberException(string message) : base(message) { }
+        public int Number { get; set; }
+
+        public WrongDiceNumberException(int number, string message) : base(message)
+        {
+            Number = number;
+        }
     }
 }
 

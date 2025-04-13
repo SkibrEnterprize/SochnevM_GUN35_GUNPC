@@ -1,9 +1,11 @@
-﻿namespace GameInConsole.Utils
-{
+﻿using Newtonsoft.Json;
 
+namespace GameInConsole.Utils
+{
     public class FileSystemSaveLoadService : ISaveLoadService
     {
-        private string _filePath { get; }
+        private readonly string _filePath;
+
         public FileSystemSaveLoadService(string filePath)
         {
             _filePath = filePath;
@@ -13,16 +15,11 @@
         {
             try
             {
-                string filePath = $"player_data_{id}.txt";
+                string filePath = $"player_data_{id}.json";
 
-                using (StreamWriter writer = new StreamWriter(filePath))
-                {
-                    writer.WriteLine($"Name: {data.Name}");
-                    writer.WriteLine($"Money: {data.Money}");
-                    writer.WriteLine($"TotalWin: {data.TotalWin}");
-                    writer.WriteLine($"TotalLose: {data.TotalLose}");
-                    writer.WriteLine($"TotalDraw: {data.TotalDraw}");
-                }
+                string jsonString = JsonConvert.SerializeObject(data, Formatting.Indented);
+
+                File.WriteAllText(filePath, jsonString);
 
                 Console.WriteLine($"Данные игрока {id} сохранены в файле {filePath}");
             }
@@ -36,23 +33,15 @@
         {
             try
             {
-                string filePath = $"player_data_{id}.txt";
+                string filePath = $"player_data_{id}.json";
 
                 if (File.Exists(filePath))
                 {
-                    using (StreamReader reader = new StreamReader(filePath))
-                    {
-                        data = new PlayerProfile
-                        {
-                            Name = reader.ReadLine()?.Split(':')[1].Trim(),
-                            Money = int.Parse(reader.ReadLine()?.Split(':')[1].Trim()),
-                            TotalWin = int.Parse(reader.ReadLine()?.Split(':')[1].Trim()),
-                            TotalLose = int.Parse(reader.ReadLine()?.Split(':')[1].Trim()),
-                            TotalDraw = int.Parse(reader.ReadLine()?.Split(':')[1].Trim())
-                        };
+                    string jsonString = File.ReadAllText(filePath);
 
-                        return true;
-                    }
+                    data = JsonConvert.DeserializeObject<PlayerProfile>(jsonString);
+
+                    return true;
                 }
 
                 data = null;

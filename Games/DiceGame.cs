@@ -1,4 +1,6 @@
-﻿namespace GameInConsole.Games
+﻿using System;
+
+namespace GameInConsole.Games
 {
     public class DiceGame : CasinoGameBase
     {
@@ -13,32 +15,20 @@
             _numberOfDice = numberOfDice;
             _minDiceValue = minDiceValue;
             _maxDiceValue = maxDiceValue;
+            FactoryMethod();
         }
         public override void PlayGame()
-        {
-            OnWin += PrintResultsInConsole;
-            OnLoose += PrintResultsInConsole;
-            OnDraw += PrintResultsInConsole;
+        {            
             GameMechanics();
-            OnWin -= PrintResultsInConsole;
-            OnLoose -= PrintResultsInConsole;
-            OnDraw -= PrintResultsInConsole;
         }
 
         private void GameMechanics()
         {
-            Random random = new Random();
             Console.WriteLine("Кубики кидаете Вы...");
-            for (int i = 0; i < _numberOfDice; i++)
-            {
-                _sumOfPlayer += random.Next(_minDiceValue, _maxDiceValue);
-            }
+            _sumOfPlayer = ThrowDice(_dices);
 
             Console.WriteLine("Кубики кидает оппонент...");
-            for (int i = 0; i < _numberOfDice; i++)
-            {
-                _sumOfComputer += random.Next(_minDiceValue, _maxDiceValue);
-            }
+           _sumOfComputer = ThrowDice(_dices);
 
             if (_sumOfComputer > _sumOfPlayer)
             {
@@ -59,6 +49,17 @@
                 return;
             }
 
+        }
+
+        private int ThrowDice(List<Dice> dices)
+        {
+            Random random = new Random();
+            int sum = 0;
+            foreach (Dice dice in dices)
+            {                
+                sum += dice.Number;
+            }
+            return sum;
         }
 
         public override void PrintResultsInConsole()

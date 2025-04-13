@@ -1,12 +1,13 @@
 ﻿
+
 namespace GameInConsole.Card
 {
     public struct Card
     {
-        public readonly string Suits;
-        public readonly string Values;
+        public readonly CardSuits Suits;
+        public readonly CardValues Values;
 
-        public Card(string suits, string values)
+        public Card(CardSuits suits, CardValues values)
         {
             Suits = suits;
             Values = values;
