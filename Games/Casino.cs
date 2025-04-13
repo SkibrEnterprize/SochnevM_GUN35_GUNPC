@@ -99,6 +99,7 @@ namespace GameInConsole.Games
             if (bank >= _loadedPlayer.Money)
             {
                 bank = _loadedPlayer.Money;
+                _playerBet = bank;
             }
             else
             {
