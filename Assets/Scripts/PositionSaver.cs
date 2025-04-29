@@ -7,20 +7,26 @@ namespace DefaultNamespace
 {
 	public class PositionSaver : MonoBehaviour
 	{
+		[ReadOnlyAttribute]
+		public string TestAttribute = "test";
+		
+		[Serializable]
 		public struct Data
 		{
 			public Vector3 Position;
 			public float Time;
 		}
-
+		[SerializeField, Tooltip("Для заполнения этого поля нужно воспользоваться контекстным меню в инспекторе и командой “Create File”")]
 		private TextAsset _json;
 
+		[field: SerializeField, HideInInspector]
 		public List<Data> Records { get; private set; }
 
 		private void Awake()
 		{
-			//todo comment: Что будет, если в теле этого условия не сделать выход из метода?
-			if (_json == null)
+            //todo comment: Что будет, если в теле этого условия не сделать выход из метода?
+            // Выход из метода связан с тем, что используется проверка на существование ссылки, т.е. если выход убрать - будет ошибка NullReferenceException после сообщения в консоли, т.е. это меры предостарожности 
+            if (_json == null)
 			{
 				gameObject.SetActive(false);
 				Debug.LogError("Please, create TextAsset and add in field _json");
@@ -28,20 +34,24 @@ namespace DefaultNamespace
 			}
 			
 			JsonUtility.FromJsonOverwrite(_json.text, this);
-			//todo comment: Для чего нужна эта проверка (что она позволяет избежать)?
-			if (Records == null)
+            //todo comment: Для чего нужна эта проверка (что она позволяет избежать)?
+            // Если записи нет, то она создается, чтобы избежать значения null, т.к. изначально значение в автосвойстве у Records дефолтное, а для ссылочных типов данных это как раз null
+            if (Records == null)
 				Records = new List<Data>(10);
 		}
 
 		private void OnDrawGizmos()
 		{
 			//todo comment: Зачем нужны эти проверки (что они позволляют избежать)?
+			// Запись Records создается изначально в Awake, это значит, что если скрипт ни разу не запускался или данных еще нет(список пуст), то отрисовывать в редакторе нечего(выходим через return)
 			if (Records == null || Records.Count == 0) return;
 			var data = Records;
 			var prev = data[0].Position;
 			Gizmos.color = Color.green;
 			Gizmos.DrawWireSphere(prev, 0.3f);
 			//todo comment: Почему итерация начинается не с нулевого элемента?
+			// Отрисовка нулевого элемента происходит ранее, т.к.нужно задать точку от которой будет происходить начало отрисовки вне цикла.
+			// Если взять от 0, то получится, что текущая точка совпадет со следующей
 			for (int i = 1; i < data.Count; i++)
 			{
 				var curr = data[i].Position;
@@ -56,9 +66,10 @@ namespace DefaultNamespace
 		private void CreateFile()
 		{
 			//todo comment: Что происходит в этой строке?
+			// Создается файл в стандартном расположении проекта(./Assets/Path.txt)  
 			var stream = File.Create(Path.Combine(Application.dataPath, "Path.txt"));
 			//todo comment: Подумайте для чего нужна эта строка? (а потом проверьте догадку, закомментировав) 
-			stream.Dispose();
+			//stream.Dispose(); 
 			UnityEditor.AssetDatabase.Refresh();
 			//В Unity можно искать объекты по их типу, для этого используется префикс "t:"
 			//После нахождения, Юнити возвращает массив гуидов (которые в мета-файлах задаются, например)
@@ -69,14 +80,16 @@ namespace DefaultNamespace
 				var path = UnityEditor.AssetDatabase.GUIDToAssetPath(guid);
 				//Этой командой можно загрузить сам ассет
 				var asset = UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>(path);
-				//todo comment: Для чего нужны эти проверки?
-				if(asset != null && asset.name == "Path")
+                //todo comment: Для чего нужны эти проверки?
+                // Если удалось найлти существующий ассет и его имя "Path", то используем его в качестве  TextAsset, 
+                if (asset != null && asset.name == "Path")
 				{
 					_json = asset;
-					UnityEditor.EditorUtility.SetDirty(this);
-					UnityEditor.AssetDatabase.SaveAssets();
-					UnityEditor.AssetDatabase.Refresh();
+					UnityEditor.EditorUtility.SetDirty(this); // помечаем объект "грязным", т.е. чтобы редактор понимал, что в этом объектк произошли изменения и нужно обновить его данные
+					UnityEditor.AssetDatabase.SaveAssets(); // сохраняет все ассеты на диск, включая изменеия в "грязных" файлах
+					UnityEditor.AssetDatabase.Refresh(); // обновляет кэш для отображения сохраненных изменений
 					//todo comment: Почему мы здесь выходим, а не продолжаем итерироваться?
+					// Необходимый объект найден, действия по обновлению данных произведены, больше искать нет смысла
 					return;
 				}
 			}
@@ -84,8 +97,15 @@ namespace DefaultNamespace
 
 		private void OnDestroy()
 		{
-			//todo logic...
-		}
+			if (_json == null) return;
+			var text = JsonUtility.ToJson(this, true);
+			var path = UnityEditor.AssetDatabase.GetAssetPath(_json);
+			path = Path.Combine(Application.dataPath.Replace("Assets",""), path);
+			File.WriteAllText(path, text);
+			UnityEditor.EditorUtility.SetDirty(_json);
+            UnityEditor.AssetDatabase.SaveAssets();
+            UnityEditor.AssetDatabase.Refresh();
+        }
 #endif
 	}
 }
