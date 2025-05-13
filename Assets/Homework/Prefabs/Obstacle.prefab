@@ -160,5 +160,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec8ba54829e96e41873bb66b9a9785f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMagnitude: 20
   _goalColor: {r: 0.9942193, g: 1, b: 0, a: 1}

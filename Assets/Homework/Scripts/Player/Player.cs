@@ -18,12 +18,15 @@ namespace Netologia.Homework
 		[SerializeField]
 		private float _respawnDelay;
 
+		private Coroutine _coroutineReloader;
+
 		private void Update()
 		{
 			if (!_ready) return;
 			if (Input.GetKey(KeyCode.Space))
 			{
-				StartCoroutine(Reloader());
+				if (_coroutineReloader != null) StopCoroutine(_coroutineReloader);
+				_coroutineReloader = StartCoroutine(Reloader());
 				_ball.isKinematic = false;
 				_ball.transform.parent = null;
 				_ball.velocity = transform.forward * _startVelocity;

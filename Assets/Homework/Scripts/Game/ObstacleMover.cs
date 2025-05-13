@@ -16,11 +16,13 @@ public class ObstacleMover : MonoBehaviour
     private Rigidbody _rb;
     private Vector3 _newPosition;
 
-    private IEnumerator Start()
+    private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _start = transform.position;
-
+    }
+    private IEnumerator Start()
+    {
         while (true)
         {
             _newPosition = Vector3.MoveTowards(transform.position, _end, _speed);
@@ -35,7 +37,15 @@ public class ObstacleMover : MonoBehaviour
             _rb.MovePosition(_newPosition);
             yield return new WaitForFixedUpdate();
         }
-    }   
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(_start, _end);
+        Gizmos.DrawSphere(_start, 0.5f);
+        Gizmos.DrawSphere(_end, 0.5f);
+    }
 }
 
 

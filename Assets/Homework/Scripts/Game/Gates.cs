@@ -9,8 +9,7 @@ public class Gates : MonoBehaviour
         if(other.gameObject.GetComponent<Ball>() != null)
         {
             _score++;
-            Debug.Log($"Total score is - {_score}!!!");
-            Destroy(other.gameObject);
+            Debug.Log($"Total score is - {_score}!!!");            
         }
     }
 }
