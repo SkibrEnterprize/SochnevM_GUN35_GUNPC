@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5379952821704159209}
   - component: {fileID: 5694324273759481169}
   - component: {fileID: 6431006370067668688}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Focus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 2423409985683679657}
   - component: {fileID: 4608112187344636914}
   - component: {fileID: 8160337071659734716}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Select
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,8 +149,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.51, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.078563996, y: 0.078563996, z: 0.078563996}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1831005980767319169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -182,7 +182,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ed0dc680aee62424f9461bc305b58638, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 5559921728794545666}
   - component: {fileID: 3349678961882393064}
   - component: {fileID: 966789561234014921}
+  - component: {fileID: -2215912839711162870}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -340,7 +341,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -358,3 +359,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 313bc89d493fb6440b1bafe4ea35e986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _materialSelect: {fileID: 2100000, guid: ed0dc680aee62424f9461bc305b58638, type: 2}
+--- !u!54 &-2215912839711162870
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8905410104337668105}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
