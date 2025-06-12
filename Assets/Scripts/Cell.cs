@@ -8,7 +8,6 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     private MeshRenderer _meshRendererSelect;
 
     public Unit Unit { get; set; }
-    public bool IsEmpty => Unit == null;
     public static Action<Cell> OnPointerClickEvent;
     private bool _isSelected = false;
     public bool IsSelected => _isSelected;
