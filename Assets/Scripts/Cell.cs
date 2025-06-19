@@ -1,18 +1,27 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Zenject;
 
 public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
     private MeshRenderer _meshRendererFocus;
     private MeshRenderer _meshRendererSelect;
 
+    private IPointClickEvent _pointClickEvent;
     public Unit Unit { get; set; }
-    public static Action<Cell> OnPointerClickEvent;
+    //public event Action<Cell> OnPointerClickEvent;
     private bool _isSelected = false;
     public bool IsSelected => _isSelected;
     [SerializeField]
     private Material _materialSelect;
+
+    [Inject]
+    public void Construct(IPointClickEvent pointClickEvent)
+    {
+        _pointClickEvent = pointClickEvent;
+    }
+
 
     private void Awake()
     {
@@ -36,7 +45,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        OnPointerClickEvent?.Invoke(this);
+        _pointClickEvent.TriggerPointerClickEvent(this);
         if (!_isSelected)
         {
             SetSelect(_materialSelect);            

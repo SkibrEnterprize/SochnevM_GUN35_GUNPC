@@ -3517,7 +3517,7 @@ GameObject:
   - component: {fileID: 1419875437}
   - component: {fileID: 1419875436}
   m_Layer: 0
-  m_Name: GameInstaller
+  m_Name: SceneInstaller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5219,6 +5219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2051696227}
   - component: {fileID: 2051696228}
+  - component: {fileID: 2051696229}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -5255,6 +5256,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _indicatorBase: {fileID: 1307586932}
   _indicator: {fileID: 1623627980}
+--- !u!114 &2051696229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051696226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b4e6ec295054844cb094c16875caeb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2124778423
 PrefabInstance:
   m_ObjectHideFlags: 0

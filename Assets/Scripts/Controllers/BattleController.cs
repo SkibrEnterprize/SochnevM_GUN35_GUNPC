@@ -5,7 +5,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-public class InputManager : MonoBehaviour
+public class BattleController : MonoBehaviour
 {
     private Controls _controls;
 
@@ -24,9 +24,7 @@ public class InputManager : MonoBehaviour
     }
 
     private void Awake()
-    {
-        //_controls = new Controls();
-        _controls.Enable();
+    {       
         _indicatorBase.SetActive(false);
         _indicator.fillAmount = 0f;
     }

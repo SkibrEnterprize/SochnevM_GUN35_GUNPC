@@ -2,17 +2,29 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Zenject;
 
 public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
+    private IPointClickEvent _pointClickEvent;
+    private IGameEvent _onPlayersMoveEvent;
+    private IGameEvent1 _onPlayersMoveDoneEvent;
 
     [SerializeField]
     private float _moveSpeed = 5f;
-    public event Action OnMoveEndCallback;
+    //public event Action OnMoveEndCallback;
     private float _raycastDistance = 2f;
     private Cell _currentCell;
     private Cell _targetCell;
     private bool _isSelected = false;
+
+    [Inject]
+    public void Construct(IPointClickEvent pointClickEvent, IGameEvent onPlayersMoveEvent, IGameEvent1 onPlayersMoveDoneEvent)
+    {
+        _pointClickEvent = pointClickEvent;
+        _onPlayersMoveEvent = onPlayersMoveEvent;
+        _onPlayersMoveDoneEvent = onPlayersMoveDoneEvent;
+    }
 
     private void Awake()
     {
@@ -20,11 +32,11 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     }
     private void OnEnable()
     {
-        Cell.OnPointerClickEvent += TakeTargetCell;
+        _pointClickEvent.OnPointerClickEvent += TakeTargetCell;
     }
     private void OnDisable()
     {
-        Cell.OnPointerClickEvent -= TakeTargetCell;
+        _pointClickEvent.OnPointerClickEvent -= TakeTargetCell;
     }
     private void Update()
     {
@@ -61,7 +73,8 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     }
     public void Move()
     {
-        StartCoroutine(MoveToTarget());      
+        _onPlayersMoveEvent.TriggerEvent();
+        StartCoroutine(MoveToTarget());    
     }
 
     IEnumerator MoveToTarget()
@@ -85,7 +98,8 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
         }
         transform.position = targetPosition;
         _currentCell.ResetSelect();
-        OnMoveEndCallback?.Invoke();
+        _onPlayersMoveDoneEvent.TriggerEvent();
+        //OnMoveEndCallback?.Invoke();
     }
 
     private void TakeTargetCell(Cell cell)
