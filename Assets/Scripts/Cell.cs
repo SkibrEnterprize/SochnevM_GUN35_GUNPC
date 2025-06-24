@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
@@ -7,24 +6,43 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
 {
     private MeshRenderer _meshRendererFocus;
     private MeshRenderer _meshRendererSelect;
+    private SignalBus _signalBus;
+
+    [SerializeField] private float _raycastDistance = 2f;
+    private RaycastHit[] _hits;
+    [SerializeField] private int _angleLeft = 45;
+    [SerializeField] private int _angleRight = 135;
+    private Battlefield _battlefield;
+    private Cell _neighborsLeft;
+    private Cell _neighborsRight;
+
+
+
 
     private IPointClickEvent _pointClickEvent;
-    public Unit Unit { get; set; }
+    [SerializeField] private Unit _currentUnit;
+    public Unit CurrentUnit => _currentUnit;
     //public event Action<Cell> OnPointerClickEvent;
-    private bool _isSelected = false;
+    [SerializeField] private bool _isSelected = false;
     public bool IsSelected => _isSelected;
     [SerializeField]
     private Material _materialSelect;
 
     [Inject]
-    public void Construct(IPointClickEvent pointClickEvent)
+    public void Construct(
+        IPointClickEvent pointClickEvent,
+        Battlefield battlefield,
+        SignalBus signalBus)
     {
+        _battlefield = battlefield;
         _pointClickEvent = pointClickEvent;
+        _signalBus = signalBus;
+        _signalBus.Subscribe<DebugSignal>(SignalTest);
     }
-
 
     private void Awake()
     {
+        //FindCurrentUnit();
         foreach (Transform child in transform)
         {
             if (child.TryGetComponent<Focus>(out Focus focus))
@@ -43,16 +61,35 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
             }
         }
     }
+
+    private void OnEnable()
+    {
+        _signalBus.Subscribe<OnPlayersMoveDoneSignal>(FindCurrentUnit);
+    }
+    private void OnDisable()
+    {
+        _signalBus.Unsubscribe<OnPlayersMoveDoneSignal>(FindCurrentUnit);
+    }
+    
     public void OnPointerClick(PointerEventData eventData)
     {
+        FindCurrentUnit();
         _pointClickEvent.TriggerPointerClickEvent(this);
-        if (!_isSelected)
+        if (!_isSelected && _currentUnit != null)
         {
-            SetSelect(_materialSelect);            
+            SetSelect();
+            _battlefield.SelectNeighborsCheck(this);
+            //CurrentUnit = FindCurrentUnit();
+            //_battlefield.ResetSelectAll();                
+
         }
         else
         {
+            //_neighborsLeft = null;
+            //_neighborsRight = null;
+            //_battlefield.FindNeighborsCheck(this);
             ResetSelect();
+            _battlefield.ResetSelectAll();
         }
     }
 
@@ -65,17 +102,66 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     {
         _meshRendererFocus.enabled = false;
     }
-    public void SetSelect(Material material)
+    public void SetSelect()
     {
         _meshRendererSelect.enabled = true;
-        _meshRendererSelect.material = material;
+        _meshRendererSelect.material = _materialSelect;
         _isSelected = true;
     }
 
     public void ResetSelect()
     {
+        //FindCurrentUnit();
         _meshRendererSelect.enabled = false;
         _isSelected = false;
     }
-    
+    [ContextMenu("FindCurrentUnit")]
+    private void FindCurrentUnit()
+    {
+        if (Physics.Raycast(transform.position, Vector3.up, out RaycastHit hit, _raycastDistance))
+        {
+            Unit unit = hit.collider.GetComponent<Unit>();
+            if (unit == null)
+            {
+                _currentUnit = null;
+                Debug.Log($"Current Unit - {hit.collider.gameObject.name} on Cell {name}");
+            }
+            else
+            {
+                _currentUnit = hit.collider.gameObject.GetComponent<Unit>();
+                Debug.Log($"Current Unit - {hit.collider.gameObject.name} on Cell {name}");
+            }
+        }
+        else
+        {
+            _currentUnit = null;
+        }
+    }
+
+    //public void ResetSelectAll()
+    //{
+    //    ResetSelect();
+    //}
+    //public void SetSelectAll()
+    //{
+    //    SetSelect();
+    //}
+    public void SignalTest()
+    {
+        Debug.Log("SIGNAL TEST!!!!!!!!!");
+    }
+
+    private void OnDestroy()
+    {
+        _signalBus.Unsubscribe<DebugSignal>(SignalTest);
+    }
+    void OnDrawGizmos()
+    {
+
+        Vector3 origin = transform.position;
+        Vector3 direction = Vector3.up;
+
+        Gizmos.color = Color.green;  // Цвет Raycast в редакторе
+        Gizmos.DrawRay(origin, direction * _raycastDistance);
+    }
 }

@@ -1,5 +1,5 @@
 using System;
-public class OnPlayersMoveDoneEvent : IGameEvent1
+public class OnPlayersMoveDoneEvent : IGameEvent
 {
     public event Action OnEventTriggered;
 

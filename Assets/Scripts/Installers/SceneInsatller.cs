@@ -1,9 +1,12 @@
 using UnityEngine;
 using Zenject;
 using Zenject.SpaceFighter;
+using static UnityEditor.Experimental.GraphView.GraphView;
 public class SceneInstaller : MonoInstaller
 {
+    [SerializeField] Battlefield _battlefield;
     private Controls _controls;
+   
     public override void InstallBindings()
     {
         _controls = new Controls();
@@ -12,9 +15,15 @@ public class SceneInstaller : MonoInstaller
         Container.Bind<Controls>().FromInstance(_controls).AsSingle().NonLazy();
         //Container.BindInterfacesAndSelfTo<Controls>().AsSingle().NonLazy();
         Container.Bind<IPointClickEvent>().To<PointClickEvent>().AsSingle().NonLazy();
-        Container.Bind<IGameEvent>().To<OnPlayersMoveEvent>().AsSingle().NonLazy();
-        Container.Bind<IGameEvent1>().To<OnPlayersMoveDoneEvent>().AsSingle().NonLazy();
-        //Container.Bind<PlayerController>().AsSingle().NonLazy();
+        Container.Bind<IGameEvent>().WithId("onPlayersMove").To<OnPlayersMoveEvent>().AsSingle().NonLazy();
+        Container.Bind<IGameEvent>().WithId("onPlayersMoveDone").To<OnPlayersMoveDoneEvent>().AsSingle().NonLazy();
+        Container.Bind<Battlefield>().FromInstance(_battlefield).AsSingle().NonLazy();
+        //Container.Bind<SignalBus>().AsSingle().NonLazy();
+        SignalBusInstaller.Install(Container);
+        Container.DeclareSignal<OnPlayersMoveSignal>();
+        Container.DeclareSignal<OnPlayersMoveDoneSignal>();
+        Container.DeclareSignal<DebugSignal>();
+
 
         //Controls controls = Container.Resolve<Controls>(); 
         //controls.Enable();

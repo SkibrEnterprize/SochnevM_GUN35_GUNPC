@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -6,13 +5,16 @@ public class PlayerController : MonoBehaviour
 {
     private Controls _controls;
     private IGameEvent _onPlayersMoveEvent;
-    private IGameEvent1 _onPlayersMoveDoneEvent;
+    private IGameEvent _onPlayersMoveDoneEvent;
     
     [Inject]
-    private void Construct(Controls controls, IGameEvent onPlayersMoveEvent, IGameEvent1 onPlayersMoveDoneEvent)
+    private void Construct(
+        Controls controls,
+        [Inject(Id = "onPlayersMove")] IGameEvent onPlayersMoveEvent,
+        [Inject(Id = "onPlayersMoveDone")] IGameEvent onPlayersMoveDoneEvent)
     {
         _controls = controls;
-        _onPlayersMoveEvent = onPlayersMoveEvent;
+        _onPlayersMoveEvent  = onPlayersMoveEvent;
         _onPlayersMoveDoneEvent = onPlayersMoveDoneEvent;
 
     }
