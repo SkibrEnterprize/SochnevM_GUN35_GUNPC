@@ -1,6 +1,7 @@
 using UnityEngine;
 using Zenject;
 using System;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,9 +11,14 @@ public class PlayerController : MonoBehaviour
     private SignalBus _signalBus;
 
     [SerializeField] private Team _currentPlayingTeam;
+    [SerializeField] private CanvasRenderer _imageTurnWhite;
+    [SerializeField] private CanvasRenderer _imageTurnBlack;
     public Team CurrentPlayingTeam => _currentPlayingTeam;
 
-
+    private void Awake()
+    {
+        VisualizeCurrentPlayer();
+    }
     [Inject]
     private void Construct(
         Controls controls,
@@ -54,8 +60,22 @@ public class PlayerController : MonoBehaviour
     private void TransferOfTurn()
     {
         _currentPlayingTeam = (Team)(((int)_currentPlayingTeam + 1) % 2);
+        VisualizeCurrentPlayer();
     }
 
+    private void VisualizeCurrentPlayer()
+    {
+        if (_currentPlayingTeam == Team.White)
+        {
+            _imageTurnBlack.SetAlpha(0.2f);
+            _imageTurnWhite.SetAlpha(1f);
+        }
+        else
+        {
+            _imageTurnBlack.SetAlpha(1f);
+            _imageTurnWhite.SetAlpha(0.2f);
+        }
+    }
     private void DisableInput()
     {
         _controls.Disable();
