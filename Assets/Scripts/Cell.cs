@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
@@ -9,13 +10,12 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     private SignalBus _signalBus;
 
     [SerializeField] private float _raycastDistance = 2f;
-    private RaycastHit[] _hits;
-    [SerializeField] private int _angleLeft = 45;
-    [SerializeField] private int _angleRight = 135;
+    //private RaycastHit[] _hits;
+    //[SerializeField] private int _angle = 45;
+    //[SerializeField] private int _angleRight = 135;
     private Battlefield _battlefield;
-    private Cell _neighborsLeft;
-    private Cell _neighborsRight;
-
+    //private Cell _neighborsLeft;
+    //private Cell _neighborsRight;
 
 
 
@@ -25,8 +25,10 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     //public event Action<Cell> OnPointerClickEvent;
     [SerializeField] private bool _isSelected = false;
     public bool IsSelected => _isSelected;
-    [SerializeField]
-    private Material _materialSelect;
+    [SerializeField] private Material _materialSelect;
+    
+    private CellState _state;
+    public CellState State => _state;
 
     [Inject]
     public void Construct(
@@ -37,40 +39,34 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
         _battlefield = battlefield;
         _pointClickEvent = pointClickEvent;
         _signalBus = signalBus;
-        _signalBus.Subscribe<DebugSignal>(SignalTest);
+        //_signalBus.Subscribe<DebugSignal>(SignalTest);
     }
 
     private void Awake()
     {
-        //FindCurrentUnit();
-        foreach (Transform child in transform)
-        {
-            if (child.TryGetComponent<Focus>(out Focus focus))
-            {
-                child.TryGetComponent<MeshRenderer>(out MeshRenderer meshRenderer);
-                _meshRendererFocus = meshRenderer;
-            }
-            else if (child != null && child.TryGetComponent<Select>(out Select select))
-            {
-                child.TryGetComponent<MeshRenderer>(out MeshRenderer _meshRenderer);
-                _meshRendererSelect = _meshRenderer;
-            }
-            else
-            {
-                Debug.Log("Not find any children whith MeshRenderer");
-            }
-        }
+        FindCurrentUnit();
+        FindLinkMeshrendererInCild();
+        SetState();
+    }
+
+    private void SetState()
+    {
+        if (_currentUnit != null) { _state = CellState.Occupied; }
+        else if (_currentUnit == null) { _state = CellState.Empty; }
+
     }
 
     private void OnEnable()
     {
-        _signalBus.Subscribe<OnPlayersMoveDoneSignal>(FindCurrentUnit);
+        _signalBus.Subscribe<PlayersMoveDoneSignal>(FindCurrentUnit);
+        _signalBus.Subscribe<PlayersMoveDoneSignal>(SetState);
     }
     private void OnDisable()
     {
-        _signalBus.Unsubscribe<OnPlayersMoveDoneSignal>(FindCurrentUnit);
+        _signalBus.Unsubscribe<PlayersMoveDoneSignal>(FindCurrentUnit);
+        _signalBus.Unsubscribe<PlayersMoveDoneSignal>(SetState);
     }
-    
+
     public void OnPointerClick(PointerEventData eventData)
     {
         FindCurrentUnit();
@@ -88,6 +84,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
             //_neighborsLeft = null;
             //_neighborsRight = null;
             //_battlefield.FindNeighborsCheck(this);
+            //_currentUnit.ChangeSelectedStatus();
             ResetSelect();
             _battlefield.ResetSelectAll();
         }
@@ -124,17 +121,36 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
             if (unit == null)
             {
                 _currentUnit = null;
-                Debug.Log($"Current Unit - {hit.collider.gameObject.name} on Cell {name}");
             }
             else
             {
-                _currentUnit = hit.collider.gameObject.GetComponent<Unit>();
-                Debug.Log($"Current Unit - {hit.collider.gameObject.name} on Cell {name}");
+                _currentUnit = hit.collider.gameObject.GetComponent<Unit>();                
             }
         }
         else
         {
             _currentUnit = null;
+        }
+    }
+
+    private void FindLinkMeshrendererInCild()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.TryGetComponent<Focus>(out Focus focus))
+            {
+                child.TryGetComponent<MeshRenderer>(out MeshRenderer meshRenderer);
+                _meshRendererFocus = meshRenderer;
+            }
+            else if (child != null && child.TryGetComponent<Select>(out Select select))
+            {
+                child.TryGetComponent<MeshRenderer>(out MeshRenderer _meshRenderer);
+                _meshRendererSelect = _meshRenderer;
+            }
+            else
+            {
+                Debug.Log("Not find any children whith MeshRenderer");
+            }
         }
     }
 
@@ -153,15 +169,16 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
 
     private void OnDestroy()
     {
-        _signalBus.Unsubscribe<DebugSignal>(SignalTest);
+        //_signalBus.Unsubscribe<DebugSignal>(SignalTest);
     }
-    void OnDrawGizmos()
-    {
+    //void OnDrawGizmos()
+    //{
 
-        Vector3 origin = transform.position;
-        Vector3 direction = Vector3.up;
+    //    Vector3 origin = transform.position;
+    //    //Vector3 direction = new Vector3(Mathf.Cos(_angle * Mathf.Deg2Rad), 0, Mathf.Sin(_angle * Mathf.Deg2Rad)); // Угол 45 градусов
+    //    Vector3 direction = Vector3.up;
 
-        Gizmos.color = Color.green;  // Цвет Raycast в редакторе
-        Gizmos.DrawRay(origin, direction * _raycastDistance);
-    }
+    //    Gizmos.color = Color.green;  // Цвет Raycast в редакторе
+    //    Gizmos.DrawRay(origin, direction * _raycastDistance);
+    //}
 }

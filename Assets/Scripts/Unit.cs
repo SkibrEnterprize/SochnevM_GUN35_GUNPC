@@ -11,28 +11,36 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     //private IGameEvent _onPlayersMoveEvent;
     //private IGameEvent _onPlayersMoveDoneEvent;
     private SignalBus _signalBus;
+    [SerializeField] private Team _team = Team.White;
+    [SerializeField] private UnitType _unitType = UnitType.Check;
+    public Team Team => _team;
+    public UnitType UnitType => _unitType;
 
     [SerializeField]
-    private float _moveSpeed = 5f;    
+    private float _moveSpeed = 5f;
     private float _raycastDistance = 2f;
     private Cell _currentCell;
     private Cell _targetCell;
-    private bool _isSelected = false;
+    [SerializeField] private bool _isSelected = false;
 
     [Inject]
     public void Construct(
         IPointClickEvent pointClickEvent,
         Battlefield battlefield,
-       SignalBus signalBus)
+       SignalBus signalBus
+        //OnPlayersMoveDoneEvent onPlayersMoveDoneEvent
+        )
     {
         _pointClickEvent = pointClickEvent;
         _battlefield = battlefield;
         _signalBus = signalBus;
-        
+        //_onPlayersMoveDoneEvent = onPlayersMoveDoneEvent;
+
     }
 
     private void Awake()
     {
+
         FindCurrentCell();
     }
     private void OnEnable()
@@ -46,14 +54,21 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     private void Update()
     {
         if (_targetCell != null && _isSelected)
-        {                        
-            Move();            
+        {
+            Move();
         }
     }
     public void OnPointerClick(PointerEventData eventData)
     {
         _currentCell?.OnPointerClick(eventData);
-        ChangeSelectedStatus();
+        if (_isSelected)
+        {
+            ResetSelectedStatus();
+        }
+        else
+        {
+            SetSelectedStatus();
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -80,11 +95,11 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     {
         if (_targetCell.CurrentUnit == null)
         {
-            _signalBus.Fire<OnPlayersMoveSignal>();
+            _signalBus.Fire<PlayersMoveSignal>();
             //_onPlayersMoveEvent.TriggerEvent();
             StartCoroutine(MoveToTarget());
-            
-        } 
+
+        }
         else
         {
             Debug.Log("Cell is not empty!");
@@ -99,8 +114,8 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
         Vector3 targetPosition = _targetCell.transform.position - offset;
         float journeyLength = Vector3.Distance(startPosition, targetPosition);
         float startTime = Time.time;
-        ChangeSelectedStatus();
-        _currentCell = _targetCell;        
+        ResetSelectedStatus();
+        _currentCell = _targetCell;
         _targetCell = null;
 
         while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
@@ -110,11 +125,12 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
             transform.position = Vector3.Lerp(startPosition, targetPosition, fractionOfJourney);
             yield return null;
         }
-            _signalBus.Fire<OnPlayersMoveDoneSignal>();
+        _signalBus.Fire<PlayersMoveDoneSignal>();
         transform.position = targetPosition;
         //_currentCell.ResetSelect();
         //_onPlayersMoveDoneEvent.TriggerEvent();
-        
+        _signalBus.Fire<PlayersMoveDoneSignal>();
+
     }
 
     private void TakeTargetCell(Cell cell)
@@ -126,18 +142,16 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
         }
     }
 
-    private void ChangeSelectedStatus()
-    {
-        _isSelected = !_isSelected;
-    }
+    public void SetSelectedStatus() => _isSelected = true;
+    public void ResetSelectedStatus() => _isSelected = false;
 
-    void OnDrawGizmos()
-    {
+    //void OnDrawGizmos()
+    //{
 
-        Vector3 origin = transform.position;
-        Vector3 direction = Vector3.down;
+    //    Vector3 origin = transform.position;
+    //    Vector3 direction = Vector3.down;
 
-        Gizmos.color = Color.red;  // Цвет Raycast в редакторе
-        Gizmos.DrawRay(origin, direction * _raycastDistance);
-    }
+    //    Gizmos.color = Color.red;  // Цвет Raycast в редакторе
+    //    Gizmos.DrawRay(origin, direction * _raycastDistance);
+    //}
 }

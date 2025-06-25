@@ -1,22 +1,36 @@
-using UnityEngine;
-
-public class Primitives : MonoBehaviour
+public enum Team
 {
-    public enum NeighbourType
-    {
-        Left,
-        Right,
-        Back,
-        Forward,
-        LeftBack,
-        RightBack,
-        LeftForward,
-        RightForward,
-    }
+    Black,
+    White,
+}
 
-    public enum Team
-    {
-        Player1,
-        Player2,
-    }
+public enum UnitType
+{
+    Check,
+    Qween,
+}
+
+public enum CellState
+{
+    Empty,
+    Selected,
+    Occupied
+}
+
+public enum GameEvent
+{
+    TurnTransfer,
+    UnitIsChoiced,
+    TargetIsChoiced,
+    MoveDone,
+}
+
+public enum GameStatus
+{
+    Lock,
+    Unlock,
+    Select,
+    Move,
+    Attack,
+    Confirm
 }
