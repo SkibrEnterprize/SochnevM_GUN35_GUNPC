@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
@@ -111,23 +112,7 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
         }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("COLLISION!!!");
-        //// Проверяем, что столкновение произошло с другим объектом
-        //if (collision.gameObject != gameObject)
-        //{
-        //    Team thisTeam = _team; // Получаем команду текущего объекта
-        //    Team otherTeam = (Team)collision.gameObject.GetComponent<Unit>().Team; // Получаем команду столкнутого объекта
 
-        //    // Если команды разные, удаляем столкнутый объект
-        //    if (thisTeam != otherTeam)
-        //    {
-        //        //Destroy(collision.gameObject);
-        //        Debug.Log("Объект удален: " + collision.gameObject.name);
-        //    }
-        //}
-    }
     IEnumerator MoveToTarget()
     {
         _currentCell.ResetSelect();
@@ -165,6 +150,15 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
 
     public void SetSelectedStatus() => _isSelected = true;
     public void ResetSelectedStatus() => _isSelected = false;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<Unit>(out Unit unit) && unit.Team != _playerController.CurrentPlayingTeam)
+        {
+            Debug.Log("TriggerCustomEvent!!");
+            Destroy(other.gameObject);
+        }
+    }
 
     //void OnDrawGizmos()
     //{
