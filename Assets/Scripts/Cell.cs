@@ -112,14 +112,13 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     {
         //FindCurrentUnit();
         _meshRendererSelect.enabled = false;
-        //_meshRendererAttack.enabled = false;
+        _meshRendererAttack.enabled = false;
         _isSelected = false;
     }
 
-    public void SetAttack()
-    {
-        _meshRendererAttack.enabled = true;        
-    }
+    public void SetAttack() => _meshRendererAttack.enabled = true;
+    public void ResetAttack() => _meshRendererAttack.enabled = false;
+    
 
     [ContextMenu("FindCurrentUnit")]
     private void FindCurrentUnit()

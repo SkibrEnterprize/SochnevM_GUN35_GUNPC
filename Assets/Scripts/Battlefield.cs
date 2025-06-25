@@ -15,10 +15,12 @@ public class Battlefield : MonoBehaviour
     private PlayerController _playerController;
 
     private Cell _currentCell;
+    private Cell _attackCell;
     private Cell _neighborsLeft;
     private Cell _neighborsRight;
     private Unit _currentUnit;
     private Unit _previousUnit;
+
 
     [Inject]
     private void Construct(
@@ -45,7 +47,7 @@ public class Battlefield : MonoBehaviour
         }
         else
         {
-            _previousUnit = _currentUnit;            
+            _previousUnit = _currentUnit;
             _previousUnit.ResetSelectedStatus();
             _currentCell.ResetSelect();
             ResetSelectAll();
@@ -63,9 +65,9 @@ public class Battlefield : MonoBehaviour
             FindCellInDirection(cell, _angleRightBlack, _neighborsLeft);
             FindCellInDirection(cell, _angleLeftBlack, _neighborsRight);
         }
-            //_neighborsRight = FindNeighbors(cell, _angleRight);
-            //if (_neighborsRight != null) _cellsForMove.Add(_neighborsRight);
-            foreach (Cell cellNeighbors in _cellsForMove)
+        //_neighborsRight = FindNeighbors(cell, _angleRight);
+        //if (_neighborsRight != null) _cellsForMove.Add(_neighborsRight);
+        foreach (Cell cellNeighbors in _cellsForMove)
         {
             cellNeighbors.SetSelect();
             //_neighborsLeft?.SetSelect();
@@ -86,11 +88,13 @@ public class Battlefield : MonoBehaviour
         {
             if (neighbors.CurrentUnit.Team != _playerController.CurrentPlayingTeam) // провер€ем кем - если не из нашей команды
             {
-                neighbors.SetAttack();
+                _attackCell = neighbors;
+                //_cellsForMove.Add(attackCell);
                 neighbors = FindNeighbors(neighbors, angle); // находим следующую за ним €чейку
                 if (neighbors != null && neighbors.State == CellState.Empty)
                 {
                     _cellsForMove.Add(neighbors); // если там пусто - можем туда пойти и јтаковать
+                    _attackCell.SetAttack();
                     //neighbors.State = CellState.Occupied;
                     // 
                     // Ћогика јтаки!!!
@@ -112,6 +116,7 @@ public class Battlefield : MonoBehaviour
         //_currentCell.CurrentUnit.ChangeSelectedStatus();
         //_currentCell.ResetSelect();
         _cellsForMove.Clear();
+        _attackCell?.ResetAttack();
         //_currentUnit.ChangeSelectedStatus();
         //_currentCell.ResetSelect();
 
