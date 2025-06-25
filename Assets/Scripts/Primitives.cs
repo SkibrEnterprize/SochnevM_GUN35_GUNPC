@@ -14,7 +14,8 @@ public enum CellState
 {
     Empty,
     Selected,
-    Occupied
+    Occupied,
+    Attack
 }
 
 public enum GameEvent

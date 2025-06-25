@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using Zenject;
+using System;
 
 public class BattleController : MonoBehaviour
 {
@@ -57,7 +58,7 @@ public class BattleController : MonoBehaviour
     private void OnRestartPressed(InputAction.CallbackContext context)
     {
         _isProgressRestarting = true;
-        Debug.Log("Press Space!!!");
+        //Debug.Log("Press Space!!!");
         if (_coroutine != null) StopCoroutine(_coroutine);
         _coroutine = StartCoroutine(FillAmount());
 

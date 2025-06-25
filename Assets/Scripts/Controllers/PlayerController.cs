@@ -1,5 +1,6 @@
 using UnityEngine;
 using Zenject;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,8 +26,16 @@ public class PlayerController : MonoBehaviour
         _signalBus = signalBus;
     }
 
+    //void Awake()
+    //{
+    //    //_currentPlayingTeam = (Team)UnityEngine.Random.Range(0, 2); // Выбираем случайный элемент из Enum
+
+    //    // Теперь randomPlayer содержит либо Team.Black, либо Team.White
+    //}
+
     private void OnEnable()
     {
+        _signalBus.Subscribe<PlayersMoveDone>(TransferOfTurn);
         //_signalBus.Subscribe<PlayersMoveSignal>(DisableInput);
         //_signalBus.Subscribe<PlayersMoveDoneSignal>(EnableInput);
         //_onPlayersMoveEvent.OnEventTriggered += PlayersMove;
@@ -35,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
+        _signalBus.Unsubscribe<PlayersMoveDone>(TransferOfTurn);
         //_signalBus.Unsubscribe<PlayersMoveSignal>(DisableInput);
         //_signalBus.Unsubscribe<PlayersMoveDoneSignal>(EnableInput);
         //_onPlayersMoveEvent.OnEventTriggered -= PlayersMove;
@@ -43,8 +53,7 @@ public class PlayerController : MonoBehaviour
     [ContextMenu("ChangeTeam")]
     private void TransferOfTurn()
     {
-        _currentPlayingTeam = (Team)(int)_currentPlayingTeam + 1 % 2;
-        Debug.Log(_currentPlayingTeam.ToString());
+        _currentPlayingTeam = (Team)(((int)_currentPlayingTeam + 1) % 2);
     }
 
     private void DisableInput()

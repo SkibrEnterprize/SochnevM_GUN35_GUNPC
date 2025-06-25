@@ -22,8 +22,8 @@ public class SceneInstaller : MonoInstaller
         Container.Bind<PlayerController>().FromInstance(_playerController).AsSingle().NonLazy();
         //Container.Bind<SignalBus>().AsSingle().NonLazy();
         SignalBusInstaller.Install(Container);
-        Container.DeclareSignal<PlayersMoveSignal>();
-        Container.DeclareSignal<PlayersMoveDoneSignal>();
+        Container.DeclareSignal<PlayersMove>();
+        Container.DeclareSignal<PlayersMoveDone>();
         Container.DeclareSignal<SelectCancel>();
         Container.DeclareSignal<SelectConfirm>();
         Container.DeclareSignal<ChangeSelectedUnit>();

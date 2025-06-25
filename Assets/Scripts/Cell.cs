@@ -7,6 +7,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
 {
     private MeshRenderer _meshRendererFocus;
     private MeshRenderer _meshRendererSelect;
+    private MeshRenderer _meshRendererAttack;
     private SignalBus _signalBus;
 
     [SerializeField] private float _raycastDistance = 2f;
@@ -25,7 +26,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     //public event Action<Cell> OnPointerClickEvent;
     [SerializeField] private bool _isSelected = false;
     public bool IsSelected => _isSelected;
-    [SerializeField] private Material _materialSelect;
+    //[SerializeField] private Material _materialSelect;
     
     private CellState _state;
     public CellState State => _state;
@@ -49,7 +50,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
         SetState();
     }
 
-    private void SetState()
+    public void SetState()
     {
         if (_currentUnit != null) { _state = CellState.Occupied; }
         else if (_currentUnit == null) { _state = CellState.Empty; }
@@ -58,17 +59,18 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
 
     private void OnEnable()
     {
-        _signalBus.Subscribe<PlayersMoveDoneSignal>(FindCurrentUnit);
-        _signalBus.Subscribe<PlayersMoveDoneSignal>(SetState);
+        _signalBus.Subscribe<PlayersMoveDone>(FindCurrentUnit);
+        _signalBus.Subscribe<PlayersMoveDone>(SetState);
     }
     private void OnDisable()
     {
-        _signalBus.Unsubscribe<PlayersMoveDoneSignal>(FindCurrentUnit);
-        _signalBus.Unsubscribe<PlayersMoveDoneSignal>(SetState);
+        _signalBus.Unsubscribe<PlayersMoveDone>(FindCurrentUnit);
+        _signalBus.Unsubscribe<PlayersMoveDone>(SetState);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("Click!!");
         FindCurrentUnit();
         _pointClickEvent.TriggerPointerClickEvent(this);
         if (!_isSelected && _currentUnit != null)
@@ -102,7 +104,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     public void SetSelect()
     {
         _meshRendererSelect.enabled = true;
-        _meshRendererSelect.material = _materialSelect;
+        //_meshRendererSelect.material = _materialSelect;
         _isSelected = true;
     }
 
@@ -110,8 +112,15 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     {
         //FindCurrentUnit();
         _meshRendererSelect.enabled = false;
+        //_meshRendererAttack.enabled = false;
         _isSelected = false;
     }
+
+    public void SetAttack()
+    {
+        _meshRendererAttack.enabled = true;        
+    }
+
     [ContextMenu("FindCurrentUnit")]
     private void FindCurrentUnit()
     {
@@ -144,9 +153,15 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
             }
             else if (child != null && child.TryGetComponent<Select>(out Select select))
             {
-                child.TryGetComponent<MeshRenderer>(out MeshRenderer _meshRenderer);
-                _meshRendererSelect = _meshRenderer;
+                child.TryGetComponent<MeshRenderer>(out MeshRenderer meshRenderer);
+                _meshRendererSelect = meshRenderer;
             }
+            else if (child != null && child.TryGetComponent<Attack>(out Attack attack))
+            {
+                child.TryGetComponent<MeshRenderer>(out MeshRenderer meshRenderer);
+                _meshRendererAttack = meshRenderer;
+            }
+
             else
             {
                 Debug.Log("Not find any children whith MeshRenderer");

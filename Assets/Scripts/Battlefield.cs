@@ -29,6 +29,11 @@ public class Battlefield : MonoBehaviour
         _playerController = playerController;
     }
 
+    private void Awake()
+    {
+        Debug.Log("Battlefield ID is " + this.GetInstanceID());
+    }
+
 
     public void SelectNeighborsCheck(Cell cell)
     {
@@ -36,17 +41,17 @@ public class Battlefield : MonoBehaviour
         if (_currentCell == null)
         {
             _currentCell = cell;
-            _currentUnit = _currentCell.CurrentUnit;
+            //_currentUnit = _currentCell.CurrentUnit;
         }
         else
         {
-            _previousUnit = _currentUnit;
-            
+            _previousUnit = _currentUnit;            
             _previousUnit.ResetSelectedStatus();
             _currentCell.ResetSelect();
             ResetSelectAll();
             _currentCell = cell;
         }
+
         _currentUnit = cell.CurrentUnit;
         if (_currentUnit.Team == Team.White)
         {
@@ -79,13 +84,19 @@ public class Battlefield : MonoBehaviour
         }
         else if (neighbors != null && neighbors.State == CellState.Occupied) // если она есть и кем-то зан€та
         {
-            if (neighbors.CurrentUnit.Team != _playerController.CurrentPlayingTeam) // провер€ем кем - если из нашей команды
+            if (neighbors.CurrentUnit.Team != _playerController.CurrentPlayingTeam) // провер€ем кем - если не из нашей команды
             {
-                neighbors = FindNeighbors(neighbors, angle);
-                if (neighbors != null) _cellsForMove.Add(neighbors);
-                // 
-                // Ћогика јтаки!!!
-                //
+                neighbors.SetAttack();
+                neighbors = FindNeighbors(neighbors, angle); // находим следующую за ним €чейку
+                if (neighbors != null && neighbors.State == CellState.Empty)
+                {
+                    _cellsForMove.Add(neighbors); // если там пусто - можем туда пойти и јтаковать
+                    //neighbors.State = CellState.Occupied;
+                    // 
+                    // Ћогика јтаки!!!
+                    //
+                }
+                else return;
             }
         }
     }

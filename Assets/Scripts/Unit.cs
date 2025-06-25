@@ -21,19 +21,22 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     private float _raycastDistance = 2f;
     private Cell _currentCell;
     private Cell _targetCell;
+    private PlayerController _playerController;
     [SerializeField] private bool _isSelected = false;
 
     [Inject]
     public void Construct(
         IPointClickEvent pointClickEvent,
         Battlefield battlefield,
-       SignalBus signalBus
+       SignalBus signalBus,
+       PlayerController playerController
         //OnPlayersMoveDoneEvent onPlayersMoveDoneEvent
         )
     {
         _pointClickEvent = pointClickEvent;
         _battlefield = battlefield;
         _signalBus = signalBus;
+        _playerController = playerController;
         //_onPlayersMoveDoneEvent = onPlayersMoveDoneEvent;
 
     }
@@ -60,17 +63,19 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        _currentCell?.OnPointerClick(eventData);
-        if (_isSelected)
+        if (_playerController.CurrentPlayingTeam == _team)
         {
-            ResetSelectedStatus();
-        }
-        else
-        {
-            SetSelectedStatus();
+            _currentCell?.OnPointerClick(eventData);
+            if (_isSelected)
+            {
+                ResetSelectedStatus();
+            }
+            else
+            {
+                SetSelectedStatus();
+            }
         }
     }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         _currentCell?.OnPointerEnter(eventData);
@@ -95,7 +100,7 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     {
         if (_targetCell.CurrentUnit == null)
         {
-            _signalBus.Fire<PlayersMoveSignal>();
+            _signalBus.Fire<PlayersMove>();
             //_onPlayersMoveEvent.TriggerEvent();
             StartCoroutine(MoveToTarget());
 
@@ -106,6 +111,7 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
         }
     }
 
+    
     IEnumerator MoveToTarget()
     {
         _currentCell.ResetSelect();
@@ -124,18 +130,17 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
             float fractionOfJourney = distCovered / journeyLength;
             transform.position = Vector3.Lerp(startPosition, targetPosition, fractionOfJourney);
             yield return null;
-        }
-        _signalBus.Fire<PlayersMoveDoneSignal>();
+        }        
         transform.position = targetPosition;
         //_currentCell.ResetSelect();
         //_onPlayersMoveDoneEvent.TriggerEvent();
-        _signalBus.Fire<PlayersMoveDoneSignal>();
+        _signalBus.Fire<PlayersMoveDone>();
 
     }
 
     private void TakeTargetCell(Cell cell)
     {
-        Debug.Log("Try Take Target Cell");
+        //Debug.Log("Try Take Target Cell");
         if (_currentCell != cell && _isSelected && cell.IsSelected)
         {
             _targetCell = cell;

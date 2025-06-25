@@ -1,5 +1,7 @@
-public struct PlayersMoveSignal { }
-public struct PlayersMoveDoneSignal { }
+using System;
+
+public struct PlayersMove { }
+public struct PlayersMoveDone { }
 public struct TransferOfTurn { }
 public struct SelectCancel { }
 public struct SelectConfirm { }
