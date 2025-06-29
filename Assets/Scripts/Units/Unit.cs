@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -41,19 +42,29 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     {
         _pointClickEvent.OnPointerClickEvent += TakeTargetCell;
         _signalBus.Subscribe<SelectConfirm>(Move);
+        _signalBus.Subscribe<SelectCancel>(CancelEvent);
+
     }
+
+    public void CancelEvent()
+    {
+        _isSelected = false;
+        _targetCell = null;
+    }
+
     private void OnDisable()
     {
         _pointClickEvent.OnPointerClickEvent -= TakeTargetCell;
         _signalBus.Unsubscribe<SelectConfirm>(Move);
+        _signalBus.Unsubscribe<SelectCancel>(CancelEvent);
     }
-    private void Update()
-    {
-        if (_targetCell != null && _isSelected)
-        {
-            Move();
-        }
-    }
+    //private void Update()
+    //{
+    //    if (_targetCell != null && _isSelected)
+    //    {
+    //        Move();
+    //    }
+    //}
     public void OnPointerClick(PointerEventData eventData)
     {
         if (_playerController.CurrentPlayingTeam == _team)
@@ -91,11 +102,10 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     }
     public void Move()
     {
-        if (_targetCell.CurrentUnit == null)
+        if (_targetCell != null && _isSelected && _targetCell.CurrentUnit == null)
         {
             _signalBus.Fire<PlayersMove>();
             StartCoroutine(MoveToTarget());
-
         }
         else
         {
@@ -135,6 +145,7 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
             _targetCell = cell;
         }
     }
+    public void ResetTargetCell() => _targetCell = null;
     public void SetSelectedStatus() => _isSelected = true;
     public void ResetSelectedStatus() => _isSelected = false;
 

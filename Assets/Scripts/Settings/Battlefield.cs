@@ -29,6 +29,14 @@ public class Battlefield : MonoBehaviour
         _playerController = playerController;
     }
 
+    private void OnEnable()
+    {
+        _signalBus.Subscribe<PlayersMoveDone>(ResetSelectAll);
+    }
+    private void OnDisable()
+    {
+        _signalBus.Unsubscribe<PlayersMoveDone>(ResetSelectAll);        
+    }
     public void SelectNeighborsCheck(Cell cell)
     {
         if (_currentCell == null)
@@ -36,9 +44,10 @@ public class Battlefield : MonoBehaviour
             _currentCell = cell;
         }
         else
-        {
+        {            
             _previousUnit = _currentUnit;
-            _previousUnit.ResetSelectedStatus();
+            _previousUnit.CancelEvent();
+            //_previousUnit.ResetSelectedStatus();
             _currentCell.ResetSelect();
             ResetSelectAll();
             _currentCell = cell;
@@ -91,6 +100,14 @@ public class Battlefield : MonoBehaviour
         }
     }
 
+    public void ResetNeighborsArrow()
+    {
+        foreach (Cell cellNeighbors in _cellsForMove)
+        {
+            cellNeighbors.ResetArrow();
+        }
+        //_cellsForMove.Clear();
+    }
     public void ResetSelectAll()
     {
         foreach (Cell cellNeighbors in _cellsForMove)

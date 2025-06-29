@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
@@ -7,9 +8,10 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     private MeshRenderer _meshRendererFocus;
     private MeshRenderer _meshRendererSelect;
     private MeshRenderer _meshRendererAttack;
+    private GameObject _arrow;
     private SignalBus _signalBus;
 
-    [SerializeField] private float _raycastDistance = 2f;    
+    [SerializeField] private float _raycastDistance = 2f;
     private Battlefield _battlefield;
     private IPointClickEvent _pointClickEvent;
     [SerializeField] private Unit _currentUnit;
@@ -18,7 +20,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     [SerializeField] private bool _isSelected = false;
     public bool IsSelected => _isSelected;
     //[SerializeField] private Material _materialSelect;
-    
+
     private CellState _state;
     public CellState State => _state;
 
@@ -36,8 +38,9 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     private void Awake()
     {
         FindCurrentUnit();
-        FindLinkMeshrendererInCild();
+        FindLinksInCild();
         SetState();
+        
     }
 
     public void SetState()
@@ -48,31 +51,51 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
 
     private void OnEnable()
     {
+        _signalBus.Subscribe<PlayersMoveDone>(ResetAllHighlights);
         _signalBus.Subscribe<PlayersMoveDone>(FindCurrentUnit);
         _signalBus.Subscribe<PlayersMoveDone>(SetState);
+        _signalBus.Subscribe<SelectCancel>(CancelEvent);
     }
     private void OnDisable()
     {
-        _signalBus.Unsubscribe<PlayersMoveDone>(FindCurrentUnit);
         _signalBus.Unsubscribe<PlayersMoveDone>(SetState);
+        _signalBus.Unsubscribe<PlayersMoveDone>(ResetAllHighlights);
+        _signalBus.Unsubscribe<PlayersMoveDone>(FindCurrentUnit);
+        _signalBus.Unsubscribe<SelectCancel>(CancelEvent);
     }
 
+    private void ResetAllHighlights()
+    {
+        //_meshRendererSelect.enabled = false;
+        //_meshRendererAttack.enabled = false;
+        //_arrow.SetActive(false);
+    }
+
+    private void CancelEvent()
+    {
+        ResetSelect();
+        _battlefield.ResetSelectAll();
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Click!!");
         FindCurrentUnit();
         _pointClickEvent.TriggerPointerClickEvent(this);
         if (!_isSelected && _currentUnit != null)
         {
             SetSelect();
-            _battlefield.SelectNeighborsCheck(this);      
-
+            _battlefield.SelectNeighborsCheck(this);
         }
-        else
+        else if (_isSelected && _currentUnit == null)
         {
-            ResetSelect();
-            _battlefield.ResetSelectAll();
+            _battlefield.ResetNeighborsArrow();
+            _arrow.SetActive(true);
         }
+        //else
+        //{
+        //    //SetSelect();
+        //    ResetSelect();
+        //    _battlefield.ResetSelectAll();
+        //}
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -87,19 +110,27 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     public void SetSelect()
     {
         _meshRendererSelect.enabled = true;
-        _isSelected = true;
+        if (_isSelected)
+        {
+            _arrow.SetActive(true);
+        }
+        else
+        {
+            _isSelected = true;
+        }
     }
 
     public void ResetSelect()
-    {        
+    {
         _meshRendererSelect.enabled = false;
         _meshRendererAttack.enabled = false;
         _isSelected = false;
+        _arrow.SetActive(false);
     }
 
     public void SetAttack() => _meshRendererAttack.enabled = true;
     public void ResetAttack() => _meshRendererAttack.enabled = false;
-    
+
 
     [ContextMenu("FindCurrentUnit")]
     private void FindCurrentUnit()
@@ -113,7 +144,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
             }
             else
             {
-                _currentUnit = hit.collider.gameObject.GetComponent<Unit>();                
+                _currentUnit = hit.collider.gameObject.GetComponent<Unit>();
             }
         }
         else
@@ -122,7 +153,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
         }
     }
 
-    private void FindLinkMeshrendererInCild()
+    private void FindLinksInCild()
     {
         foreach (Transform child in transform)
         {
@@ -141,13 +172,15 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
                 child.TryGetComponent<MeshRenderer>(out MeshRenderer meshRenderer);
                 _meshRendererAttack = meshRenderer;
             }
-
-            else
+            else if (child.TryGetComponent<ArrowMover>(out ArrowMover arrowMover))
             {
-                Debug.Log("Not find any children whith MeshRenderer");
+                _arrow = child.GameObject();
             }
         }
     }
+
+    public void ResetArrow() => _arrow.SetActive(false);
+
     public void SignalTest()
     {
         Debug.Log("SIGNAL TEST!!!!!!!!!");

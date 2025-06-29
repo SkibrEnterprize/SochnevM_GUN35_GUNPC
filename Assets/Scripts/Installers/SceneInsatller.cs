@@ -18,6 +18,7 @@ public class SceneInstaller : MonoInstaller
         Container.DeclareSignal<PlayersMove>();
         Container.DeclareSignal<PlayersMoveDone>();
         Container.DeclareSignal<SelectCancel>();
+        Container.DeclareSignal<SelectInstall>();
         Container.DeclareSignal<SelectConfirm>();
         Container.DeclareSignal<ChangeSelectedUnit>();
         Container.DeclareSignal<TransferOfTurn>();

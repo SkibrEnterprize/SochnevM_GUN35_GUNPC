@@ -45,7 +45,7 @@ public class BattleController : MonoBehaviour
     private void OnDisable()
     {
         _controls.Game.Confirm.performed -= OnConfirmPressed;
-        _controls.Game.Restart.started -= OnRestartPressed;
+        _controls.Game.Cancel.performed -= OnCancelPressed;
         _controls.Game.Restart.started -= OnRestartPressed;
         _controls.Game.Restart.canceled -= OnRestartCancel;
     }
@@ -83,7 +83,7 @@ public class BattleController : MonoBehaviour
             yield return null;
             Debug.Log(_indicator.fillAmount);
             //ReloadScene();
-            if (_indicator.fillAmount > 0.99) ReloadScene();
+            if (_indicator.fillAmount > 0.95) ReloadScene();
         }
     }
     private void ReloadScene()
