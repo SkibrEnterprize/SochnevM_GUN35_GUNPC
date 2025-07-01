@@ -16,9 +16,10 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     public Team Team => _team;
     public UnitType UnitType => _unitType;
     private float _raycastDistance = 2f;
-    private Cell _currentCell;
+    [SerializeField]private Cell _currentCell;
     private Cell _targetCell;
     private PlayerController _playerController;
+    private GameObject _signOfAQween;
 
     [Inject]
     public void Construct(
@@ -36,7 +37,9 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
 
     private void Awake()
     {
+        FindSignOfAQween();
         FindCurrentCell();
+        if (_unitType == UnitType.Qween) TransformToQween();
     }
     private void OnEnable()
     {
@@ -102,7 +105,7 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     }
     public void Move()
     {
-        if (_targetCell != null && _isSelected && _targetCell.CurrentUnit == null)
+        if (_targetCell != null && _isSelected && _targetCell.State == CellState.Empty) //_targetCell.CurrentUnit == null)
         {
             _signalBus.Fire<PlayersMove>();
             StartCoroutine(MoveToTarget());
@@ -156,5 +159,26 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
             Debug.Log("TriggerCustomEvent!!");
             Destroy(other.gameObject);
         }
+        else if (other.TryGetComponent<EndOfField>(out EndOfField endOfField) && _team == endOfField.EndOfTeamFor)
+        {
+            TransformToQween();
+            Debug.Log("Is A Qween!!!");
+        }
+    }
+
+    private void FindSignOfAQween()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.TryGetComponent<SignOfAQween>(out SignOfAQween signOfAQween))
+            {
+                _signOfAQween = child.gameObject;
+            }
+        }
+    }
+    private void TransformToQween()
+    {
+        _unitType = UnitType.Qween;
+        _signOfAQween.SetActive(true);
     }
 }

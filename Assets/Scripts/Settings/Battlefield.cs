@@ -5,6 +5,7 @@ using Zenject;
 public class Battlefield : MonoBehaviour
 {
     private List<Cell> _cellsForMove = new List<Cell>();
+    private List<Cell> _cellsForAttack = new List<Cell>();
     private int _raycastDistance = 2;
     private int _angleLeftWhite = 135;
     private int _angleLeftBlack = 225;
@@ -35,7 +36,7 @@ public class Battlefield : MonoBehaviour
     }
     private void OnDisable()
     {
-        _signalBus.Unsubscribe<PlayersMoveDone>(ResetSelectAll);        
+        _signalBus.Unsubscribe<PlayersMoveDone>(ResetSelectAll);
     }
     public void SelectNeighborsCheck(Cell cell)
     {
@@ -44,7 +45,7 @@ public class Battlefield : MonoBehaviour
             _currentCell = cell;
         }
         else
-        {            
+        {
             _previousUnit = _currentUnit;
             _previousUnit.CancelEvent();
             //_previousUnit.ResetSelectedStatus();
@@ -54,16 +55,24 @@ public class Battlefield : MonoBehaviour
         }
 
         _currentUnit = cell.CurrentUnit;
-        if (_currentUnit.Team == Team.White)
+        if (_currentUnit.UnitType == UnitType.Qween)
+        {
+            FindCellInDirection(cell, _angleRightWhite, _neighborsLeft);
+            FindCellInDirection(cell, _angleLeftWhite, _neighborsRight);
+            FindCellInDirection(cell, _angleRightBlack, _neighborsLeft);
+            FindCellInDirection(cell, _angleLeftBlack, _neighborsRight);
+        }
+        else if (_currentUnit.Team == Team.White)
         {
             FindCellInDirection(cell, _angleRightWhite, _neighborsLeft);
             FindCellInDirection(cell, _angleLeftWhite, _neighborsRight);
         }
-        else
+        else if (_currentUnit.Team == Team.Black)
         {
             FindCellInDirection(cell, _angleRightBlack, _neighborsLeft);
             FindCellInDirection(cell, _angleLeftBlack, _neighborsRight);
         }
+
         foreach (Cell cellNeighbors in _cellsForMove)
         {
             cellNeighbors.SetSelect();
@@ -85,6 +94,7 @@ public class Battlefield : MonoBehaviour
                     if (neighbors.CurrentUnit.Team != _playerController.CurrentPlayingTeam)
                     {
                         _attackCell = neighbors;
+                        _cellsForAttack.Add(neighbors);
                         neighbors = FindNeighbors(neighbors, angle);
                         if (neighbors != null && neighbors.State == CellState.Empty)
                         {
@@ -96,6 +106,33 @@ public class Battlefield : MonoBehaviour
                 }
                 break;
             case UnitType.Qween:
+                neighbors = FindNeighbors(cell, angle);
+                while (neighbors != null)
+                {
+                    if (neighbors != null && neighbors.State == CellState.Empty) //если есть соседняя клетка и она пустая
+                    {
+                        _cellsForMove.Add(neighbors);
+                    }
+                    else if (neighbors != null && neighbors.State == CellState.Occupied) // если клетка занята
+                    {
+                        if (neighbors.CurrentUnit.Team == _playerController.CurrentPlayingTeam) break; // и там наш юнит - выходим
+                        if (neighbors.CurrentUnit.Team != _playerController.CurrentPlayingTeam) // а если не наш юнит
+                        {
+                            _attackCell = neighbors; // запоминаем клетку для проверки на атаку
+                            _cellsForAttack.Add(neighbors);
+                            neighbors = FindNeighbors(neighbors, angle); // проверяем следующую клетку
+                            if (neighbors != null && neighbors.State == CellState.Empty) // если пустая 
+                            {
+                                _cellsForMove.Add(neighbors); //можем ходить на нее с атакой
+                                _attackCell.SetAttack();
+                            }
+                            //else return;
+                            break;
+                        }
+                    }
+                    cell = neighbors;
+                    neighbors = FindNeighbors(cell, angle);
+                }
                 break;
         }
     }
@@ -115,7 +152,12 @@ public class Battlefield : MonoBehaviour
             cellNeighbors.ResetSelect();
         }
         _cellsForMove.Clear();
-        _attackCell?.ResetAttack();
+        //cellNeighbors.ResetAttack();
+        foreach (Cell cellForAttack in _cellsForAttack)
+        {
+            cellForAttack.ResetSelect();
+        }
+        _cellsForAttack.Clear();
     }
     public void FindNeighborsQween()
     { }

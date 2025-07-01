@@ -21,7 +21,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     public bool IsSelected => _isSelected;
     //[SerializeField] private Material _materialSelect;
 
-    private CellState _state;
+    [SerializeField] private CellState _state;
     public CellState State => _state;
 
     [Inject]
@@ -40,7 +40,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
         FindCurrentUnit();
         FindLinksInCild();
         SetState();
-        
+
     }
 
     public void SetState()
@@ -51,24 +51,17 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
 
     private void OnEnable()
     {
-        _signalBus.Subscribe<PlayersMoveDone>(ResetAllHighlights);
         _signalBus.Subscribe<PlayersMoveDone>(FindCurrentUnit);
+        _signalBus.Subscribe<PlayersMoveDone>(CancelEvent);
         _signalBus.Subscribe<PlayersMoveDone>(SetState);
         _signalBus.Subscribe<SelectCancel>(CancelEvent);
     }
     private void OnDisable()
     {
-        _signalBus.Unsubscribe<PlayersMoveDone>(SetState);
-        _signalBus.Unsubscribe<PlayersMoveDone>(ResetAllHighlights);
         _signalBus.Unsubscribe<PlayersMoveDone>(FindCurrentUnit);
+        _signalBus.Unsubscribe<PlayersMoveDone>(CancelEvent);
+        _signalBus.Unsubscribe<PlayersMoveDone>(SetState);
         _signalBus.Unsubscribe<SelectCancel>(CancelEvent);
-    }
-
-    private void ResetAllHighlights()
-    {
-        //_meshRendererSelect.enabled = false;
-        //_meshRendererAttack.enabled = false;
-        //_arrow.SetActive(false);
     }
 
     private void CancelEvent()
@@ -82,6 +75,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
         _pointClickEvent.TriggerPointerClickEvent(this);
         if (!_isSelected && _currentUnit != null)
         {
+            _battlefield.ResetSelectAll();
             SetSelect();
             _battlefield.SelectNeighborsCheck(this);
         }
