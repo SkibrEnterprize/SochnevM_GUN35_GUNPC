@@ -1,4 +1,3 @@
-using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,27 +10,24 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     private GameObject _arrow;
     private SignalBus _signalBus;
 
-    [SerializeField] private float _raycastDistance = 2f;
+    private float _raycastDistance = 2f;
     private Battlefield _battlefield;
-    private IPointClickEvent _pointClickEvent;
-    [SerializeField] private Unit _currentUnit;
+    private Unit _currentUnit;
     public Unit CurrentUnit => _currentUnit;
-    //public event Action<Cell> OnPointerClickEvent;
-    [SerializeField] private bool _isSelected = false;
+    private bool _isSelected = false;
     public bool IsSelected => _isSelected;
-    //[SerializeField] private Material _materialSelect;
 
-    [SerializeField] private CellState _state;
-    public CellState State => _state;
+    private CellState _state;
+    public CellState State => _state;   
 
     [Inject]
     public void Construct(
-        IPointClickEvent pointClickEvent,
+        //IPointClickEvent pointClickEvent,
         Battlefield battlefield,
         SignalBus signalBus)
     {
         _battlefield = battlefield;
-        _pointClickEvent = pointClickEvent;
+        //_pointClickEvent = pointClickEvent;
         _signalBus = signalBus;
     }
 
@@ -72,9 +68,10 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     public void OnPointerClick(PointerEventData eventData)
     {
         FindCurrentUnit();
-        _pointClickEvent.TriggerPointerClickEvent(this);
+        _signalBus.Fire(new SelectInstall(this));
         if (!_isSelected && _currentUnit != null)
         {
+            _currentUnit.SetSelectedStatus();
             _battlefield.ResetSelectAll();
             SetSelect();
             _battlefield.SelectNeighborsCheck(this);
@@ -83,13 +80,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
         {
             _battlefield.ResetNeighborsArrow();
             _arrow.SetActive(true);
-        }
-        //else
-        //{
-        //    //SetSelect();
-        //    ResetSelect();
-        //    _battlefield.ResetSelectAll();
-        //}
+        }        
     }
 
     public void OnPointerEnter(PointerEventData eventData)

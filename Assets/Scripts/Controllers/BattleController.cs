@@ -82,7 +82,6 @@ public class BattleController : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
             Debug.Log(_indicator.fillAmount);
-            //ReloadScene();
             if (_indicator.fillAmount > 0.95) ReloadScene();
         }
     }

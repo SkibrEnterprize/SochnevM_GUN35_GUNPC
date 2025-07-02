@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,8 +5,6 @@ using Zenject;
 
 public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
-    private IPointClickEvent _pointClickEvent;
-    private Battlefield _battlefield;
     private SignalBus _signalBus;
     [SerializeField] private Team _team = Team.White;
     [SerializeField] private UnitType _unitType = UnitType.Check;
@@ -16,21 +13,18 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     public Team Team => _team;
     public UnitType UnitType => _unitType;
     private float _raycastDistance = 2f;
-    [SerializeField]private Cell _currentCell;
+    private Cell _currentCell;
     private Cell _targetCell;
     private PlayerController _playerController;
     private GameObject _signOfAQween;
 
     [Inject]
     public void Construct(
-        IPointClickEvent pointClickEvent,
-        Battlefield battlefield,
+       Battlefield battlefield,
        SignalBus signalBus,
        PlayerController playerController
-        )
+       )
     {
-        _pointClickEvent = pointClickEvent;
-        _battlefield = battlefield;
         _signalBus = signalBus;
         _playerController = playerController;
     }
@@ -43,7 +37,7 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     }
     private void OnEnable()
     {
-        _pointClickEvent.OnPointerClickEvent += TakeTargetCell;
+        _signalBus.Subscribe<SelectInstall>(TakeTargetCell);
         _signalBus.Subscribe<SelectConfirm>(Move);
         _signalBus.Subscribe<SelectCancel>(CancelEvent);
 
@@ -57,30 +51,17 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
 
     private void OnDisable()
     {
-        _pointClickEvent.OnPointerClickEvent -= TakeTargetCell;
+        _signalBus.Unsubscribe<SelectInstall>(TakeTargetCell);
         _signalBus.Unsubscribe<SelectConfirm>(Move);
         _signalBus.Unsubscribe<SelectCancel>(CancelEvent);
     }
-    //private void Update()
-    //{
-    //    if (_targetCell != null && _isSelected)
-    //    {
-    //        Move();
-    //    }
-    //}
     public void OnPointerClick(PointerEventData eventData)
     {
         if (_playerController.CurrentPlayingTeam == _team)
         {
-            _currentCell?.OnPointerClick(eventData);
-            if (_isSelected)
-            {
-                ResetSelectedStatus();
-            }
-            else
-            {
-                SetSelectedStatus();
-            }
+            ICommand command = new CellClickCommand(_currentCell);
+            command.Execute(eventData);
+            SetSelectedStatus();
         }
     }
     public void OnPointerEnter(PointerEventData eventData)
@@ -105,14 +86,9 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     }
     public void Move()
     {
-        if (_targetCell != null && _isSelected && _targetCell.State == CellState.Empty) //_targetCell.CurrentUnit == null)
+        if (_targetCell != null && _isSelected && _targetCell.State == CellState.Empty)
         {
-            _signalBus.Fire<PlayersMove>();
             StartCoroutine(MoveToTarget());
-        }
-        else
-        {
-            Debug.Log("Cell is not empty!");
         }
     }
 
@@ -141,11 +117,11 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
 
     }
 
-    private void TakeTargetCell(Cell cell)
+    private void TakeTargetCell(SelectInstall selectInstall)
     {
-        if (_currentCell != cell && _isSelected && cell.IsSelected)
+        if (_currentCell != selectInstall.Cell && _isSelected && selectInstall.Cell.IsSelected)
         {
-            _targetCell = cell;
+            _targetCell = selectInstall.Cell;
         }
     }
     public void ResetTargetCell() => _targetCell = null;
@@ -156,7 +132,6 @@ public class Unit : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, I
     {
         if (other.TryGetComponent<Unit>(out Unit unit) && unit.Team != _playerController.CurrentPlayingTeam)
         {
-            Debug.Log("TriggerCustomEvent!!");
             Destroy(other.gameObject);
         }
         else if (other.TryGetComponent<EndOfField>(out EndOfField endOfField) && _team == endOfField.EndOfTeamFor)
