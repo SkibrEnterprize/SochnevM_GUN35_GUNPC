@@ -4,25 +4,25 @@ using Zenject;
 public class SkittleSet : MonoBehaviour
 {
     private Skittle[] _skittles;
-    private int _skittlesStopped = 0;
     private SignalBus _signalBus;
+    public int SkittleCount => _skittles.Length;
+
+    private void Awake()
+    {
+        _skittles = GetComponentsInChildren<Skittle>();
+    }
 
     [Inject]
     private void Construct(
         SignalBus signalBus)
     {
         _signalBus = signalBus;
-    }
-    private void Awake()
-    {
-        _skittles = GetComponentsInChildren<Skittle>();
-    }
+    }    
 
     private void OnEnable()
     {
         _signalBus.Subscribe<EndAction>(FreezeObjects);
     }
-
 
     private void OnDisable()
     {
@@ -31,6 +31,7 @@ public class SkittleSet : MonoBehaviour
 
     private void FreezeObjects()
     {
+        _skittles = GetComponentsInChildren<Skittle>();
         foreach (Skittle skittle in _skittles)
         {
             Rigidbody rb = skittle.GetComponent<Rigidbody>();

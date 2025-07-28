@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class ArrowController : MonoBehaviour
 {
-    [SerializeField] private float _swingSpeed = 2f; // Скорость колебания
-    [SerializeField] private float _maxAngle = 30f; // Максимальный угол
+    [SerializeField] private float _swingSpeed = 2f;
+    [SerializeField] private float _maxAngle = 30f; 
 
-    [SerializeField] private float _angle;
+    [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private float _distance = 3f;
     private float _initX;
     private float _initY;
     private float _initZ;
+    private float _angle;
+    public bool moveRight = true;
 
     private void Start()
     {
@@ -19,12 +22,32 @@ public class ArrowController : MonoBehaviour
 
     void Update()
     {
-        _angle = Mathf.Sin(Time.time * _swingSpeed) * _maxAngle; // Вычисление угла
-        transform.rotation = Quaternion.Euler(_initX, _initY, _initZ + _angle); // Установка вращения
+        Rotate();
+        MoveLeftRigth();
     }
 
+    private void Rotate()
+    {
+        _angle = Mathf.Sin(Time.time * _swingSpeed) * _maxAngle;
+        transform.rotation = Quaternion.Euler(_initX, _initY + _angle, _initZ);
+    }
+    private void MoveLeftRigth()
+    {
+        if (moveRight)
+        {
+            transform.Translate(Vector3.right * _moveSpeed * Time.deltaTime, Space.World);
+        }
+        else
+        {
+            transform.Translate(Vector3.left * _moveSpeed * Time.deltaTime, Space.World);
+        }
+        if (transform.position.x > _distance || transform.position.x < -_distance)
+        {
+            moveRight = !moveRight;
+        }
+    }
     public Vector3 GetDirection()
     {
-        return transform.up;
+        return transform.forward;
     }
 }

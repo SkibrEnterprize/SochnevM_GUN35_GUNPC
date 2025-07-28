@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8351787486803565333}
   - component: {fileID: 1352587665383002830}
   - component: {fileID: 8431076752977148965}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6b060b84dd998ef43a07db2e3fb48933, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 6727287556263500773}
   - component: {fileID: 8639238834246678665}
   - component: {fileID: -3620566435438768093}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Skittle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6b060b84dd998ef43a07db2e3fb48933, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -227,8 +227,8 @@ Rigidbody:
   m_GameObject: {fileID: 1794214225430803334}
   serializedVersion: 4
   m_Mass: 0.5
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 1
+  m_AngularDrag: 0.16
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -244,7 +244,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &-3620566435438768093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,6 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae4adb607c398a4ba81f9fc133527a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _triggerOfFall: {fileID: 4984730097812372546}
 --- !u!1 &3836871089656378164
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +270,7 @@ GameObject:
   - component: {fileID: 3838565133125263785}
   - component: {fileID: 5913210170125139536}
   - component: {fileID: 4984730097812372546}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TriggerOfFall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,8 +286,8 @@ Transform:
   m_GameObject: {fileID: 3836871089656378164}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.000000011847, y: 0.55, z: 0.00000003792}
-  m_LocalScale: {x: 1.1987455, y: 0.14888419, z: 1.1987455}
+  m_LocalPosition: {x: -0.000000060639, y: 0.09, z: 0.00000010452}
+  m_LocalScale: {x: 2.017406, y: 0.25056183, z: 2.017406}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7327416165774547933}

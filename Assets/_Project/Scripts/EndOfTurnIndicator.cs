@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using Zenject;
@@ -16,7 +15,6 @@ public class EndOfTurnIndicator : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        print("EndOfTurn initialize!");
         StartCoroutine(EndOfTurn());
     }
 
