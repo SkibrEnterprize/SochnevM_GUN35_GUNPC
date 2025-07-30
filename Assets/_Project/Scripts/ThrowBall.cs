@@ -4,6 +4,7 @@ using Zenject;
 public class ThrowBall : MonoBehaviour
 {
     [SerializeField] private GameObject _ballPrefab;
+    [SerializeField] private GameObject _ballVisualize;
     [SerializeField] private float _launchForce;
 
     private ArrowController _arrow;
@@ -25,14 +26,22 @@ public class ThrowBall : MonoBehaviour
     private void OnEnable()
     {
         _controls.Player.Fire.performed += context => ThrowingBall();
+        _signalBus.Subscribe<InAction>(BallVisualizeActive);
+        _signalBus.Subscribe<EndAction>(BallVisualizeDeactive);
     }
-    private void OnDisable()
+
+    private void BallVisualizeActive() => _ballVisualize.SetActive(false);
+    private void BallVisualizeDeactive() => _ballVisualize.SetActive(true);
+
+
+    private void OnDestroy()
     {
         _controls.Player.Fire.performed -= context => ThrowingBall();
+        _signalBus.Unsubscribe<InAction>(BallVisualizeActive);
+        _signalBus.Unsubscribe<EndAction>(BallVisualizeDeactive);
     }
     private void ThrowingBall()
     {
-        print("Click!!!");
         GameObject ball = Instantiate(_ballPrefab, transform.position, Quaternion.identity);
         Rigidbody rb = ball.GetComponent<Rigidbody>();
         Vector3 direction = _arrow.GetDirection();
