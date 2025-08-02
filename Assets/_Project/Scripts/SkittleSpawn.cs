@@ -1,22 +1,35 @@
 using UnityEngine;
+using Zenject;
 
-public class SkittleSpawn : MonoBehaviour
+public sealed class SkittleSpawn : IInitializable
 {
+    private readonly SkittleFactory _skittleFactory;
+    private readonly Transform _spawnPoint;
 
-    [SerializeField] private GameObject _skittlePrefab; 
-    [SerializeField] private Transform _spawnPoint;
-    [SerializeField, Range(1, 6)] private int _rows = 3;
-    [SerializeField, Range(1, 3)] private float _spacingOfRows = 2.5f;
+    private readonly int _rows;
+    private readonly float _spacingOfRows;
+
     private int _skittleTotal;
+
     public int SkittleTotal => _skittleTotal;
 
-    void Awake()
+    public SkittleSpawn(SkittleFactory skittleFactory, SkittleConfig config)
+    {
+        _skittleFactory = skittleFactory;
+
+        _spacingOfRows = config.SpacingOfRows;
+        _spawnPoint = config.SpawnPoint;
+        _rows = config.Rows;
+    }
+
+    void IInitializable.Initialize()
     {
         if (_spawnPoint == null)
         {
             Debug.LogError("Spawn Point is not assigned! Please drag the Spawn Point object in the inspector.");
             return;
         }
+
         SpawnSkittles();
     }
 
@@ -26,12 +39,14 @@ public class SkittleSpawn : MonoBehaviour
         {
             for (int pin = 0; pin <= row; pin++)
             {
-                Vector3 position = new Vector3(
+                var position = new Vector3(
                     pin * _spacingOfRows - row * _spacingOfRows / 2,
                     0,
                     row * _spacingOfRows
                 );
-                Instantiate(_skittlePrefab, _spawnPoint.position + position, Quaternion.identity);
+
+                _skittleFactory.SpawnSkittle(_spawnPoint.position + position);
+
                 _skittleTotal++;
             }
         }

@@ -9,10 +9,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private int _bonusStrike = 30;
     [SerializeField] private int _bonusSpare = 20;
     [SerializeField] private int _attempts = 3;
-    [SerializeField] TextMeshProUGUI _totalScoreTMP;
-    [SerializeField] TextMeshProUGUI _totalThrowsTMP;
-    [SerializeField] TextMeshProUGUI _totalAttemptsTMP;
-    [SerializeField] TextMeshProUGUI _totalSkittleTMP;
+    private UiController _uiController;
+    
 
     private Controls _controls;
     private SignalBus _signalBus;
@@ -23,16 +21,17 @@ public class GameController : MonoBehaviour
 
 
     [Inject]
-    private void Cunstruct(Controls controls, SignalBus signalBus, SkittleSpawn skittleSpawn)
+    private void Cunstruct(Controls controls, SignalBus signalBus, SkittleSpawn skittleSpawn, UiController uiController)
     {
         _controls = controls;
         _signalBus = signalBus;
         _spawn = skittleSpawn;
+        _uiController = uiController;
     }
     private void Start()
-    {
-        _totalAttemptsTMP.text = _attempts.ToString();
-        _totalSkittleTMP.text = _spawn.SkittleTotal.ToString();
+    {        
+        _uiController.DisplayAttemptsScore(_attempts.ToString());
+        _uiController.DisplayTotalSkittle(_spawn.SkittleTotal.ToString());
     }
     void OnEnable()
     {
@@ -81,8 +80,8 @@ public class GameController : MonoBehaviour
     }
     private void UpdateScoreDisplay()
     {
-        _totalScoreTMP.text = _totalScore.ToString();
-        _totalThrowsTMP.text = _throwNumber.ToString();
+        _uiController.UpdateTotalScore(_totalScore.ToString());
+        _uiController.UpdateThrowNumber(_throwNumber.ToString());        
     }
 
     private void ReloadScene()

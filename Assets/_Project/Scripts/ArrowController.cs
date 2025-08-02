@@ -2,16 +2,12 @@ using UnityEngine;
 
 public class ArrowController : MonoBehaviour
 {
-    [SerializeField] private float _swingSpeed = 2f;
-    [SerializeField] private float _maxAngle = 30f; 
-
-    [SerializeField] private float _moveSpeed = 5f;
-    [SerializeField] private float _distance = 3f;
+    [SerializeField] private ArrowConfig _config;    
     private float _initX;
     private float _initY;
     private float _initZ;
     private float _angle;
-    public bool moveRight = true;
+    public bool moveRight = true;    
 
     private void Start()
     {
@@ -28,20 +24,20 @@ public class ArrowController : MonoBehaviour
 
     private void Rotate()
     {
-        _angle = Mathf.Sin(Time.time * _swingSpeed) * _maxAngle;
+        _angle = Mathf.Sin(Time.time * _config.SwingSpeed) * _config.MaxAngle;
         transform.rotation = Quaternion.Euler(_initX, _initY + _angle, _initZ);
     }
     private void MoveLeftRigth()
     {
         if (moveRight)
         {
-            transform.Translate(Vector3.right * _moveSpeed * Time.deltaTime, Space.World);
+            transform.Translate(Vector3.right * _config.MoveSpeed * Time.deltaTime, Space.World);
         }
         else
         {
-            transform.Translate(Vector3.left * _moveSpeed * Time.deltaTime, Space.World);
+            transform.Translate(Vector3.left * _config.MoveSpeed * Time.deltaTime, Space.World);
         }
-        if (transform.position.x > _distance || transform.position.x < -_distance)
+        if (transform.position.x > _config.Distance || transform.position.x < -_config.Distance)
         {
             moveRight = !moveRight;
         }
