@@ -1,28 +1,38 @@
 using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(Rigidbody))]
 public class CleanerMover : MonoBehaviour
 {
+    [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private float _timeChangeRotation = 5f;
     [SerializeField] private Lidar _lidarLeft;
     [SerializeField] private Lidar _lidarCenter;
     [SerializeField] private Lidar _lidarRight;
-    [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private LayerMask _obstacleLayer;
+    private Vector3 _targetPosition;
+
 
     private Rigidbody _rb;
     private bool _isMovingForward = true;
+    private SignalBus _signalBus;   
+
+    [Inject]
+    public void Construct(SignalBus signalBus)
+    {
+        _signalBus = signalBus;
+    }
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        StartCoroutine(ChangeRotation(_timeChangeRotation));
     }
 
     void Update()
     {
-        CheckForObstacles();
+        CheckForObstacles();       
     }
 
     void FixedUpdate()
@@ -41,18 +51,15 @@ public class CleanerMover : MonoBehaviour
             return;
         }
     }
-
     private void MoveForward()
     {
         _rb.MovePosition(transform.position + transform.forward * _moveSpeed * Time.fixedDeltaTime);
-    }
-
+    }   
     private void RotateToAvoidObstacle()
     {
         if (!_lidarLeft.IsRayCollision() && !_lidarRight.IsRayCollision())
         {
-            //transform.Rotate(0, -90, 0);
-            RotateObject(Quaternion.Euler(0, RandomY(), 0));
+            RotateObject(Quaternion.Euler(0, RandomRotate(), 0));
             _isMovingForward = true;
             return;
         }
@@ -77,7 +84,15 @@ public class CleanerMover : MonoBehaviour
         }
     }
 
-        private int RandomY()
+    private IEnumerator ChangeRotation(float timeChangeRotation)
+    {
+        while (true)
+        {
+            RotateObject(Quaternion.Euler(0, RandomRotate(), 0));
+            yield return new WaitForSeconds(timeChangeRotation);
+        }
+    }
+    private int RandomRotate()
     {
         int randomChoice = Random.Range(0, 2);
 
@@ -91,74 +106,11 @@ public class CleanerMover : MonoBehaviour
         }
     }
     void RotateObject(Quaternion rotation) => _rb.MoveRotation(_rb.rotation * rotation);
-    //[SerializeField] private float _speed = 5f;
-    //[SerializeField] private Lidar _lidarLeft;
-    //[SerializeField] private Lidar _lidarCenter;
-    //[SerializeField] private Lidar _lidarRight;
-    //private Rigidbody _rb;
-    //[SerializeField] private Vector3 _moveDirection;
-    //private SignalBus _signalBus;
-    //[SerializeField] private Quaternion _targetRotation = Quaternion.Euler(0, 90, 0);
-    //private float _rotationSpeed = 5f;
 
-    //[Inject]
-    //public void Construct(SignalBus signalBus)
-    //{
-    //    _signalBus = signalBus;
-    //}
-
-    //void Start()
-    //{
-    //    _rb = GetComponent<Rigidbody>();
-    //    _moveDirection = transform.forward;
-    //    _targetRotation = transform.rotation;
-    //}
-    //private void OnEnable()
-    //{
-    //    _signalBus.Subscribe<LidarDetected>(ChangeDirection);
-    //}
-    //private void OnDisable()
-    //{
-    //    _signalBus.Unsubscribe<LidarDetected>(ChangeDirection);
-    //}
-
-    //private void ChangeDirection()
-    //{
-    //    if (_lidarCenter.IsDetected && !_lidarLeft.IsDetected && !_lidarRight.IsDetected)
-    //    {
-    //        RotateObject(Quaternion.Euler(0,90,0));
-    //    }
-    //    else if(_lidarCenter.IsDetected && !_lidarLeft.IsDetected && _lidarRight.IsDetected)
-    //    {
-    //        RotateObject(Quaternion.Euler(0, -90, 0));
-    //    }
-    //    else if (_lidarCenter.IsDetected && _lidarLeft.IsDetected && !_lidarRight.IsDetected)
-    //    {
-    //        RotateObject(Quaternion.Euler(0, 90, 0));
-    //    }
-    //    else if (_lidarCenter.IsDetected && _lidarLeft.IsDetected && _lidarRight.IsDetected)
-    //    {
-    //        RotateObject(Quaternion.Euler(0, 180, 0));
-    //    }
-    //}
-
-    //[ContextMenu("Rotate")]
-    //void RotateObject(Quaternion rotation) => _rb.MoveRotation(_rb.rotation * rotation);
-
-    //void FixedUpdate()
-    //{
-    //    Move();
-    //}
-
-    //private void Move()
-    //{
-    //    // Получаем направление, в котором объект смотрит
-    //    Vector3 direction = transform.forward; // Вперед по локальной оси объекта
-    //    // Вычисляем новую позицию
-    //    Vector3 newPosition = _rb.position + direction * _speed * Time.fixedDeltaTime;
-    //    // Перемещаем объект
-    //    _rb.MovePosition(newPosition);
-    //}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.TryGetComponent<Dirt>(out Dirt dirt)) _signalBus.Fire<DirtCollected>();
+    }
 }
 
 

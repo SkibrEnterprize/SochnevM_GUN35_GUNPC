@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8356256171427757432}
   - component: {fileID: 7570245671604744507}
   - component: {fileID: 2223172452726178575}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dirt (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1991601424067792649}
   serializedVersion: 2
   m_LocalRotation: {x: 0.1913417, y: -0.46193972, z: 0.46193972, w: 0.73253787}
-  m_LocalPosition: {x: 0, y: 1.27, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8064285294365166981}
   - component: {fileID: 9100537243861751663}
   - component: {fileID: 3064517589297650866}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dirt (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 4246556213642030459}
   serializedVersion: 2
   m_LocalRotation: {x: 0.46193978, y: 0.19134173, z: 0.19134173, w: 0.84462327}
-  m_LocalPosition: {x: 0, y: 1.27, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -175,7 +175,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7202781272692373916}
-  m_Layer: 0
+  - component: {fileID: 3835909170586022191}
+  - component: {fileID: 8548021844302873076}
+  - component: {fileID: 5982139528501606025}
+  m_Layer: 7
   m_Name: CollectibleDirt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,6 +206,52 @@ Transform:
   - {fileID: 8356256171427757432}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3835909170586022191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4992796051371647682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4fdf3b8f954d544db74f3807746d533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotationSpeed: 50
+--- !u!65 &8548021844302873076
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4992796051371647682}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.7, y: 1.7, z: 1.7}
+  m_Center: {x: 0.014983714, y: 0.0049946904, z: 0.0074918866}
+--- !u!114 &5982139528501606025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4992796051371647682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 806d4573765bd9149bc1b55b2ce8c575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5981622271923794478
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +263,7 @@ GameObject:
   - component: {fileID: 1912519028031092002}
   - component: {fileID: 1107873937898386173}
   - component: {fileID: 4833197321270875390}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dirt (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,7 +279,7 @@ Transform:
   m_GameObject: {fileID: 5981622271923794478}
   serializedVersion: 2
   m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: 0, y: 1.27, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -297,7 +346,7 @@ GameObject:
   - component: {fileID: 876434081523260826}
   - component: {fileID: 4346242853038922341}
   - component: {fileID: 3737544160378828528}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dirt (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -313,7 +362,7 @@ Transform:
   m_GameObject: {fileID: 6505036956981541047}
   serializedVersion: 2
   m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: 0, y: 1.27, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -380,8 +429,7 @@ GameObject:
   - component: {fileID: 89472642777313671}
   - component: {fileID: 8318700798971059875}
   - component: {fileID: 921178391603163530}
-  - component: {fileID: 3061030000018714107}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dirt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +445,7 @@ Transform:
   m_GameObject: {fileID: 6603736856366103274}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.27, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -453,27 +501,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3061030000018714107
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6603736856366103274}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7789558148912133173
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +512,7 @@ GameObject:
   - component: {fileID: 7645869990269365426}
   - component: {fileID: 2088339321066374074}
   - component: {fileID: 8987090008577383206}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dirt (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -501,7 +528,7 @@ Transform:
   m_GameObject: {fileID: 7789558148912133173}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.38268343, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 1.27, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
