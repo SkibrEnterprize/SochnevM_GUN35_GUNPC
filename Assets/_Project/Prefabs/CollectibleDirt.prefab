@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 3835909170586022191}
   - component: {fileID: 8548021844302873076}
   - component: {fileID: 5982139528501606025}
+  - component: {fileID: -5336829260286488299}
   m_Layer: 7
   m_Name: CollectibleDirt
   m_TagString: Untagged
@@ -252,6 +253,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 806d4573765bd9149bc1b55b2ce8c575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-5336829260286488299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4992796051371647682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4fdf3b8f954d544db74f3807746d533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotationSpeed: 50
 --- !u!1 &5981622271923794478
 GameObject:
   m_ObjectHideFlags: 0
