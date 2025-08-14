@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,7 +5,8 @@ public class SearchState : IState
 {
     private readonly CharacterAI _ai;
     private Vector3 _targetPos;
-    private float _reachedDist = 1f; // как близко к цели считаем
+    private float _reachedDist = 1f;
+    private float _searchArea = 20f;
 
     public SearchState(CharacterAI ai) => _ai = ai;
 
@@ -15,34 +14,35 @@ public class SearchState : IState
     {
         SetRandomDestination();
         _ai.NavAgent.isStopped = false;
-        _ai.Animator.SetTrigger("toSearch");
     }
 
     public void Update()
     {
-        // ≈сли дошли до цели Ц ищем новую
         if (!(_ai.NavAgent.pathPending || _ai.NavAgent.remainingDistance > _reachedDist))
             SetRandomDestination();
 
-        // ѕровер€ем, видим ли предмет
-        Collider[] hits = Physics.OverlapSphere(_ai.transform.position, 20f,
+        Collider[] hits = Physics.OverlapSphere(_ai.transform.position, _searchArea,
                                                 LayerMask.GetMask("Dirt"));
-        foreach (var hit in hits)
+        _ai.Animator.SetInteger("toCollect", hits.Length);
+        if (hits.Length >= 5)
         {
-            _ai.TargetItem = hit.gameObject;
-            _ai.ChangeState(_ai.Collect);
-            break;
+            foreach (var hit in hits)
+            {
+                _ai.TargetItem = hit.gameObject;
+                _ai.ChangeState(_ai.Collect);
+                break;
+            }
         }
     }
 
-    public void Exit() { /* можно очистить цель */ }
+    public void Exit() {}
 
     private void SetRandomDestination()
     {
-        Vector3 randomDir = Random.insideUnitSphere * 10f; // диапазон поиска
+        Vector3 randomDir = Random.insideUnitSphere * _searchArea;
         randomDir += _ai.transform.position;
         NavMeshHit hit;
-        if (NavMesh.SamplePosition(randomDir, out hit, 10f, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(randomDir, out hit, _searchArea, NavMesh.AllAreas))
             _targetPos = hit.position;
 
         _ai.NavAgent.SetDestination(_targetPos);

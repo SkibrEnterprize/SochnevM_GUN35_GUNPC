@@ -67,7 +67,7 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < _objectsToSpawn; i++)
         {
             Dirt dirt = _poolDirt.Get();
-            dirt.SetPool(_poolDirt);
+            dirt.SetPool(_poolDirt, _signalBus);
 
             if (!TryFindFreePosition(out Vector3 spawnPos))
             {
