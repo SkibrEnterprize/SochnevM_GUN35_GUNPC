@@ -3,5 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Path/Movement Path")]
 public class MovementPath : ScriptableObject
 {
-    public Transform[] points;
+    [field: SerializeField]
+    public Vector3[] Points { get; private set; }
 }

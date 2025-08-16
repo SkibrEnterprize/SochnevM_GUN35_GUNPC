@@ -10,7 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9544a4b1eacf624a802196a85158e7e, type: 3}
-  m_Name: CharacterMoverDOTween.
+  m_Name: Path1
   m_EditorClassIdentifier: 
-  points:
-  - {fileID: 0}
+  <Points>k__BackingField:
+  - {x: 0, y: 1, z: 0}
+  - {x: -3.5, y: 1, z: 37}
+  - {x: 15.1, y: 1, z: -2.6}
+  - {x: -3.3, y: 1, z: -34.6}
+  - {x: -27.5, y: 1, z: -39.3}
+  - {x: -25.2, y: 1, z: -2.7}
+  - {x: 0, y: 1, z: 0}
