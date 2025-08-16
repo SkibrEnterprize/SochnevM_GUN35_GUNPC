@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     private Vector3 _areaCenter;
     private Vector3 _areaSize;
     [Header("Spawn parameters")]
+    [SerializeField] private bool _isSpawnOnStart;
     [SerializeField] private int _objectsToSpawn = 20;
     [SerializeField] private float _yOffset = 0.5f;
     [SerializeField] private float _collisionRadius = 0.6f;
@@ -29,7 +30,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         CheckingArea();
-        SpawnRandomly();
+        if(_isSpawnOnStart) SpawnRandomly();
     }
 
 
