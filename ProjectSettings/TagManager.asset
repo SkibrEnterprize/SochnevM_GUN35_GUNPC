@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Agent
+  - Health
+  - Ammo
+  - Weapon
   layers:
   - Default
   - TransparentFX
@@ -11,11 +15,11 @@ TagManager:
   - 
   - Water
   - UI
-  - Obstacle
-  - Dirt
-  - Cleaner
-  - Ground
   - 
+  - 
+  - Pickup
+  - Character
+  - Hitbox
   - 
   - 
   - 
