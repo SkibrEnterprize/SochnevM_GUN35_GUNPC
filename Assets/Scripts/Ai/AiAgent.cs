@@ -7,6 +7,7 @@ public class AiAgent : MonoBehaviour
 {
     public AiStateId initialState;
     public AiAgentConfig config;
+    public AiStateId agentState;
 
     [HideInInspector] public AiStateMachine stateMachine;
     [HideInInspector] public NavMeshAgent navMeshAgent;
@@ -47,5 +48,6 @@ public class AiAgent : MonoBehaviour
     void Update()
     {
         stateMachine.Update();
+        agentState = stateMachine.currentState;
     }
 }

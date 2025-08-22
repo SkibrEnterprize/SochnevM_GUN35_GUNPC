@@ -13,6 +13,7 @@ public class RaycastWeapon : MonoBehaviour
     }
 
     public string weaponName;
+    public bool isCloseWeapon;
     public ActiveWeapon.WeaponSlot weaponSlot;
     public MeshSockets.SocketId holsterSocket;
     public LayerMask layerMask;
@@ -33,7 +34,7 @@ public class RaycastWeapon : MonoBehaviour
     public TrailRenderer tracerEffect;
     public Transform raycastOrigin;
     public WeaponRecoil recoil;
-    public GameObject magazine;
+    public GameObject magazine;    
 
     Ray ray;
     RaycastHit hitInfo;
@@ -155,7 +156,14 @@ public class RaycastWeapon : MonoBehaviour
     }
 
     private void FireBullet(Vector3 target) {
-        if (ammoCount <= 0) {
+        if (isCloseWeapon)
+        {            
+            return;
+        }
+        else
+        {
+            if (ammoCount <= 0)
+        {
             return;
         }
         ammoCount--;
@@ -169,6 +177,8 @@ public class RaycastWeapon : MonoBehaviour
         bullets.Add(bullet);
 
         recoil.GenerateRecoil(weaponName);
+
+        }
     }
 
     public void StopFiring() {
