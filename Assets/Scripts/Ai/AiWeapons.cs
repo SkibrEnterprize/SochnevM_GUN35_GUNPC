@@ -30,7 +30,7 @@ public class AiWeapons : MonoBehaviour
     }
     RaycastWeapon[] weapons = new RaycastWeapon[2];
     int current = 0;
-    Animator animator;
+    public Animator animator;
     MeshSockets sockets;
     WeaponIk weaponIk;
     Transform currentTarget;
@@ -38,6 +38,7 @@ public class AiWeapons : MonoBehaviour
     public float inaccuracy = 0.0f;
     public float dropForce = 1.5f;
     GameObject magazineHand;
+    private bool isCloseAttack;
 
     public bool IsActive() {
         return weaponState == WeaponState.Active;
@@ -68,6 +69,7 @@ public class AiWeapons : MonoBehaviour
     public void SetFiring(bool enabled) {
         if (enabled) {
             currentWeapon.StartFiring();
+            if(currentWeapon.isCloseWeapon) CloseAttack();
         } else {
             currentWeapon.StopFiring();
         }
@@ -185,6 +187,22 @@ public class AiWeapons : MonoBehaviour
         yield return StartCoroutine(EquipWeaponAnimation());
     }
 
+    private IEnumerator PlayCloseAttack()
+    {
+        isCloseAttack = true;
+
+        // ѕр€мой вызов клипа (можно через Layer/LayerWeight)
+        animator.SetTrigger("closeAttack");
+        //_animator.Play(_attackState, 0, 0f);   // 0 Ц слой, 0f Ц начало
+
+        // ∆дЄм пока анимаци€ закончитс€
+        yield return new WaitUntil(() =>
+            !animator.IsInTransition(0) &&
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f);
+
+        isCloseAttack = false;
+    }
+
     public void OnAnimationEvent(string eventName) {
         switch (eventName) {
             case "attach_weapon":
@@ -203,6 +221,13 @@ public class AiWeapons : MonoBehaviour
                 AttachMagazine();
                 break;
         }
+    }
+
+    void CloseAttack()
+    {
+        if (isCloseAttack) return;
+        StartCoroutine(PlayCloseAttack());
+        animator.SetTrigger("closeAttack");
     }
 
     void AttachWeapon() {

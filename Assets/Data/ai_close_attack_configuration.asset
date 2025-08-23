@@ -18,6 +18,6 @@ MonoBehaviour:
   maxSightDistance: 5
   findWeaponSpeed: 5
   findTargetSpeed: 5
-  attackSpeed: 5
-  attackStoppingDistance: 1
+  attackSpeed: 10
+  attackStoppingDistance: 2
   attackCloseRange: 100

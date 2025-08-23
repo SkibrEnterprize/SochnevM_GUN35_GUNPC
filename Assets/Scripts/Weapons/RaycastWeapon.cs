@@ -44,6 +44,7 @@ public class RaycastWeapon : MonoBehaviour
 
     private void Awake() {
         recoil = GetComponent<WeaponRecoil>();
+        
     }
 
     Vector3 GetPosition(Bullet bullet) {
@@ -157,7 +158,7 @@ public class RaycastWeapon : MonoBehaviour
 
     private void FireBullet(Vector3 target) {
         if (isCloseWeapon)
-        {            
+        {
             return;
         }
         else
