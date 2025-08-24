@@ -41,7 +41,7 @@ public class AiWeapons : MonoBehaviour
     private bool isCloseAttack;
 
     public bool IsActive() {
-        return weaponState == WeaponState.Active;
+        return weaponState == WeaponState.Active;        
     }
 
     public bool IsHolstered() {
@@ -68,8 +68,8 @@ public class AiWeapons : MonoBehaviour
 
     public void SetFiring(bool enabled) {
         if (enabled) {
-            currentWeapon.StartFiring();
             if(currentWeapon.isCloseWeapon) CloseAttack();
+            currentWeapon.StartFiring();
         } else {
             currentWeapon.StopFiring();
         }
@@ -187,7 +187,7 @@ public class AiWeapons : MonoBehaviour
         yield return StartCoroutine(EquipWeaponAnimation());
     }
 
-    private IEnumerator PlayCloseAttack()
+    private void PlayCloseAttack()
     {
         isCloseAttack = true;
 
@@ -195,10 +195,10 @@ public class AiWeapons : MonoBehaviour
         animator.SetTrigger("closeAttack");
         //_animator.Play(_attackState, 0, 0f);   // 0 Ц слой, 0f Ц начало
 
-        // ∆дЄм пока анимаци€ закончитс€
-        yield return new WaitUntil(() =>
-            !animator.IsInTransition(0) &&
-            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f);
+        //// ∆дЄм пока анимаци€ закончитс€
+        //yield return new WaitUntil(() =>
+        //    !animator.IsInTransition(0) &&
+        //    animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f);
 
         isCloseAttack = false;
     }
@@ -226,7 +226,7 @@ public class AiWeapons : MonoBehaviour
     void CloseAttack()
     {
         if (isCloseAttack) return;
-        StartCoroutine(PlayCloseAttack());
+        PlayCloseAttack();
         animator.SetTrigger("closeAttack");
     }
 

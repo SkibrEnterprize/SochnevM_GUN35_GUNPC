@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: -6265330248346544218}
   - component: {fileID: -7108548647618916714}
   - component: {fileID: 1255402676953136739}
+  - component: {fileID: 3824731210357531463}
   m_Layer: 8
   m_Name: Weapon_Close
   m_TagString: Untagged
@@ -162,7 +163,7 @@ MonoBehaviour:
   ammoCount: 6
   clipSize: 6
   clipCount: 2
-  damage: 10
+  damage: 50
   animator: {fileID: 9100000, guid: 23dc8b15a581bd2408428f91f54c93a2, type: 2}
   muzzleFlash:
   - {fileID: 24614648859853038}
@@ -260,12 +261,24 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.074103415, y: 0.25386307, z: 0.41786778}
-  m_Center: {x: 0, y: 0.035074815, z: 0.11920288}
+  m_Size: {x: 0.69376826, y: 0.6386155, z: 0.67230815}
+  m_Center: {x: 0.82560426, y: 0.90391576, z: -0.5448504}
+--- !u!114 &3824731210357531463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8899489235086708130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba7f55b60ffbc7a4183a8bc8daa74771, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4782975043533894374
 PrefabInstance:
   m_ObjectHideFlags: 0
