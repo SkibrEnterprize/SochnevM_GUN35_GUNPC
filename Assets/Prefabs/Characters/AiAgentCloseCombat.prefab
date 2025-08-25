@@ -2225,6 +2225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60461e403679090459e387469858562b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   inaccuracy: 0.3
   dropForce: 1.5
 --- !u!114 &2641959069605970695
@@ -2341,8 +2342,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e556f6bd4c93c346ba679c43ead9b32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 100
+  maxHealth: 500
+  currentHealth: 500
   lowHealth: 50
   blinkIntensity: 10
   blinkDuration: 0.05
