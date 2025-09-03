@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Agent
+  - Health
+  - Ammo
+  - Weapon
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -11,12 +16,12 @@ TagManager:
   - 
   - Water
   - UI
-  - BackWall
-  - Skittle
-  - Ball
   - 
   - 
-  - 
+  - Pickup
+  - Character
+  - Hitbox
+  - MusicZone
   - 
   - 
   - 
