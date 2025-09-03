@@ -5,14 +5,14 @@ using UnityEngine;
 public class DestroingObject : MonoBehaviour
 {
 
-    
+
     [Header("Physics")]
     [SerializeField, Range(0f, 10f)]
-    private float _explosionForce = 5f;        
+    private float _explosionForce = 5f;
 
     [SerializeField]
-    private float _radius = 2f;                 
-    
+    private float _radius = 2f;
+
 
     private Transform _transform;
 
@@ -21,6 +21,9 @@ public class DestroingObject : MonoBehaviour
     [ContextMenu("Exploded")]
     public void Exploded()
     {
+        var parentCollider = GetComponent<Collider>();
+        if (parentCollider != null)
+            parentCollider.enabled = false;
         var children = GetComponentsInChildren<Rigidbody>();
 
         foreach (var rb in children)
