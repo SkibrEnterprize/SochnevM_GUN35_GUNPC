@@ -1,12 +1,16 @@
-﻿using System;
-using Behaviours;
+﻿using Behaviours;
 using JetBrains.Annotations;
 using Netologia.Behaviours;
 using Netologia.TowerDefence;
 using Netologia.TowerDefence.Behaviors;
 using Netologia.TowerDefence.Settings;
+using System;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
+using UnityEngine.UIElements;
 using Zenject;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Netologia.Systems
 {
@@ -42,9 +46,50 @@ namespace Netologia.Systems
 
 		public void ManualUpdate()
 		{
-			//todo Netologia homework 
-		}
+            foreach (var pair in this)
+            {
+                foreach (var unit in pair)
+                {
+                  if(unit.CurrentHealth <= 0)
+					{ 
+						DespawnUnit(unit, unit.transform.position);
+						_director.AddMoney(unit.Stats.Cost);
+					}
+					else
+					{
+                        MoveUnit(unit);
+					}
+                }
+            }
+            //todo Netologia homework 
+        }
 
+           private void MoveUnit(Unit unit)
+        {            
+            if (_path == null || _path.Length == 0) return;
+           
+            var targetIdx = unit.PathIndex;
+			print($"path index {targetIdx}");
+            if (targetIdx >= _path.Length-1)
+            {
+                DespawnUnit(unit, unit.transform.position);
+                _director.AddPlayerDamage(unit.Stats.Cost);
+                return;
+            }
+
+            Vector3 targetPos = _path[targetIdx];
+            Vector3 direction = (targetPos - unit.transform.position).normalized;
+			            
+            float step = unit.MoveSpeed * Time.deltaTime;
+            unit.transform.Translate(direction * step, Space.World);
+            
+            if (Vector3.Distance(unit.transform.position, targetPos) <= _arrivalDistance)
+            {                
+                unit.PathIndex = Math.Min(targetIdx + 1, _path.Length - 1);
+            }
+        }
+		
+				
 		private void DespawnUnit(Unit unit, in Vector3 position)
 		{
 			//Create HitEffect
@@ -60,7 +105,7 @@ namespace Netologia.Systems
 				AudioManager.PlayHit(unit.DieSound);
 			}
 
-			_director.AddMoney(unit.Stats.Cost);
+			//_director.AddMoney(unit.Stats.Cost);
 			this[unit.Ref].ReturnElement(unit.ID);
 		}
 		

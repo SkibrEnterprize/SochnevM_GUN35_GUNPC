@@ -43,8 +43,9 @@ namespace Netologia.TowerDefence
 		private SpriteRenderer _rangeBack;
 
 		public bool HasTarget => _hasTarget;
-		
-		[CanBeNull]
+		public float Del => _delay;
+
+        [CanBeNull]
 		public Unit Target
 		{
 			get => _target;

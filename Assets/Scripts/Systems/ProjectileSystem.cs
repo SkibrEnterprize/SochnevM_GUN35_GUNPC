@@ -20,7 +20,7 @@ namespace Netologia.Systems
                     if (projectile.enabled)
                     {
                         float step = projectile.MoveSpeed * Time.deltaTime;
-                        Vector3 direction = (projectile.TargetPosition - projectile.transform.position);                        
+                        Vector3 direction = (projectile.TargetPosition - projectile.transform.position).normalized;                        
                         float distance = Vector3.Distance(projectile.TargetPosition, projectile.transform.position);
                         if (distance > _hitDistance)
                         {
@@ -28,11 +28,12 @@ namespace Netologia.Systems
                         }
                         else
                         {
-                            projectile.ResetTarget();
                             projectile.DealDamage();
-                            pool.ReturnElement(projectile);                          
+                            projectile.ResetTarget();
+                            pool.ReturnElement(projectile);     
                         }
                     }
+
             //todo Netologia homework 
         }
 

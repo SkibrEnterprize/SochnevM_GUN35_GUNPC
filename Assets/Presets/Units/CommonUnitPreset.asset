@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Preset>k__BackingField:
     Health: 15
-    MoveSpeed: 1
+    MoveSpeed: 2
     Cost: 1

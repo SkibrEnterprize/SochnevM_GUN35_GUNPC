@@ -34,6 +34,7 @@ namespace Netologia.TowerDefence
 			if (_endPosition.HasValue) return;
 			
 			_target.CurrentHealth -= _damage;
+			print($"Target Health is {_target.CurrentHealth}");
 			_target.TryAddEffect(TimeManager.Time, _elementalType);
 		}
 		

@@ -26,30 +26,18 @@ namespace Netologia.Systems
                 foreach (var tower in pair)
                 {
                     var poolProjectile = _projectiles[tower.Projectile];
+                    _target = _units.FindTarget(tower.transform.position, tower.Range);
+                    tower.Target = _target;
 
-                    if (!tower.DecrementAttackReload(tower.AttackDelay))
+                    if (tower.DecrementAttackReload(Time.deltaTime) && tower.HasTarget)
                     {
-                        UnityEngine.Debug.Log("In Reload");
-                        continue;
+                        print(tower.DecrementAttackReload(Time.deltaTime));
+                        Projectile projectile = poolProjectile.Get;
+                        projectile.PrepareData(tower.transform.position, tower.Target, tower.Damage, tower.AttackElemental);
+                        tower.Attack();
+                        print("Attack!!!");
                     }
-                    else if (!tower.HasTarget)
-                    {
-                        _target = _units.FindTarget(tower.transform.position, tower.Range);
-                        if (_target != null)
-                        {
-                            tower.Target = _target;
-                            print("Target is find!!!");
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    Projectile projectile = poolProjectile.Get;
-                    projectile.PrepareData(tower.transform.position, tower.Target, tower.Damage, tower.AttackElemental);
-                    tower.Attack();
-                    print("Attack!!!");
-
+                    print(tower.AttackDelay);
                 }
         }
 
