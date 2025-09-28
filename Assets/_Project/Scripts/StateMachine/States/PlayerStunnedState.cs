@@ -2,28 +2,28 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovingState : BaseState
+public class PlayerStunnedState : BaseState
 {
     private readonly PlayerFSM _stateMachine;
-    public PlayerMovingState(PlayerFSM stateMachine) : base("Moving", stateMachine)
+    public PlayerStunnedState(PlayerFSM stateMachine) : base("Stunned", stateMachine)
     {
         _stateMachine = stateMachine;
     }
     public override void OnEnter()
     {
         base.OnEnter();
-        //_stateMachine.InputController.Player.LightHit.performed += OnHit;
-        //_stateMachine.InputController.Player.HeavyHit.performed += OnHit;
+        _stateMachine.InputController.Player.LightHit.performed += OnHit;
+        _stateMachine.InputController.Player.HeavyHit.performed += OnHit;
 
-        _stateMachine.AnimationStateController.SetAnimation(CharacterAnimation.Moving);
+//_stateMachine.AnimationStateController.SetAnimation(CharacterAnimation.Walk);
     }
 
 
     public override void OnExit()
     {
-        base.OnExit();
-        //_stateMachine.InputController.Player.LightHit.performed -= OnHit;
-        //_stateMachine.InputController.Player.HeavyHit.performed -= OnHit;
+        base.OnEnter();
+        _stateMachine.InputController.Player.LightHit.performed -= OnHit;
+        _stateMachine.InputController.Player.HeavyHit.performed -= OnHit;
     }
 
     public override void UpdateLogic()

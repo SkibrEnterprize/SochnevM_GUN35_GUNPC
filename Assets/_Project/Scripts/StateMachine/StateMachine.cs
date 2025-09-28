@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-    public AnimationStateController AnimationStateController { get; private set; }
+    public AnimationStateController AnimationStateController { get; protected set; }
     public BaseState CurrentState { get; private set; }
 
     private void Start()

@@ -10,6 +10,7 @@ public class AnimationStateController : MonoBehaviour
     // Хэши параметров (чтобы не пересчитывать строку каждый кадр)
     private readonly Dictionary<CharacterAnimation, int> _hashes = new();
 
+    public bool IsAnimationDone { get; private set; }
     /// <summary>
     /// Вызывается при старте. Кэшируем хэши триггеров.
     /// </summary>
@@ -40,6 +41,12 @@ public class AnimationStateController : MonoBehaviour
 
         // Устанавливаем нужный триггер
         _animator.SetTrigger(_hashes[animation]);
+        IsAnimationDone = false;
+    }
+
+    public void OnAttackFinished()
+    {
+        IsAnimationDone = true;
     }
 
     /// <summary>
