@@ -12,6 +12,7 @@ public class PlayerHitState : BaseState
     public override void OnEnter()
     {
         base.OnEnter();
+        _stateMachine.PlayerHitController.PerformAttack();
         _stateMachine.AnimationStateController.SetAnimation(CharacterAnimation.Hit);
     }
 
@@ -23,6 +24,7 @@ public class PlayerHitState : BaseState
 
     public override void UpdateLogic()
     {
-        if (_stateMachine.AnimationStateController.IsAnimationDone) _stateMachine.ChangeState(_stateMachine.PlayerIdleState); ;
+
+        if (_stateMachine.AnimationStateController.IsAnimationDone) _stateMachine.ChangeState(_stateMachine.PlayerIdleState);
     }
 }

@@ -14,8 +14,6 @@ public class PlayerStunnedState : BaseState
         base.OnEnter();
         _stateMachine.InputController.Player.LightHit.performed += OnHit;
         _stateMachine.InputController.Player.HeavyHit.performed += OnHit;
-
-//_stateMachine.AnimationStateController.SetAnimation(CharacterAnimation.Walk);
     }
 
 

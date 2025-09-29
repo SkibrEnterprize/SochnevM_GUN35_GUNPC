@@ -44,7 +44,7 @@ public class AnimationStateController : MonoBehaviour
         IsAnimationDone = false;
     }
 
-    public void OnAttackFinished()
+    public void OnAnimationFinished()
     {
         IsAnimationDone = true;
     }

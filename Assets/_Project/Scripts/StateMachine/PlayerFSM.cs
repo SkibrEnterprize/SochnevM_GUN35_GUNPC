@@ -3,6 +3,7 @@ using Zenject;
 
 [RequireComponent(typeof(PlayerMovementController))]
 [RequireComponent(typeof(AnimationStateController))]
+[RequireComponent(typeof(PlayerHitController))]
 [RequireComponent(typeof(Animator))]
 public class PlayerFSM : StateMachine
 {
@@ -15,6 +16,7 @@ public class PlayerFSM : StateMachine
     [HideInInspector] public Controls InputController;     // ссылка на компонент PlayerInput
 
     public PlayerMovementController MovementController { get; private set; }
+    public PlayerHitController PlayerHitController { get; private set; }
     [Inject]
     public void Construct(Controls playerInput)
     {
@@ -25,6 +27,7 @@ public class PlayerFSM : StateMachine
     {
         MovementController = GetComponent<PlayerMovementController>();
         AnimationStateController = GetComponent<AnimationStateController>();
+        PlayerHitController = GetComponent<PlayerHitController>();
 
         PlayerIdleState = new PlayerIdleState(this);
         PlayerMovingState = new PlayerMovingState(this);
