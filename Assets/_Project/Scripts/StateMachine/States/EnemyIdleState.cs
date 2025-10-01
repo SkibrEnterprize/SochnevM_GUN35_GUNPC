@@ -20,14 +20,33 @@ public class EnemyIdleState : BaseState
     public override void OnExit()
     {
         base.OnExit();
+        _stateMachine.IsHitted = false;
     }
 
 
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        if(_stateMachine.IsHitted) _stateMachine.ChangeState(_stateMachine.EnemyStunnedState);
-        _stateMachine.IsHitted = false;
+        TryReciveHit();
+        TryDetectPlayer();
+    }
+
+
+    private void TryReciveHit()
+    {
+        if (_stateMachine.IsHitted) _stateMachine.ChangeState(_stateMachine.EnemyStunnedState);
+    }
+    private void TryDetectPlayer()
+    {
+        foreach (var player in PlayerHolder.Instance.Players)
+        {
+            if (Vector3.Distance(player.transform.position, _stateMachine.transform.position) <= _stateMachine.detectionDistance)
+            {
+                _stateMachine.Target = player;
+                _stateMachine.ChangeState(_stateMachine.EnemyMovingState);
+            }
+        }
     }
 }
     
+

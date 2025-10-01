@@ -25,6 +25,8 @@ public class PlayerFSM : StateMachine
 
     private void Awake()
     {
+        PlayerHolder.Instance.RegisterPlayer(transform);
+
         MovementController = GetComponent<PlayerMovementController>();
         AnimationStateController = GetComponent<AnimationStateController>();
         PlayerHitController = GetComponent<PlayerHitController>();
