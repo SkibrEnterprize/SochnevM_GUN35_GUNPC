@@ -6,9 +6,9 @@ using Zenject;
 
 public class EnemyFSM : StateMachine
 {
-    public readonly float hitDistance = 0.9f;
+    public readonly float hitDistance = 1.5f;
     public readonly float detectionDistance = 6f;
-    //public readonly Vector2 hitDelay = new Vector2(1,2);
+    public readonly float hitDelay = 2f;
 
     [HideInInspector] public EnemyIdleState EnemyIdleState;
     [HideInInspector] public EnemyMovingState EnemyMovingState;

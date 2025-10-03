@@ -2,7 +2,7 @@
 
 public class EnemyMovementController : MonoBehaviour
 {
-    [SerializeField] private float _speed = 5f; 
+    [SerializeField] private float _speed = 3f; 
     public void UpdateMovement(Transform target)
     {
         if (target == null) return;

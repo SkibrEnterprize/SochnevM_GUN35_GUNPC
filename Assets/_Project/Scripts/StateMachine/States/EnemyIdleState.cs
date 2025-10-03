@@ -45,6 +45,11 @@ public class EnemyIdleState : BaseState
                 _stateMachine.Target = player;
                 _stateMachine.ChangeState(_stateMachine.EnemyMovingState);
             }
+            else if(Vector3.Distance(player.transform.position, _stateMachine.transform.position) <= _stateMachine.hitDistance)
+            {
+                _stateMachine.Target = player;
+                _stateMachine.ChangeState(_stateMachine.EnemyAttackState);
+            }
         }
     }
 }
