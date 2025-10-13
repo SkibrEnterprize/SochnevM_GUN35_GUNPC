@@ -10,7 +10,10 @@ namespace Netologia
 		public static bool IsGame { get; set; }
 
 		public static void IncrementDeltaTime()
-			=> Time += UnityEngine.Time.deltaTime;
+		{
+			if(IsGame)
+				Time += UnityEngine.Time.deltaTime;
+		}
 
 		public static void Reset()
 			=> Time = 0f;

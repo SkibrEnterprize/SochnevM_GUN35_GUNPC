@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Netologia
+namespace Netologia.Quest
 {
     /// <summary>
     /// Атрибут, для блокирования модификации сериализуемых полей через инспектор
