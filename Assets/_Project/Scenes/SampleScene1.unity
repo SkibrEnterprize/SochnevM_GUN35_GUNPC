@@ -14509,8 +14509,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0.2
+      time: 0.016281128
+      value: 0.14059372
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -14527,8 +14527,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 0.2
+      time: 0.9918823
+      value: 0.14034577
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -14599,7 +14599,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 599989304}
