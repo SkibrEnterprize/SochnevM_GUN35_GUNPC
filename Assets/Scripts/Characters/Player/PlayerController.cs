@@ -24,7 +24,11 @@ namespace Netologia.Quest.Characters.Player
 
         [SerializeField]
         private LayerMask _hitcastMask;//"Floor" | "Interactables"
-        
+        [SerializeField]
+        private float _interactionDistance;
+        [SerializeField]
+        private TMPro.TextMeshPro _textInteract;
+
         [SerializeField]
         private float _offsetMarkY = .15f;
         [SerializeField, Range(0f, 10f)]
@@ -46,6 +50,7 @@ namespace Netologia.Quest.Characters.Player
             _controls = new Controls();
             _controls.Enable();
             _controls.Mouse.Click.performed += OnMoveClick;
+            _controls.Keyboard.Interact.performed += ctx => TryInteractWithNearestMirror();
 
             _camera = Camera.main;
             _maxCameraDistance = Vector3.SqrMagnitude(_camera.transform.position - transform.position);
@@ -92,10 +97,34 @@ namespace Netologia.Quest.Characters.Player
 					_tryInteract = false;
 				}
             }
-            
+
             _renderer.SetPositions(_path);
         }
-        
+        private void TryInteractWithNearestMirror()
+        {
+            var hits = Physics.OverlapSphere(transform.position, _interactionDistance,
+                                            _hitcastMask, QueryTriggerInteraction.Ignore);
+
+            Transform nearest = null;
+            float minSqrDist = Mathf.Infinity;
+
+            foreach (var hit in hits)
+            {
+                if (!hit.TryGetComponent<LaserMirror>(out var mirror))
+                    continue;          // не зеркало
+
+                var sqrDist = (hit.transform.position - transform.position).sqrMagnitude;
+                if (sqrDist < minSqrDist)
+                {
+                    minSqrDist = sqrDist;
+                    nearest = hit.transform;
+                }
+            }
+            if (nearest != null && nearest.TryGetComponent<LaserMirror>(out var foundMirror))
+                foundMirror.RotateMirror();
+        }
+
+
         private void OnMoveClick(InputAction.CallbackContext obj)
         {
             if (_moveLock) return;

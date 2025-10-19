@@ -72,6 +72,34 @@ namespace Netologia.Quest.Characters.Player
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Keyboard"",
+            ""id"": ""cbe51689-e9a9-4f28-be60-110e580f27d8"",
+            ""actions"": [
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""730ed6c3-3d36-4052-a491-5984fb14c02a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""fd3941a9-5a02-4645-89cc-4e4807d05bc8"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -80,6 +108,9 @@ namespace Netologia.Quest.Characters.Player
             m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
             m_Mouse_Click = m_Mouse.FindAction("Click", throwIfNotFound: true);
             m_Mouse_Position = m_Mouse.FindAction("Position", throwIfNotFound: true);
+            // Keyboard
+            m_Keyboard = asset.FindActionMap("Keyboard", throwIfNotFound: true);
+            m_Keyboard_Interact = m_Keyboard.FindAction("Interact", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -191,10 +222,60 @@ namespace Netologia.Quest.Characters.Player
             }
         }
         public MouseActions @Mouse => new MouseActions(this);
+
+        // Keyboard
+        private readonly InputActionMap m_Keyboard;
+        private List<IKeyboardActions> m_KeyboardActionsCallbackInterfaces = new List<IKeyboardActions>();
+        private readonly InputAction m_Keyboard_Interact;
+        public struct KeyboardActions
+        {
+            private @Controls m_Wrapper;
+            public KeyboardActions(@Controls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Interact => m_Wrapper.m_Keyboard_Interact;
+            public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(KeyboardActions set) { return set.Get(); }
+            public void AddCallbacks(IKeyboardActions instance)
+            {
+                if (instance == null || m_Wrapper.m_KeyboardActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_KeyboardActionsCallbackInterfaces.Add(instance);
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
+            }
+
+            private void UnregisterCallbacks(IKeyboardActions instance)
+            {
+                @Interact.started -= instance.OnInteract;
+                @Interact.performed -= instance.OnInteract;
+                @Interact.canceled -= instance.OnInteract;
+            }
+
+            public void RemoveCallbacks(IKeyboardActions instance)
+            {
+                if (m_Wrapper.m_KeyboardActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IKeyboardActions instance)
+            {
+                foreach (var item in m_Wrapper.m_KeyboardActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_KeyboardActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public KeyboardActions @Keyboard => new KeyboardActions(this);
         public interface IMouseActions
         {
             void OnClick(InputAction.CallbackContext context);
             void OnPosition(InputAction.CallbackContext context);
+        }
+        public interface IKeyboardActions
+        {
+            void OnInteract(InputAction.CallbackContext context);
         }
     }
 }
