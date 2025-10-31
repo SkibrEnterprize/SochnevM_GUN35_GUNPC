@@ -11,12 +11,13 @@ public sealed class LaserReceiver : MonoBehaviour
     [SerializeField] private float _activationRadius = 0.5f;
 
     [Header("Visual feedback")]
-    [SerializeField] private Renderer _meshRenderer;
     [SerializeField] private Material _inactiveMaterial;
     [SerializeField] private Material _activeMaterial;
 
+    private Renderer _meshRenderer;
     private void Awake()
     {
+        _meshRenderer = GetComponent<MeshRenderer>();
         if (!TryGetComponent<Collider>(out var col))
             Debug.LogError($"{name} – нужен Collider для LaserReceiver", this);
 

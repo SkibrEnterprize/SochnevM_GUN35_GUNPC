@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public sealed class LaserManager : MonoBehaviour
 {
     [Header("Sources & receivers")]
-    [SerializeField] private List<LaserSource> _sources = new();
+    //[SerializeField] private List<LaserSource> _sources = new();
     [SerializeField] private List<LaserReceiver> _receivers = new();
 
     private void Awake()
@@ -30,7 +30,7 @@ public sealed class LaserManager : MonoBehaviour
     [ContextMenu("Reset all")]
     public void ResetAll()
     {
-        foreach (var s in _sources) s.Emit();
+        //foreach (var s in _sources) s.Emit();
         foreach (var r in _receivers) r.ResetReceiver();
     }
 

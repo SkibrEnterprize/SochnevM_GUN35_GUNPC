@@ -3,11 +3,12 @@ using Netologia.Quest.Characters.Player;
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(TriggerObserver))]   
+
 public sealed class LaserMirror : MonoBehaviour, ITrigger
 {
     public event Action<ITrigger> OnEnter;
-
-    [SerializeField]
+        
     private TriggerObserver m_triggerObserver;
 
     [Header("Rotation settings")]
@@ -24,6 +25,7 @@ public sealed class LaserMirror : MonoBehaviour, ITrigger
 
     private void Awake()
     {
+        m_triggerObserver = GetComponent<TriggerObserver>();
         m_triggerObserver.OnEnter += OnEnterHandler;
     }
 
