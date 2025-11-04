@@ -79,3 +79,4 @@ public sealed class LaserManager : MonoBehaviour
     //    foreach (var r in _receivers) r.ResetReceiver();
     //}
 }
+
