@@ -14,6 +14,6 @@ namespace Netologia.Quest.Talks
 		Middle = 1 << 2,
 		Senior = 1 << 3,
 		Angry = 1 << 4,
-		Calm = 1 << 5,
+		Calm = 1 << 5,		
 	}
 }

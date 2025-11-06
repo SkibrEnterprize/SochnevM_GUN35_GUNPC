@@ -10,6 +10,6 @@ namespace Netologia.Quest.Talks
 	{
 		None = 0,
 		Stranger = 1 << 0,
-		Friend = 1 << 1,
+		Friend = 1 << 1,		
 	}
 }
