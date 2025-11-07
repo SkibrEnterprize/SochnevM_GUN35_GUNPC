@@ -98,7 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 156fdb01113bacc4aab9e031776bd024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_triggerObserver: {fileID: 0}
   _rotateAngleDeg: 90
   _duration: 0.4
   _easeType: 1

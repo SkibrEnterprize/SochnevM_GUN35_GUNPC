@@ -88,6 +88,7 @@ namespace Netologia.Quest.Talks
         }
         public void CharacterPush()
         {
+
             _message.Enable();
             _delay = TimeManager.Time + _talkDelay;
             _silence = false;

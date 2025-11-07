@@ -1,9 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Netologia.Quest.Objects
 {
-	/// <summary>
-	/// Метка для поиска родителя для всех диалоговых окон
-	/// </summary>
-	public class MessageRootTag : MonoBehaviour { }
+    /// <summary>
+    /// Метка для поиска родителя для всех диалоговых окон
+    /// </summary>
+    public class MessageRootTag : MonoBehaviour
+    {
+        internal void Disable()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
