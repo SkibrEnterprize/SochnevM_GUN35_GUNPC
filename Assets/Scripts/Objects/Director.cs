@@ -10,8 +10,8 @@ namespace Netologia.Quest
 {
 	public class Director : MonoBehaviour
 	{
-		public static MessageData Personal { get; private set; }
-		public static MessageData Work { get; private set; }
+		public MessageData Personal { get; private set; }
+		public MessageData Work { get; private set; }
 
 		public readonly struct MessageData
 		{

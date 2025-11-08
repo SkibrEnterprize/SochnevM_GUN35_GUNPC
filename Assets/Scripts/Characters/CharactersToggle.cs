@@ -1,6 +1,8 @@
+using Netologia.Quest.Audio;
 using Netologia.Quest.Characters.Player;
 using System.Collections;
 using UnityEngine;
+using Zenject;
 public class CharacterToggle : MonoBehaviour
 {
 
@@ -12,6 +14,14 @@ public class CharacterToggle : MonoBehaviour
     private bool _isFirstActive = true;
     private Light _flashOfToggle;
     private Coroutine _currentFlashCoroutine;
+    private AudioController _audioController;
+
+    [Inject]
+    private void Construct(AudioController audioController)
+    {
+         _audioController = audioController;
+    }
+
 
     private void Awake()
     {
@@ -37,6 +47,7 @@ public class CharacterToggle : MonoBehaviour
             return;
 
         Toggle();
+        _audioController.PlayPortalEffect();
     }
 
     private void Toggle()

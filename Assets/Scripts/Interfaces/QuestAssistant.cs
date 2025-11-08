@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Netologia.Quest.Characters;
-using Netologia.Quest.Talks;
 
 using TMPro;
 using UnityEngine;

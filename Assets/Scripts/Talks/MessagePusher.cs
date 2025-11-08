@@ -1,7 +1,9 @@
-﻿using Netologia.Quest.Characters.Player;
+﻿using Netologia.Quest.Audio;
+using Netologia.Quest.Characters.Player;
 using Netologia.Quest.Interfaces;
 using Netologia.Quest.Objects;
 using UnityEngine;
+using Zenject;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Netologia.Quest.Talks
@@ -26,6 +28,13 @@ namespace Netologia.Quest.Talks
         private Interval _silenceDelay = new(5f, 10f);
         [SerializeField]
         private float _talkRadius = 2f;
+        private Director _director;
+
+        [Inject]
+        private void Construct(Director director)
+        {
+            _director = director;
+        }
 
         private void Awake()
         {
@@ -71,7 +80,8 @@ namespace Netologia.Quest.Talks
                     if (Vector3.SqrMagnitude(transform.position - _player.transform.position) < _talkRadius)
                     {
                         _message.Enable();
-                        _message.WorkPush(Director.Work[(int)_workerFeature]);
+                        //_message.WorkPush(Director.Work[(int)_workerFeature]);
+                        _message.WorkPush(_director.Work[(int)_workerFeature]);
                     }
                     //может бликовать сообщение так как персонаж может быть в другой точке, a "move push" часть не return;
                     return;
@@ -92,7 +102,8 @@ namespace Netologia.Quest.Talks
             _message.Enable();
             _delay = TimeManager.Time + _talkDelay;
             _silence = false;
-            _message.CharacterPush(Director.Personal[(int)_characterFeature]);
+            //_message.CharacterPush(Director.Personal[(int)_characterFeature]);
+            _message.CharacterPush(_director.Personal[(int)_characterFeature]);
         }
         private void OnDrawGizmos()
         {
