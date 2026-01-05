@@ -11,12 +11,14 @@ namespace Game.GameEngine.Ecs
     {
         public override void Install(EcsWorld world)
         {
-            world.DeclareComponent<MoveSpeedComponent>();
+            // привязка компонентов с данными
+            world.DeclareComponent<MoveSpeedComponent>(); 
 
             world.DeclareComponent<MoveStepData>();
             world.DeclareComponent<MoveToPositionData>();
             world.DeclareComponent<PatrolData>();
 
+            // привязка систем для обработки компонентов
             world.DeclareSystem<MoveStepSystem>();
             world.DeclareSystem<MoveToPositionSystem>();
             world.DeclareSystem<PatrolPointsSystem>();

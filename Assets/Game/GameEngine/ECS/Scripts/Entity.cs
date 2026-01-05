@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using GameECS;
 using UnityEngine;
 
+// адаптер для наследования от него и привязки компонентов(сущностей) не Monobeh-ов на Monobeh-ах
+
 namespace Game.GameEngine.Ecs
 {
     [DefaultExecutionOrder(-5000)]
-    public class Entity : MonoBehaviour
+    public class Entity : MonoBehaviour 
     {
         private const int UNDEFINED = -1;
 

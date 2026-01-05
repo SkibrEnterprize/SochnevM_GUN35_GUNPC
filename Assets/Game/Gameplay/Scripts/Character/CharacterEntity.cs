@@ -4,16 +4,17 @@ using UnityEngine;
 
 namespace Entities
 {
+    // сущность для назначения в нее компонентов ECS и размещения на объекте Monobeh-е
     public sealed class CharacterEntity : Entity
     {
         [SerializeField]
-        private CharacterConfig config;
+        private CharacterConfig config; // скриптабл-объект для упрощения установки значений
 
         protected override void Init()
         {
-            this.SetData(new SmoothRotationComponent());
+            this.SetData(new SmoothRotationComponent()); // привязка компонента ECS
 
-            this.SetData(new CombatComponent
+            this.SetData(new CombatComponent    //привязка компонента ECS и установка его значений из скрипт.объекта
             {
                 damage = this.config.damage,
                 minDistance = config.minDistance,
@@ -22,7 +23,7 @@ namespace Entities
                 damageType = this.config.damageType
             });
             
-            this.SetData(new AnimatorComponent
+            this.SetData(new AnimatorComponent  // привязка в компонент ECS компонента Monobeh-а 
             {
                 value = this.GetComponentInChildren<AnimatorMachine>()
             });
