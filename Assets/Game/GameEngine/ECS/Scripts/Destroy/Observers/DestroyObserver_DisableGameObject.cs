@@ -6,9 +6,10 @@ namespace Game.GameEngine.Ecs
     {
         private readonly EcsEmitter<DestroyEvent> destroyEmitter;
         private readonly EcsPool<GameObjectComponent> gameObjectPool;
+        
 
         void IEcsObserver<DestroyEvent>.Handle(int entity, DestroyEvent destroyEvent)
-        {
+        {            
             ref var goComponent = ref this.gameObjectPool.GetComponent(entity);
             goComponent.value.SetActive(false);
         }

@@ -11,5 +11,6 @@ namespace Game.GameEngine.Ecs
         public float animationTime;
         public float timeBetweenAttack;
         public DamageType damageType;
+        public float deathTime;
     }
 }

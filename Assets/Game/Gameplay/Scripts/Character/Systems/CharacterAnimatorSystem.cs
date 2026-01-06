@@ -10,6 +10,7 @@ namespace SampleProject
         private EcsPool<MoveStepData> moveStep;
         private EcsPool<HitDuration> attackPool;
         private EcsPool<GatherDuration> gatherPool;
+        private EcsPool<DeathComponent> deathPool;
 
         void IEcsUpdate.Update(int entity)
         {
@@ -20,6 +21,9 @@ namespace SampleProject
 
         private int ResolveState(int entity)
         {
+            if (this.deathPool.HasComponent(entity))
+                return AnimatorStateId.DEATH;     // если сущность «умирает», ставим death
+
             if (this.attackPool.HasComponent(entity))
             {
                 return AnimatorStateId.ATTACK;

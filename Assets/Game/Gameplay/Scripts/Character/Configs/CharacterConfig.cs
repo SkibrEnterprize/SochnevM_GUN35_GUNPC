@@ -24,5 +24,8 @@ namespace SampleProject
         public float animationTime = 1.4f;
         public float timeBetweenAttack = 0.8f;
         public DamageType damageType = DamageType.MELEE;
+
+        [Header("Death")]
+        public float deathTime = 2.5f;
     }
 }

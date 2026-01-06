@@ -42,7 +42,7 @@ public sealed class RTSClickInput : MonoBehaviour
         {
             // Отправляем команду перемещения
             _commandCtrl.MoveToPosition(hit.transform);   // или hit.point
-        print("comand tomove is sended");
+        print("comand to move is sended");
             Debug.Log($"Ray hit point: {hit.point}");
             Debug.Log($"Ray hit transform: {hit.transform}");
         }

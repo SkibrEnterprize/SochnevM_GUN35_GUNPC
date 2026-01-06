@@ -20,7 +20,8 @@ namespace Entities
                 minDistance = config.minDistance,
                 animationTime = this.config.animationTime,
                 timeBetweenAttack = this.config.timeBetweenAttack,
-                damageType = this.config.damageType
+                damageType = this.config.damageType,
+                deathTime = this.config.deathTime,
             });
             
             this.SetData(new AnimatorComponent  // привязка в компонент ECS компонента Monobeh-а 
