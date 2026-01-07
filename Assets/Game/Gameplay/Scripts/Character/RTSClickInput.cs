@@ -1,60 +1,80 @@
+using Entities;
 using SampleProject;
+using SampleProject.ResourceObject;
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CommandController))]
 public sealed class RTSClickInput : MonoBehaviour
 {
-    [Header("Camera")]
-    [SerializeField] private Camera _camera = null;
+    [Header("Настройки")]
+    public LayerMask groundLayer;
+    public float maxRayDistance = 100f;
 
-    [Header("Ground")]
-    [SerializeField] private LayerMask _groundLayer = 0;
-
-    // Экземпляр автоматически сгенерированного класса Input Actions
-    private PlayerInputActions _inputActions;
-    private CommandController _commandCtrl;
+    private CommandController _commandCtrl;   // ссылка на прокси
 
     void Awake()
     {
         _commandCtrl = GetComponent<CommandController>();
+        if (_commandCtrl == null)
+            Debug.LogError($"{name} не содержит CommandController");
 
-        if (_camera == null) _camera = Camera.main;
-
-        // Создаём и подписываемся на событие клика
-        _inputActions = new PlayerInputActions();
-        var gameplayMap = _inputActions.Gameplay;
-        gameplayMap.MouseClick.performed += OnMouseClicked;
+        // --- Input System ----------------------------------------------------
+        var inputActions = new PlayerInputActions();
+        inputActions.Gameplay.LeftMouseClick.performed += OnLeftMouseClicked;
+        inputActions.Gameplay.RigthMouseClick.performed += OnRightMouseClicked;
+        inputActions.Gameplay.Enable();          // сразу включаем
     }
 
-    void OnEnable() => _inputActions?.Gameplay.Enable();
-    void OnDisable() => _inputActions?.Gameplay.Disable();
-
-    // ------------------------------------------------------------------
-    private void OnMouseClicked(InputAction.CallbackContext context)
+    private void OnRightMouseClicked(InputAction.CallbackContext context)
     {
-        print("click");
-        // Получаем позицию мыши из контекста (необязательно – можно использовать Input.mousePosition)
-        Vector2 mousePos = Mouse.current.position.ReadValue();
-
-        var ray = _camera.ScreenPointToRay(mousePos);
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _groundLayer))
-        {
-            // Отправляем команду перемещения
-            _commandCtrl.MoveToPosition(hit.transform);   // или hit.point
-        print("comand to move is sended");
-            Debug.Log($"Ray hit point: {hit.point}");
-            Debug.Log($"Ray hit transform: {hit.transform}");
-        }
+        _commandCtrl.Stop();
     }
 
-    void OnDestroy()
+    private void OnLeftMouseClicked(InputAction.CallbackContext context)
     {
-        // Отключаем подписку, чтобы избежать утечек
-        if (_inputActions != null)
+        Vector2 screenPos = Mouse.current.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(screenPos);
+
+        // луч к любому слою который указан)
+        if (!Physics.Raycast(ray, out var hit, maxRayDistance, groundLayer))
+            return;   // ничего не попало
+
+        // Проверяем попадание в NavMesh
+
+        bool isEntityAreResource = hit.collider.gameObject.TryGetComponent(out ResourceEntity resources);
+        if (isEntityAreResource)
         {
-            _inputActions.Gameplay.MouseClick.performed -= OnMouseClicked;
-            _inputActions.Dispose();
+            _commandCtrl.GatherResource(resources);
+            return;
         }
+
+        //попадание в объект
+
+        bool isEntityAreTarget = hit.collider.gameObject.TryGetComponent(out CharacterEntity target) &&
+                                    hit.collider.gameObject.TryGetComponent(out EnemyComponent enemyComponent);
+
+        if (isEntityAreTarget)
+        {
+            _commandCtrl.AttackTarget(target);
+            return;
+        }
+
+        bool isOnNavMesh = NavMesh.SamplePosition(
+                               hit.point,
+                               out var navHit,
+                               0.5f,                // 0?– точная позиция
+                               NavMesh.AllAreas);
+
+        if (isOnNavMesh)
+        {
+            _commandCtrl.MoveToPosition(hit.point);            
+        }
+
     }
+
+
 }

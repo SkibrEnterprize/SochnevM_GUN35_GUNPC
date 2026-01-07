@@ -6,9 +6,18 @@
             "id": "d2e7a93b-7713-4f69-a694-39f12e189def",
             "actions": [
                 {
-                    "name": "MouseClick",
+                    "name": "LeftMouseClick",
                     "type": "Button",
                     "id": "e7f64cd8-a405-4226-b695-7a6db3bc4eaa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RigthMouseClick",
+                    "type": "Button",
+                    "id": "91ebef1a-31e2-4249-b93f-1ed2510e067d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -23,7 +32,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MouseClick",
+                    "action": "LeftMouseClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15612e9e-d39a-416e-9112-c3968c2b5d14",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RigthMouseClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,20 +1,21 @@
-using Game.GameEngine.Ecs;
+п»їusing Game.GameEngine.Ecs;
 using SampleProject;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Entities
 {
-    // сущность для назначения в нее компонентов ECS и размещения на объекте Monobeh-е
+    // СЃСѓС‰РЅРѕСЃС‚СЊ РґР»СЏ РЅР°Р·РЅР°С‡РµРЅРёСЏ РІ РЅРµРµ РєРѕРјРїРѕРЅРµРЅС‚РѕРІ ECS Рё СЂР°Р·РјРµС‰РµРЅРёСЏ РЅР° РѕР±СЉРµРєС‚Рµ Monobeh-Рµ
     public sealed class CharacterEntity : Entity
     {
         [SerializeField]
-        private CharacterConfig config; // скриптабл-объект для упрощения установки значений
+        private CharacterConfig config; // СЃРєСЂРёРїС‚Р°Р±Р»-РѕР±СЉРµРєС‚ РґР»СЏ СѓРїСЂРѕС‰РµРЅРёСЏ СѓСЃС‚Р°РЅРѕРІРєРё Р·РЅР°С‡РµРЅРёР№
 
         protected override void Init()
         {
-            this.SetData(new SmoothRotationComponent()); // привязка компонента ECS
+            this.SetData(new SmoothRotationComponent()); // РїСЂРёРІСЏР·РєР° РєРѕРјРїРѕРЅРµРЅС‚Р° ECS
 
-            this.SetData(new CombatComponent    //привязка компонента ECS и установка его значений из скрипт.объекта
+            this.SetData(new CombatComponent    //РїСЂРёРІСЏР·РєР° РєРѕРјРїРѕРЅРµРЅС‚Р° ECS Рё СѓСЃС‚Р°РЅРѕРІРєР° РµРіРѕ Р·РЅР°С‡РµРЅРёР№ РёР· СЃРєСЂРёРїС‚.РѕР±СЉРµРєС‚Р°
             {
                 damage = this.config.damage,
                 minDistance = config.minDistance,
@@ -24,7 +25,7 @@ namespace Entities
                 deathTime = this.config.deathTime,
             });
             
-            this.SetData(new AnimatorComponent  // привязка в компонент ECS компонента Monobeh-а 
+            this.SetData(new AnimatorComponent  // РїСЂРёРІСЏР·РєР° РІ РєРѕРјРїРѕРЅРµРЅС‚ ECS РєРѕРјРїРѕРЅРµРЅС‚Р° Monobeh-Р° 
             {
                 value = this.GetComponentInChildren<AnimatorMachine>()
             });
@@ -45,6 +46,10 @@ namespace Entities
                 value = this.transform,
                 radius = this.config.radius
             });
+
+            var agent = this.gameObject.GetComponent<NavMeshAgent>();
+                        
+            this.SetData(new NavMeshAgentComponent { agent = agent });
 
             this.SetData(new GameObjectComponent
             {

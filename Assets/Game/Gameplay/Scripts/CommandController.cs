@@ -21,6 +21,15 @@ namespace SampleProject
                 status = CommandStatus.IDLE
             });
         }
+        public void MoveToPosition(Vector3 position)
+        {
+            this.entity.SetData(new CommandRequest
+            {
+                type = CommandType.MOVE_TO_POSITION,
+                args = position,
+                status = CommandStatus.IDLE
+            });
+        }
 
         [Button]
         public void AttackTarget(Entity target)

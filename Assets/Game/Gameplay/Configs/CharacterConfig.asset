@@ -20,3 +20,4 @@ MonoBehaviour:
   animationTime: 1.4
   timeBetweenAttack: 0.8
   damageType: 0
+  deathTime: 3

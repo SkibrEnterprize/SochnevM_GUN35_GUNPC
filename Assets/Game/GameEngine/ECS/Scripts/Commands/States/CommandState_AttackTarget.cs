@@ -42,12 +42,14 @@ namespace Game.GameEngine.Ecs
 
         private bool IsTargetExists(int entity)
         {
+
             ref var targetId = ref this.attackPool.GetComponent(entity).targetId;
+
             if (!this.world.IsEntityExists(targetId))
             {
                 return false;
             }
-            
+
             ref var targetHitPoints = ref this.hitPointsPool.GetComponent(targetId);
             return targetHitPoints.current > 0;
         }

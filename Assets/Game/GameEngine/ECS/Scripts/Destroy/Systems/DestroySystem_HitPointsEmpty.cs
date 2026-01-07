@@ -6,11 +6,10 @@ namespace Game.GameEngine.Ecs
     public sealed class DestroySystem_HitPointsEmpty : IEcsFixedUpdate
     {
         private readonly EcsPool<HitPointsComponent> hitPointsPool;
-        private readonly EcsEmitter<DestroyEvent> destroyEmitter;
         private readonly EcsPool<DeathComponent> deathPool;
-       
+        private readonly EcsPool<AttackTarget> attackPool;
 
-       
+
         void IEcsFixedUpdate.FixedUpdate(int entity)
         {
             if (!this.hitPointsPool.HasComponent(entity)) return;
@@ -20,7 +19,9 @@ namespace Game.GameEngine.Ecs
             ref var hitPoints = ref this.hitPointsPool.GetComponent(entity);
             if (hitPoints.current <= 0)
             {
-                this.deathPool.SetComponent(entity, new DeathComponent());                
+                this.deathPool.SetComponent(entity, new DeathComponent());
+                hitPointsPool.RemoveComponent(entity);
+                //attackPool.RemoveComponent(entity);
             }
         }
     }
