@@ -15,9 +15,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RigthMouseClick",
+                    "name": "RightMouseClick",
                     "type": "Button",
                     "id": "91ebef1a-31e2-4249-b93f-1ed2510e067d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ctrl",
+                    "type": "Button",
+                    "id": "109aa3d2-c781-40bf-bbfd-fb41d0ee3554",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -43,7 +52,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RigthMouseClick",
+                    "action": "RightMouseClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec6aa26d-bfab-4b9c-9429-668c9b1cc616",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ctrl",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

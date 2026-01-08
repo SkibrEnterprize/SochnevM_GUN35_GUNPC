@@ -37,9 +37,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RigthMouseClick"",
+                    ""name"": ""RightMouseClick"",
                     ""type"": ""Button"",
                     ""id"": ""91ebef1a-31e2-4249-b93f-1ed2510e067d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ctrl"",
+                    ""type"": ""Button"",
+                    ""id"": ""109aa3d2-c781-40bf-bbfd-fb41d0ee3554"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -65,7 +74,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RigthMouseClick"",
+                    ""action"": ""RightMouseClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec6aa26d-bfab-4b9c-9429-668c9b1cc616"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ctrl"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -77,7 +97,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_LeftMouseClick = m_Gameplay.FindAction("LeftMouseClick", throwIfNotFound: true);
-        m_Gameplay_RigthMouseClick = m_Gameplay.FindAction("RigthMouseClick", throwIfNotFound: true);
+        m_Gameplay_RightMouseClick = m_Gameplay.FindAction("RightMouseClick", throwIfNotFound: true);
+        m_Gameplay_Ctrl = m_Gameplay.FindAction("Ctrl", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -140,13 +161,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Gameplay;
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_Gameplay_LeftMouseClick;
-    private readonly InputAction m_Gameplay_RigthMouseClick;
+    private readonly InputAction m_Gameplay_RightMouseClick;
+    private readonly InputAction m_Gameplay_Ctrl;
     public struct GameplayActions
     {
         private @PlayerInputActions m_Wrapper;
         public GameplayActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @LeftMouseClick => m_Wrapper.m_Gameplay_LeftMouseClick;
-        public InputAction @RigthMouseClick => m_Wrapper.m_Gameplay_RigthMouseClick;
+        public InputAction @RightMouseClick => m_Wrapper.m_Gameplay_RightMouseClick;
+        public InputAction @Ctrl => m_Wrapper.m_Gameplay_Ctrl;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -159,9 +182,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @LeftMouseClick.started += instance.OnLeftMouseClick;
             @LeftMouseClick.performed += instance.OnLeftMouseClick;
             @LeftMouseClick.canceled += instance.OnLeftMouseClick;
-            @RigthMouseClick.started += instance.OnRigthMouseClick;
-            @RigthMouseClick.performed += instance.OnRigthMouseClick;
-            @RigthMouseClick.canceled += instance.OnRigthMouseClick;
+            @RightMouseClick.started += instance.OnRightMouseClick;
+            @RightMouseClick.performed += instance.OnRightMouseClick;
+            @RightMouseClick.canceled += instance.OnRightMouseClick;
+            @Ctrl.started += instance.OnCtrl;
+            @Ctrl.performed += instance.OnCtrl;
+            @Ctrl.canceled += instance.OnCtrl;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -169,9 +195,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @LeftMouseClick.started -= instance.OnLeftMouseClick;
             @LeftMouseClick.performed -= instance.OnLeftMouseClick;
             @LeftMouseClick.canceled -= instance.OnLeftMouseClick;
-            @RigthMouseClick.started -= instance.OnRigthMouseClick;
-            @RigthMouseClick.performed -= instance.OnRigthMouseClick;
-            @RigthMouseClick.canceled -= instance.OnRigthMouseClick;
+            @RightMouseClick.started -= instance.OnRightMouseClick;
+            @RightMouseClick.performed -= instance.OnRightMouseClick;
+            @RightMouseClick.canceled -= instance.OnRightMouseClick;
+            @Ctrl.started -= instance.OnCtrl;
+            @Ctrl.performed -= instance.OnCtrl;
+            @Ctrl.canceled -= instance.OnCtrl;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -192,6 +221,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public interface IGameplayActions
     {
         void OnLeftMouseClick(InputAction.CallbackContext context);
-        void OnRigthMouseClick(InputAction.CallbackContext context);
+        void OnRightMouseClick(InputAction.CallbackContext context);
+        void OnCtrl(InputAction.CallbackContext context);
     }
 }
