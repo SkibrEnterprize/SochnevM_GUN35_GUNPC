@@ -182,7 +182,7 @@ public class RTSInputController : MonoBehaviour
     private void HighlightUnit(CharacterEntity character, bool highlight)
     {
         // Можно реализовать включение/выключение визуальной подсветки
-        // Например, character.SetHighlight(highlight);
+        character.GetComponent<Outline>().enabled = highlight;
     }
 
     private void OnRightMouseClick()

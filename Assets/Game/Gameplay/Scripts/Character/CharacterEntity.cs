@@ -2,6 +2,7 @@
 using SampleProject;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 namespace Entities
 {
@@ -49,7 +50,7 @@ namespace Entities
 
             var agent = this.gameObject.GetComponent<NavMeshAgent>();
                         
-            this.SetData(new NavMeshAgentComponent { agent = agent });
+            this.SetData(new NavMeshAgentComponent { agent = agent });           
 
             this.SetData(new GameObjectComponent
             {

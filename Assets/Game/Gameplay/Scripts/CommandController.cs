@@ -1,7 +1,9 @@
-using System.Linq;
 using Game.GameEngine.Ecs;
 using Sirenix.OdinInspector;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SampleProject
 {
@@ -10,6 +12,12 @@ namespace SampleProject
     {
         [SerializeField]
         private Entity entity;
+        private Outline _outline;
+
+        void Awake()
+        {
+            _outline = gameObject.GetComponent<Outline>();   // добавляем скрипт Outline
+        }
 
         [Button]
         public void MoveToPosition(Transform point)
@@ -68,6 +76,12 @@ namespace SampleProject
         public void Stop()
         {
             this.entity.RemoveData<CommandRequest>();
+        }
+
+        [Button]
+        public void SetHighlighted()
+        {
+            _outline.enabled = !_outline.enabled;
         }
     }
 
