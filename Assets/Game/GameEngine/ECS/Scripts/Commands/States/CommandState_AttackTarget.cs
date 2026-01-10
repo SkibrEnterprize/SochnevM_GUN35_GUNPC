@@ -30,6 +30,7 @@ namespace Game.GameEngine.Ecs
             this.attackPool.RemoveComponent(entity);
             this.hitRequestPool.RemoveComponent(entity);
             this.moveToPositionPool.RemoveComponent(entity);
+
         }
 
         public override void Update(int entity)
@@ -38,6 +39,7 @@ namespace Game.GameEngine.Ecs
             {
                 this.Complete(entity);
             }
+          
         }
 
         private bool IsTargetExists(int entity)

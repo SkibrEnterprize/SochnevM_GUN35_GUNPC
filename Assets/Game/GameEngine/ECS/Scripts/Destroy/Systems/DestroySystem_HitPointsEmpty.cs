@@ -9,7 +9,7 @@ namespace Game.GameEngine.Ecs
         private readonly EcsPool<DeathComponent> deathPool;
         private readonly EcsPool<AttackTarget> attackPool;
 
-
+        private readonly EcsPool<HitDuration> durationPool;
         void IEcsFixedUpdate.FixedUpdate(int entity)
         {
             if (!this.hitPointsPool.HasComponent(entity)) return;
@@ -22,6 +22,9 @@ namespace Game.GameEngine.Ecs
                 this.deathPool.SetComponent(entity, new DeathComponent());
                 hitPointsPool.RemoveComponent(entity);
                 //attackPool.RemoveComponent(entity);
+
+                if (durationPool.HasComponent(entity))
+                    durationPool.RemoveComponent(entity);
             }
         }
     }

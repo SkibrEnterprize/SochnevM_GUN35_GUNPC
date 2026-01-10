@@ -12,6 +12,7 @@ namespace Game.GameEngine.Ecs
         public override void Install(EcsWorld world)
         {
             world.DeclareComponent<AnimatorComponent>();
+            
         }
     }
 }

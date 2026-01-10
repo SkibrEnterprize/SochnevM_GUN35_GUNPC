@@ -14,6 +14,7 @@ public class RTSInputController : MonoBehaviour
     public float maxRayDistance = 100f;
 
     private PlayerInputActions inputActions;
+    private GroupeMoverManager groupeMoverManager;
 
     private Rect selectionRect;
     private Vector2 dragStartPos;
@@ -143,7 +144,7 @@ public class RTSInputController : MonoBehaviour
     }
 
     // Вспомогательная функция: луч к плоскости Y=0
-     
+
     private Vector3 RaycastToGround(Vector2 screenPos)
     {
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y, 0f));
@@ -203,6 +204,7 @@ public class RTSInputController : MonoBehaviour
             // Сбор ресурсов
             if (target.TryGetComponent<ResourceEntity>(out var resource))
             {
+                Debug.Log("Resources!!");
                 character.command.GatherResource(resource);
                 continue;
             }
@@ -290,7 +292,5 @@ public class RTSInputController : MonoBehaviour
             _selectionBounds.extents,
             Quaternion.identity,
             _unitLayerMask);
-
-        Debug.Log($"OverlapBox found {hits.Length} colliders");
     }
 }

@@ -1,4 +1,5 @@
 using GameECS;
+using SampleProject;
 using UnityEngine;
 
 namespace Game.GameEngine.Ecs
@@ -18,6 +19,8 @@ namespace Game.GameEngine.Ecs
             world.DeclareSystem<NavMeshMoveSystem>();
             world.DeclareSystem<NavMeshDestinationSystem>();
             world.DeclareSystem<NavMeshPatrolSystem>();
+            world.DeclareSystem<NavMeshMoveStepMarker>();
+            world.DeclareSystem<NavMeshMoveCompleteSystem>();
 
             //old
 
@@ -30,9 +33,9 @@ namespace Game.GameEngine.Ecs
 
             //привязка систем для обработки компонентов
 
-            world.DeclareSystem<MoveStepSystem>();
-            world.DeclareSystem<MoveToPositionSystem>();
-            world.DeclareSystem<PatrolPointsSystem>();
+            //world.DeclareSystem<MoveStepSystem>();
+            //world.DeclareSystem<MoveToPositionSystem>();
+            //world.DeclareSystem<PatrolPointsSystem>();
         }
     }
 }

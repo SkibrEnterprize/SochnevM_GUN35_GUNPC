@@ -10,6 +10,7 @@ namespace Game.GameEngine.Ecs
         private EcsPool<MoveToPositionData> moveToPositionPool;
         private EcsPool<TransformComponent> transformPool;
 
+
         public override bool MatchesType(CommandType type)
         {
             return type is CommandType.MOVE_TO_POSITION;

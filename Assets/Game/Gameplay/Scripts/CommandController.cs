@@ -13,6 +13,7 @@ namespace SampleProject
         [SerializeField]
         private Entity entity;
         private Outline _outline;
+        
 
         void Awake()
         {

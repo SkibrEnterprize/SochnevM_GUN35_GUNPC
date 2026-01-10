@@ -21,7 +21,7 @@ namespace Game.GameEngine.Ecs
             NavMeshAgent agent = agentComp.agent;
             if (agent == null) return;
 
-            // Если цель ещё не достигнута, ставим её
+            //Если цель ещё не достигнута, ставим её
             if (!moveData.isReached)
                 agent.SetDestination(moveData.destination);
         }

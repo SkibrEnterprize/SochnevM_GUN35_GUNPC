@@ -25,12 +25,12 @@ namespace Entities
                 damageType = this.config.damageType,
                 deathTime = this.config.deathTime,
             });
-            
+
             this.SetData(new AnimatorComponent  // привязка в компонент ECS компонента Monobeh-а 
             {
                 value = this.GetComponentInChildren<AnimatorMachine>()
             });
-            
+
             this.SetData(new HitPointsComponent
             {
                 max = this.config.hitPoints,
@@ -49,8 +49,8 @@ namespace Entities
             });
 
             var agent = this.gameObject.GetComponent<NavMeshAgent>();
-                        
-            this.SetData(new NavMeshAgentComponent { agent = agent });           
+
+            this.SetData(new NavMeshAgentComponent { agent = agent });
 
             this.SetData(new GameObjectComponent
             {
