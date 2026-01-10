@@ -1,5 +1,7 @@
 using Game.GameEngine.Ecs;
 using GameECS;
+using System.Diagnostics;
+using UnityEngine;
 
 namespace SampleProject
 {
@@ -17,12 +19,16 @@ namespace SampleProject
             ref var animator = ref this.animatorPool.GetComponent(entity).value;
             var animatorState = this.ResolveState(entity);
             animator.ChangeState(animatorState);
+
         }
 
         private int ResolveState(int entity)
         {
             if (this.deathPool.HasComponent(entity))
+            {
+                UnityEngine.Debug.Log("Animator state is Death");
                 return AnimatorStateId.DEATH;     // если сущность «умирает», ставим death
+            }
 
             if (this.attackPool.HasComponent(entity))
             {

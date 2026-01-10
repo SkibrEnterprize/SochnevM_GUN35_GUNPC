@@ -7,11 +7,13 @@ namespace Game.GameEngine.Ecs
     {
         private EcsPool<AttackTarget> targetPool;
         private EcsPool<HitRequest> hitRequestPool;
+        private readonly EcsPool<HitPointsComponent> hitPointsPool;
         private EcsPool<MoveToPositionData> moveToPositionPool;
 
         private EcsPool<CombatComponent> combatPool;
         private EcsPool<TransformComponent> transformPool;
-        
+        private EcsPool<CommandRequest> requestPool;
+
         void IEcsFixedUpdate.FixedUpdate(int entity)
         {
             if (!this.targetPool.HasComponent(entity))
@@ -20,11 +22,16 @@ namespace Game.GameEngine.Ecs
             }
 
             ref var targetId = ref this.targetPool.GetComponent(entity).targetId;
-            
+            if (!this.hitPointsPool.HasComponent(targetId))
+            {
+                this.requestPool.RemoveComponent(entity);// (если у цели нет HitPoints)
+                return;
+            }               // не атаковать
+
             var myPosition = this.transformPool.GetComponent(entity).value.position;
             var targetPosition = this.transformPool.GetComponent(targetId).value.position;
             ref var minDistance = ref this.combatPool.GetComponent(entity).minDistance;
-            
+
             if (Vector3.Distance(myPosition, targetPosition) <= minDistance)
             {
                 //Attack target:
@@ -42,7 +49,7 @@ namespace Game.GameEngine.Ecs
                 {
                     destination = targetPosition,
                     stoppingDistance = minDistance
-                });    
+                });
             }
         }
     }

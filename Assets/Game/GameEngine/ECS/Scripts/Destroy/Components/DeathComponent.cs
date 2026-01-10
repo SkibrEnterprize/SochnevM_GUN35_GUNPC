@@ -5,6 +5,6 @@ namespace Game.GameEngine.Ecs
     [Serializable]
     public struct DeathComponent
     {
-       // public float deathTime;   // сколько осталось до окончания смерти (секунды)
+       public float deathTime;   // сколько осталось до окончания смерти (секунды)
     }
 }
