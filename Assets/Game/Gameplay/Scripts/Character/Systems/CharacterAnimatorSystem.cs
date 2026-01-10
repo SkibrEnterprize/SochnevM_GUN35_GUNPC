@@ -25,8 +25,7 @@ namespace SampleProject
         private int ResolveState(int entity)
         {
             if (this.deathPool.HasComponent(entity))
-            {
-                UnityEngine.Debug.Log("Animator state is Death");
+            {                
                 return AnimatorStateId.DEATH;     // если сущность «умирает», ставим death
             }
 

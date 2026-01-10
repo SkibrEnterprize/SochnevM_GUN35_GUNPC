@@ -21,7 +21,7 @@ namespace Game.GameEngine.Ecs
                 var deathTime = this.combatPool.GetComponent(entity).deathTime;
                 this.deathPool.SetComponent(entity, new DeathComponent { deathTime = deathTime });
                 Debug.Log("Death Component Added");
-                hitPointsPool.RemoveComponent(entity);                 
+                //hitPointsPool.RemoveComponent(entity);                 
             }
         }
     }
