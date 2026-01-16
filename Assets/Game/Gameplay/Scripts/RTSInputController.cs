@@ -193,6 +193,7 @@ public class RTSInputController : MonoBehaviour
 
         if (!Physics.Raycast(ray, out RaycastHit hit, maxRayDistance))
             return;
+        Debug.Log("HIT");
 
         // Проверяем объекты на взаимодействие
         GameObject target = hit.collider.gameObject;

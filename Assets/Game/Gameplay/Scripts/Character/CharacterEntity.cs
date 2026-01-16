@@ -49,6 +49,7 @@ namespace Entities
             });
 
             var agent = this.gameObject.GetComponent<NavMeshAgent>();
+            //agent.stoppingDistance = 2;
 
             this.SetData(new NavMeshAgentComponent { agent = agent });
 

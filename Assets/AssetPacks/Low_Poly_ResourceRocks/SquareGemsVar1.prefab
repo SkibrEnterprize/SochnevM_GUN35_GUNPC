@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 33000010376543552}
   - component: {fileID: 23000012004287658}
   - component: {fileID: 64000013728473858}
+  - component: {fileID: 6603441546388659692}
+  - component: {fileID: 7766829701512673640}
   m_Layer: 0
   m_Name: SquareGemsVar1
   m_TagString: Untagged
@@ -27,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000011449246696}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000021855696, y: 2.220446e-16, z: 4.8529394e-24, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -107,3 +109,31 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: a3e2467a9c4bac94fb5a7082c74152cf, type: 3}
+--- !u!114 &6603441546388659692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011449246696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24bbd533d7014dab8b6b24300c57141a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!208 &7766829701512673640
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011449246696}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.63, y: 0.175, z: 0.63}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.07300001, y: 0.60300004, z: 0.089}
+  m_TimeToStationary: 0.5
