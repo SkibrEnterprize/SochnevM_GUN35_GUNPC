@@ -9,7 +9,7 @@ namespace SampleProject.ResourceObject
             this.SetData(new TransformComponent
             {
                 value = this.transform,
-                radius = 1
+                radius = 6
             });
         }
     }

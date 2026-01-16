@@ -9,7 +9,7 @@ namespace SampleProject.Base
             this.SetData(new TransformComponent
             {
                 value = this.transform,
-                radius = 2.5f
+                radius = 3f
             });
         }
     }

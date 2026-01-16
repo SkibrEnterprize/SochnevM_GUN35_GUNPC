@@ -43,5 +43,7 @@ namespace SampleProject
                     _stepPool.RemoveComponent(entity);
             }
         }
+
+        
     }
 }

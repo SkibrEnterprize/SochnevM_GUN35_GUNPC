@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 0
   hitPoints: 100
-  moveSpeed: 5
-  damage: 60
+  moveSpeed: 23
+  damage: 3
   minDistance: 1.5
   animationTime: 1.4
   timeBetweenAttack: 0.8
