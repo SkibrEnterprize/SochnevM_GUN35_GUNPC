@@ -9,39 +9,39 @@ using UnityEngine.InputSystem;
 public class RTSInputController : MonoBehaviour
 {
     [Header("Настройки")]
-    public LayerMask groundLayer;
+    public LayerMask _groundLayer;
     public LayerMask _unitLayerMask;
     public float maxRayDistance = 100f;
 
-    private PlayerInputActions inputActions;
-    private GroupeMoverManager groupeMoverManager;
+    private PlayerInputActions _inputActions;
+    private GroupeMoverManager _groupeMoverManager;
 
-    private Rect selectionRect;
-    private Vector2 dragStartPos;
-    private bool isDragging;
+    private Rect _selectionRect;
+    private Vector2 _dragStartPos;
+    private bool _isDragging;
 
     private Vector3 _startWorld;    // мировая точка начала drag
     private Vector3 _endWorld;      // мировая точка конца drag (отпускание)
     private Bounds _selectionBounds; // вычисленный куб
 
     // Выбранные юниты с двумя компонентами для удобства
-    private readonly List<(CharacterEntity character, CommandController command)> selectedUnits =
+    private readonly List<(CharacterEntity character, CommandController command)> _selectedUnits =
         new List<(CharacterEntity, CommandController)>();
 
     void Awake()
     {
-        inputActions = new PlayerInputActions();
+        _inputActions = new PlayerInputActions();
 
-        inputActions.Gameplay.LeftMouseClick.performed += ctx => OnLeftMouseDown();
-        inputActions.Gameplay.LeftMouseClick.canceled += ctx => OnLeftMouseUp();
-        inputActions.Gameplay.RightMouseClick.performed += ctx => OnRightMouseClick();
+        _inputActions.Gameplay.LeftMouseClick.performed += ctx => OnLeftMouseDown();
+        _inputActions.Gameplay.LeftMouseClick.canceled += ctx => OnLeftMouseUp();
+        _inputActions.Gameplay.RightMouseClick.performed += ctx => OnRightMouseClick();
 
-        inputActions.Gameplay.Enable();
+        _inputActions.Gameplay.Enable();
     }
 
     void Update()
     {
-        if (isDragging)
+        if (_isDragging)
         {
             UpdateSelectionRect();
             CalculateSelectionBounds();
@@ -50,19 +50,19 @@ public class RTSInputController : MonoBehaviour
 
     private void OnLeftMouseDown()
     {
-        dragStartPos = Mouse.current.position.ReadValue();
-        isDragging = true;
+        _dragStartPos = Mouse.current.position.ReadValue();
+        _isDragging = true;
     }
 
     private void OnLeftMouseUp()
     {
-        if (!isDragging)
+        if (!_isDragging)
             return;
 
-        isDragging = false;
+        _isDragging = false;
 
         // Минимальный размер прямоугольника, чтобы отличать drag от клика
-        if (selectionRect.width < 5 || selectionRect.height < 5)
+        if (_selectionRect.width < 5 || _selectionRect.height < 5)
             SingleClickSelect();
         else
             MultiSelectUnits();
@@ -71,12 +71,12 @@ public class RTSInputController : MonoBehaviour
     private void UpdateSelectionRect()
     {
         Vector2 currentMousePos = Mouse.current.position.ReadValue();
-        selectionRect = new Rect
+        _selectionRect = new Rect
         (
-            Mathf.Min(dragStartPos.x, currentMousePos.x),
-            Mathf.Min(dragStartPos.y, currentMousePos.y),
-            Mathf.Abs(dragStartPos.x - currentMousePos.x),
-            Mathf.Abs(dragStartPos.y - currentMousePos.y)
+            Mathf.Min(_dragStartPos.x, currentMousePos.x),
+            Mathf.Min(_dragStartPos.y, currentMousePos.y),
+            Mathf.Abs(_dragStartPos.x - currentMousePos.x),
+            Mathf.Abs(_dragStartPos.y - currentMousePos.y)
         );
     }
 
@@ -128,7 +128,7 @@ public class RTSInputController : MonoBehaviour
     }
     private void CalculateSelectionBounds()
     {
-        _startWorld = RaycastToGround(dragStartPos);
+        _startWorld = RaycastToGround(_dragStartPos);
         _endWorld = RaycastToGround(Mouse.current.position.ReadValue());
 
         if (_startWorld == Vector3.zero || _endWorld == Vector3.zero)
@@ -159,19 +159,19 @@ public class RTSInputController : MonoBehaviour
 
     private void AddUnitToSelection(CharacterEntity character, CommandController cmd)
     {
-        if (!selectedUnits.Exists(t => t.character == character))
+        if (!_selectedUnits.Exists(t => t.character == character))
         {
-            selectedUnits.Add((character, cmd));
+            _selectedUnits.Add((character, cmd));
             HighlightUnit(character, true);
         }
     }
 
     private void ClearSelection()
     {
-        foreach (var (character, _) in selectedUnits)
+        foreach (var (character, _) in _selectedUnits)
             HighlightUnit(character, false);
 
-        selectedUnits.Clear();
+        _selectedUnits.Clear();
     }
 
     private void ClearSelectionIfNoCtrl()
@@ -198,7 +198,7 @@ public class RTSInputController : MonoBehaviour
         // Проверяем объекты на взаимодействие
         GameObject target = hit.collider.gameObject;
 
-        foreach (var character in selectedUnits)
+        foreach (var character in _selectedUnits)
         {
             // Передаем в CommandController сами ссылки, для удобства в логике
 
@@ -228,19 +228,19 @@ public class RTSInputController : MonoBehaviour
 
     void OnDestroy()
     {
-        inputActions.Gameplay.LeftMouseClick.performed -= ctx => OnLeftMouseDown();
-        inputActions.Gameplay.LeftMouseClick.canceled -= ctx => OnLeftMouseUp();
-        inputActions.Gameplay.RightMouseClick.performed -= ctx => OnRightMouseClick();
-        inputActions.Gameplay.Disable();
+        _inputActions.Gameplay.LeftMouseClick.performed -= ctx => OnLeftMouseDown();
+        _inputActions.Gameplay.LeftMouseClick.canceled -= ctx => OnLeftMouseUp();
+        _inputActions.Gameplay.RightMouseClick.performed -= ctx => OnRightMouseClick();
+        _inputActions.Gameplay.Disable();
     }
 
 
     // Визуализация (прямоугольника выделения)
     void OnGUI()
     {
-        if (isDragging)
+        if (_isDragging)
         {
-            var rect = GetScreenRect(dragStartPos, Mouse.current.position.ReadValue());
+            var rect = GetScreenRect(_dragStartPos, Mouse.current.position.ReadValue());
             DrawScreenRect(rect, new Color(0.8f, 0.8f, 0.95f, 0.25f));
             DrawScreenRectBorder(rect, 2, new Color(0.8f, 0.8f, 0.95f));
         }

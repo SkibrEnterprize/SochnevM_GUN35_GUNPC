@@ -131,8 +131,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 10730038}
-  - component: {fileID: 10730039}
-  - component: {fileID: 10730040}
+  - component: {fileID: 10730042}
+  - component: {fileID: 10730041}
   m_Layer: 0
   m_Name: '[SYSTEM]'
   m_TagString: Untagged
@@ -155,7 +155,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &10730039
+--- !u!114 &10730041
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,21 +164,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 10730036}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1afab1a73a268465c8b4d4eb3ea42e6d, type: 3}
+  m_Script: {fileID: 11500000, guid: 55e71824102a2cb4783972f5adf483d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  installers:
-  - {fileID: 11400000, guid: e7bc1d7252f3e43b781c257f924aa749, type: 2}
-  - {fileID: 11400000, guid: f2111d4a6ca894e78a40a3668c805c5f, type: 2}
-  - {fileID: 11400000, guid: 2514a935a7f9a464b9bd9bee3b7cb559, type: 2}
-  - {fileID: 11400000, guid: 93cb566c7a4b24817a64e97041f4d0dc, type: 2}
-  - {fileID: 11400000, guid: f894a5a38629a485cac4c7a8e04da1b2, type: 2}
-  - {fileID: 11400000, guid: b2749be9d50cd42d8b620a603073a95f, type: 2}
-  - {fileID: 11400000, guid: 6ca137a5bee1541bbbf4b2b0603700c3, type: 2}
-  - {fileID: 11400000, guid: fe4a4aa9f9e3d485aa2080a0cac3091b, type: 2}
-  - {fileID: 11400000, guid: 678b076d084884466bf27e63a227263c, type: 2}
-  - {fileID: 11400000, guid: bda64e3ed114544bc80ceb6836b92f07, type: 2}
---- !u!114 &10730040
+  _startPoint: 0
+  _inputControllerPrefabPath: Prefabs/RTSInputController
+  _ecsModulePrefabPath: Prefabs/ECSModule
+--- !u!114 &10730042
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,16 +179,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 10730036}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 395fc65a7eef9aa4ca8d3d18fe7ee366, type: 3}
+  m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  _unitLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
-  maxRayDistance: 100
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: 10730041}
+  _installerPrefabs: []
+  _autoRun: 1
+  OnPreInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPreResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  _parentNewObjectsUnderSceneContext: 0
+  _contractNames: []
+  _parentContractNames: []
 --- !u!1001 &80539910
 PrefabInstance:
   m_ObjectHideFlags: 0
