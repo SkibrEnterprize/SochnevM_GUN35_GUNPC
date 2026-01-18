@@ -4,9 +4,12 @@
 using UnityEngine;
 using Zenject;
 
-public class SampleForPooling : MonoBehaviour
+public class ObjectForPooling : MonoBehaviour
 {
-    private ObjectPool<Prefab> _poolPrefab;
+    //[SerializeField] private Prefab _poolIsWitchObject; // для минимизации ошибок
+    //[SerializeField] private Prefab _prefab;
+
+    private ObjectPool<Prefab> _pool;
 
     [Header("Dirt spawn area")]
     [SerializeField] private GameObject _areaForSpawn;
@@ -20,10 +23,18 @@ public class SampleForPooling : MonoBehaviour
 
 
     [Inject]
-    public void Construct(ObjectPool<Prefab> poolDirt)
+    public void Construct(ObjectPool<Prefab> pool)
     {
-        _poolPrefab = poolDirt;
+        _pool = pool;
     }
+
+    //public void Construct(DiContainer container)
+    //{
+    //    _pool = container.ResolveId<ObjectPool<Prefab>>(_poolIsWitchObject.name);
+    //    Debug.Log($"Prefab name = _prefab.name");
+    //}
+
+
     private void Start()
     {
         CheckingArea();
@@ -48,13 +59,13 @@ public class SampleForPooling : MonoBehaviour
     {
         for (int i = 0; i < _objectsToSpawn; i++)
         {
-            Prefab prefab = _poolPrefab.Get();
-            prefab.SetPool(_poolPrefab);
+            Prefab prefab = _pool.Get();
+            prefab.SetPool(_pool);
 
             if (!TryFindFreePosition(out Vector3 spawnPos))
             {
                 Debug.LogWarning($"Cant find empty place for {prefab.name}. Object is not instantiate.");
-                _poolPrefab.Return(prefab);
+                _pool.Return(prefab);
                 continue;
             }
 

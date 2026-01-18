@@ -14,7 +14,6 @@ namespace Game.GameEngine.Ecs
 
             ref var deathPool = ref this.deathPool.GetComponent(entity);
             deathPool.deathTime -= Time.fixedDeltaTime;   // уменьшаем по времени
-            Debug.Log($"Time remain {deathPool.deathTime}");
             if (deathPool.deathTime <= 0f)
             {
                 this.destroyEmitter.SendEvent(entity, new DestroyEvent());
