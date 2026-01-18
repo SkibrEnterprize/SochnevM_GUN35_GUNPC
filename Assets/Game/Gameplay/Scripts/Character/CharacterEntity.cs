@@ -68,5 +68,6 @@ namespace Entities
                 value = this.GetComponentInChildren<Renderer>()
             });
         }
+
     }
 }

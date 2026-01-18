@@ -1,9 +1,6 @@
 using Game.GameEngine.Ecs;
 using UnityEngine;
 using Zenject;
-using System;
-using GameECS;
-using UnityEngine;
 
 public class SceneInstaller : MonoInstaller
 {
@@ -36,7 +33,15 @@ public class SceneInstaller : MonoInstaller
         var instanceECS = Instantiate(prefabECS);
         var ecsModule = instanceECS.GetComponent<EcsModule>();
         Container.BindInstance(ecsModule).AsSingle();
-        
+
+        //// привязка пула Enemy
+        //var prefabPoolEnemy = Resources.Load<GameObject>(_ecsModulePrefabPath);
+        //if (prefabECS == null)
+        //    Debug.Log($"Не удалось найти префаб по пути {_ecsModulePrefabPath}");
+        //var instanceECS = Instantiate(prefabECS);
+        //var ecsModule = instanceECS.GetComponent<EcsModule>();
+        //Container.BindInstance(ecsModule).AsSingle();
+
         //Container.Bind<ClassForGameLogic>()
         //    .AsSingle()
         //    .WithArguments(_startPoint)
