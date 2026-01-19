@@ -8,7 +8,6 @@ public class PoolInstaller : MonoInstaller
     private PoolSettings[] _pools;
     public override void InstallBindings()
     {
-        //SceneManager.sceneLoaded += OnSceneLoaded;
         foreach (var pool in _pools)
         {
 
@@ -23,23 +22,5 @@ public class PoolInstaller : MonoInstaller
                      .NonLazy();
             Debug.Log($"ID = {pool.prefab.name}");
         }
-
-
-        //private void OnDestroy()
-        //{
-        //    SceneManager.sceneLoaded -= OnSceneLoaded;
-        //}
-        //private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        //{
-        //    var poolContainer = new GameObject($"{_prefab.name}_Pool");
-        //    poolContainer.transform.SetParent(_parent, false);
-
-        //    Container.Bind<ObjectPool<Prefab>>()
-        //             .FromMethod(ctx => new ObjectPool<Prefab>(_prefab,
-        //                                                      _poolSize,
-        //                                                      poolContainer.transform))
-        //             .AsSingle()
-        //             .NonLazy();
-        //}
     }
 }

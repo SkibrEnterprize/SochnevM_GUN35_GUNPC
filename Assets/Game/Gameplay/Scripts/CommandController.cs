@@ -13,7 +13,7 @@ namespace SampleProject
         [SerializeField]
         private Entity entity;
         private Outline _outline;
-        
+
 
         void Awake()
         {
@@ -65,10 +65,12 @@ namespace SampleProject
         [Button]
         public void Patrol(Transform[] points)
         {
+            var positions = points.Select(t => t.position).ToList();
             this.entity.SetData(new CommandRequest
             {
                 type = CommandType.PATROL_BY_POINTS,
-                args = points.Select(it => it.position).ToList(),
+                args = positions,            // List<Vector3>
+                //args = points.Select(it => it.position).ToList(),
                 status = CommandStatus.IDLE
             });
         }
@@ -86,7 +88,7 @@ namespace SampleProject
         }
     }
 
-    
-    
-    
+
+
+
 }

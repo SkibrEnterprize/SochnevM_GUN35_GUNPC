@@ -20,6 +20,12 @@ namespace Game.GameEngine.Ecs
             NavMeshAgent agent = agentComp.agent;
             if (agent == null) return;
 
+            if (patrol.points == null || patrol.points.Count == 0)
+            {
+                Debug.LogError($"Entity {entity} has no patrol points!");
+                return;
+            }
+
             Vector3 targetPoint = patrol.GetCurrentPoint();
 
             // Если агент уже близко к точке, переходим к следующей
