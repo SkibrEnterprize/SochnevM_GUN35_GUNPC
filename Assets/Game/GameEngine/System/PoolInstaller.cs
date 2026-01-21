@@ -8,6 +8,7 @@ public class PoolInstaller : MonoInstaller
     private PoolSettings[] _pools;
     public override void InstallBindings()
     {
+
         foreach (var pool in _pools)
         {
 
@@ -21,5 +22,6 @@ public class PoolInstaller : MonoInstaller
                      .AsSingle()                                     
                      .NonLazy();
         }
+
     }
 }

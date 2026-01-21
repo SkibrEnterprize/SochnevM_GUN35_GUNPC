@@ -6,17 +6,17 @@ using UnityEngine.UI;
 
 namespace Entities
 {
-    // сущность для назначения в нее компонентов ECS и размещения на объекте Monobeh-е
+    
     public sealed class CharacterEntity : Entity
     {
         [SerializeField]
-        private CharacterConfig config; // скриптабл-объект для упрощения установки значений
+        private CharacterConfig config;
 
         protected override void Init()
         {
-            this.SetData(new SmoothRotationComponent()); // привязка компонента ECS
+            this.SetData(new SmoothRotationComponent()); 
 
-            this.SetData(new CombatComponent    //привязка компонента ECS и установка его значений из скрипт.объекта
+            this.SetData(new CombatComponent  
             {
                 damage = this.config.damage,
                 minDistance = config.minDistance,
@@ -26,7 +26,7 @@ namespace Entities
                 deathTime = this.config.deathTime,
             });
 
-            this.SetData(new AnimatorComponent  // привязка в компонент ECS компонента Monobeh-а 
+            this.SetData(new AnimatorComponent  
             {
                 value = this.GetComponentInChildren<AnimatorMachine>()
             });
@@ -49,7 +49,8 @@ namespace Entities
             });
 
             var agent = this.gameObject.GetComponent<NavMeshAgent>();
-            //agent.stoppingDistance = 2;
+            agent.speed = this.config.moveSpeed;
+            
 
             this.SetData(new NavMeshAgentComponent { agent = agent });
 

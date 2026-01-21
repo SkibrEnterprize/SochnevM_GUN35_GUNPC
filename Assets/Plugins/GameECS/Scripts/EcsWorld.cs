@@ -47,6 +47,7 @@ namespace GameECS
             return id;
         }
 
+
         public bool IsEntityExists(int entity)
         {
             if (entity < 0 || entity >= this.entities.Count)

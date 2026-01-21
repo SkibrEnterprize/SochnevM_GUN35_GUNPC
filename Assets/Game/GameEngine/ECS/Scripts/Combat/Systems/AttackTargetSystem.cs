@@ -14,6 +14,7 @@ namespace Game.GameEngine.Ecs
         private EcsPool<TransformComponent> transformPool;
         private EcsPool<CommandRequest> requestPool;
         private readonly EcsPool<DeathComponent> deathPool;
+        private readonly EcsWorld world;
 
 
         void IEcsFixedUpdate.FixedUpdate(int entity)
@@ -24,7 +25,7 @@ namespace Game.GameEngine.Ecs
             }
 
             ref var targetId = ref this.targetPool.GetComponent(entity).targetId;
-            if (this.deathPool.HasComponent(targetId))
+            if (!this.world.IsEntityExists(targetId) || this.deathPool.HasComponent(targetId))
             {
                 this.requestPool.RemoveComponent(entity);// (если у цели нет HitPoints)
                 return;
