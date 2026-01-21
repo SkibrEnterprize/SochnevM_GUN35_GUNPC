@@ -15,7 +15,6 @@ namespace Game.GameEngine.Ecs
         {
             if (@event.message == ATTACK_MESSAGE)
             {
-                Debug.Log("ATTACK!");
                 this.Attack(entity);
             }
         }

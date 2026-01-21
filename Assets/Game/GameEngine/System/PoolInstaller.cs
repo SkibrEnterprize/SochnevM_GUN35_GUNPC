@@ -20,7 +20,6 @@ public class PoolInstaller : MonoInstaller
                                                               poolContainer.transform))
                      .AsSingle()                                     
                      .NonLazy();
-            Debug.Log($"ID = {pool.prefab.name}");
         }
     }
 }

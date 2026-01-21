@@ -6,9 +6,6 @@ using Zenject;
 
 public class ObjectForPooling : MonoBehaviour
 {
-    //[SerializeField] private Prefab _poolIsWitchObject; // для минимизации ошибок
-    //[SerializeField] private Prefab _prefab;
-
     private ObjectPool<Prefab> _pool;
 
     [Header("Dirt spawn area")]
@@ -27,13 +24,7 @@ public class ObjectForPooling : MonoBehaviour
     {
         _pool = pool;
     }
-
-    //public void Construct(DiContainer container)
-    //{
-    //    _pool = container.ResolveId<ObjectPool<Prefab>>(_poolIsWitchObject.name);
-    //    Debug.Log($"Prefab name = _prefab.name");
-    //}
-
+      
 
     private void Start()
     {

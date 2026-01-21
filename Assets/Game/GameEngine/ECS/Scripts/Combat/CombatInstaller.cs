@@ -1,4 +1,5 @@
 using GameECS;
+using SampleProject;
 using UnityEngine;
 
 namespace Game.GameEngine.Ecs
@@ -23,6 +24,8 @@ namespace Game.GameEngine.Ecs
             world.DeclareSystem<HitDurationSystem>();
             world.DeclareSystem<HitSystem_LookAtTarget>();
             world.DeclareSystem<AttackTargetSystem>();
+            world.DeclareSystem<VisionTargetSystem>();
+            
 
             world.DeclareObserver<HitEvent, HitObserver_DealMeleeDamage>();
             world.DeclareObserver<HitEvent, HitObserver_ReloadAfterHit>();
