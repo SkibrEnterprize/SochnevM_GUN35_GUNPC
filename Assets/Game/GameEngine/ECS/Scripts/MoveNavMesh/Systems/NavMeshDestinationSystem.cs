@@ -1,12 +1,10 @@
 using GameECS;
-using UnityEngine;
 using UnityEngine.AI;
 
 namespace Game.GameEngine.Ecs
 {
     public sealed class NavMeshDestinationSystem : IEcsFixedUpdate
     {
-        private readonly EcsPool<TransformComponent> transformPool;
         private readonly EcsPool<NavMeshAgentComponent> agentPool;
         private readonly EcsPool<MoveToPositionData> movePool;   // используем старый тип, чтобы не менять логику дальше
 

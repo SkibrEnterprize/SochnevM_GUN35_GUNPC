@@ -17,7 +17,7 @@ namespace SampleProject
 
         void Awake()
         {
-            _outline = gameObject.GetComponent<Outline>();   // добавляем скрипт Outline
+            _outline = gameObject.GetComponent<Outline>(); 
         }
 
         [Button]

@@ -24,12 +24,7 @@ public class ObjectForPooling : MonoBehaviour
     {
         _pool = pool;
     }
-
-    //public void Construct(DiContainer container)
-    //{
-    //    _pool = container.ResolveId<ObjectPool<Prefab>>(_poolIsWitchObject.name);
-    //    Debug.Log($"Prefab name = _prefab.name");
-    //}
+      
 
 
     private void Start()

@@ -1,6 +1,5 @@
 using GameECS;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 namespace Game.GameEngine.Ecs
 {

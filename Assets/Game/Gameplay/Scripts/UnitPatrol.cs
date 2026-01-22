@@ -15,7 +15,7 @@ public class UnitPatrol : MonoBehaviour
         _commandController = GetComponent<CommandController>();
 
         _points = _parentForPoint.transform.GetComponentsInChildren<Transform>(true)
-                    .Where(t => t != _parentForPoint.transform)   // убрать сам объект
+                    .Where(t => t != _parentForPoint.transform)   
                     .ToArray();
 
         if (_points != null) _commandController.Patrol(_points);

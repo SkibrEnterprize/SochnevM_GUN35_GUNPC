@@ -5,10 +5,6 @@ using UnityEngine.AI;
 
 namespace SampleProject
 {
-    /// <summary>
-    /// —инхронизирует NavMeshAgent со Ђмаркеромї MoveStepData,
-    /// который затем используетс€ CharacterAnimatorSystem.
-    /// </summary>
     public sealed class NavMeshMoveStepMarker : IEcsFixedUpdate
     {
         private readonly EcsPool<NavMeshAgentComponent> _agentPool;
@@ -29,16 +25,12 @@ namespace SampleProject
 
             if (moving)
             {
-                // —оздаЄм Ђпсевдо?шагї дл€ анимации.
-                // ѕуть не важен, нужна только информаци€ о том,
-                // что юнит двигаетс€. ƒл€ простоты будем ставить
-                // направление к цели NavMeshAgent.
+                
                 Vector3 dir = (agent.destination - agent.transform.position).normalized;
                 _stepPool.SetComponent(entity, new MoveStepData { direction = dir });
             }
             else
             {
-                // ќстановились Ц убираем маркер
                 if (_stepPool.HasComponent(entity))
                     _stepPool.RemoveComponent(entity);
             }

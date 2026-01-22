@@ -25,9 +25,9 @@ namespace Game.GameEngine.Ecs
 
         private void Awake()
         {
-            world = new EcsWorld(); // создаем сам "World" для ECS
+            world = new EcsWorld(); 
             
-            foreach (var installer in this.installers) // привязка инсталлеров, содержащих компоненты в "World"
+            foreach (var installer in this.installers)
             {
                 installer.Install(world);
             }
@@ -35,8 +35,7 @@ namespace Game.GameEngine.Ecs
             world.ResolveDependencies();
             this.isInstalled = true;
         }
-
-        // привязка Monobeh-овских циклов обновления в "World" для их имитации в нем
+                
         private void Update()
         {
             world.Update();

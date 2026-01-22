@@ -1,7 +1,5 @@
-using Game.GameEngine.Ecs;
 using GameECS;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Game.GameEngine.Ecs
 {

@@ -19,11 +19,9 @@ namespace Game.GameEngine.Ecs
                     $"PatrolData.points is empty for entity. " +
                     $"Add at least one point before calling GetCurrentPoint().");
 
-            // Если по какой‑то причине pointer вышел за пределы, сбрасываем его
             if (pointer >= points.Count) pointer = 0;
 
             return points[pointer];
-            //return this.points[this.pointer];
         }
 
         public void MoveNext()

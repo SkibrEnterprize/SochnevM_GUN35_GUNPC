@@ -7,7 +7,6 @@ namespace Game.GameEngine.Ecs
     {
         private EcsPool<AttackTarget> targetPool;
         private EcsPool<HitRequest> hitRequestPool;
-        private readonly EcsPool<HitPointsComponent> hitPointsPool;
         private EcsPool<MoveToPositionData> moveToPositionPool;
 
         private EcsPool<CombatComponent> combatPool;
@@ -27,9 +26,9 @@ namespace Game.GameEngine.Ecs
             ref var targetId = ref this.targetPool.GetComponent(entity).targetId;
             if (!this.world.IsEntityExists(targetId) || this.deathPool.HasComponent(targetId))
             {
-                this.requestPool.RemoveComponent(entity);// (если у цели нет HitPoints)
+                this.requestPool.RemoveComponent(entity);
                 return;
-            }               // не атаковать
+            }             
 
             var myPosition = this.transformPool.GetComponent(entity).value.position;
             var targetPosition = this.transformPool.GetComponent(targetId).value.position;
@@ -37,7 +36,6 @@ namespace Game.GameEngine.Ecs
 
             if (Vector3.Distance(myPosition, targetPosition) <= minDistance)
             {
-                //Attack target:
                 this.moveToPositionPool.RemoveComponent(entity);
                 this.hitRequestPool.SetComponent(entity, new HitRequest
                 {
@@ -46,7 +44,6 @@ namespace Game.GameEngine.Ecs
             }
             else
             {
-                //Move to target:
                 this.hitRequestPool.RemoveComponent(entity);
                 this.moveToPositionPool.SetComponent(entity, new MoveToPositionData
                 {

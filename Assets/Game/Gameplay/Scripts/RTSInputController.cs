@@ -14,17 +14,17 @@ public class RTSInputController : MonoBehaviour
     public float maxRayDistance = 100f;
 
     private PlayerInputActions _inputActions;
-    private GroupeMoverManager _groupeMoverManager;
 
     private Rect _selectionRect;
     private Vector2 _dragStartPos;
     private bool _isDragging;
 
-    private Vector3 _startWorld;    // мировая точка начала drag
-    private Vector3 _endWorld;      // мировая точка конца drag (отпускание)
-    private Bounds _selectionBounds; // вычисленный куб
+    private Vector3 _startWorld;    
+    private Vector3 _endWorld;      
+    private Bounds _selectionBounds; 
 
-    // Выбранные юниты с двумя компонентами для удобства
+    private ArrowForMovement _arrowForMovement;
+
     private readonly List<(CharacterEntity character, CommandController command)> _selectedUnits =
         new List<(CharacterEntity, CommandController)>();
 
@@ -37,6 +37,8 @@ public class RTSInputController : MonoBehaviour
         _inputActions.Gameplay.RightMouseClick.performed += ctx => OnRightMouseClick();
 
         _inputActions.Gameplay.Enable();
+
+        _arrowForMovement = GetComponentInChildren<ArrowForMovement>();
     }
 
     void Update()
@@ -61,7 +63,6 @@ public class RTSInputController : MonoBehaviour
 
         _isDragging = false;
 
-        // Минимальный размер прямоугольника, чтобы отличать drag от клика
         if (_selectionRect.width < 5 || _selectionRect.height < 5)
             SingleClickSelect();
         else
@@ -222,8 +223,13 @@ public class RTSInputController : MonoBehaviour
             if (NavMesh.SamplePosition(hit.point, out NavMeshHit navHit, 0.5f, NavMesh.AllAreas))
             {
                 character.command.MoveToPosition(navHit.position);
+                ArrowActivate(navHit.position);
             }
         }
+    }
+    private async void ArrowActivate(Vector3 pos)
+    {
+        await _arrowForMovement.Activate(pos);
     }
 
     void OnDestroy()

@@ -13,11 +13,10 @@ namespace Game.GameEngine.Ecs
             if (!this.deathPool.HasComponent(entity)) return;
 
             ref var deathPool = ref this.deathPool.GetComponent(entity);
-            deathPool.deathTime -= Time.fixedDeltaTime;   // уменьшаем по времени
+            deathPool.deathTime -= Time.fixedDeltaTime; 
             if (deathPool.deathTime <= 0f)
             {
                 this.destroyEmitter.SendEvent(entity, new DestroyEvent());
-                // Можно удалить DeathComponent, чтобы не проверять его дальше
                 this.deathPool.RemoveComponent(entity);
             }
         }

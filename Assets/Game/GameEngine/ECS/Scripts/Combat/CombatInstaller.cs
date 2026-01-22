@@ -1,5 +1,4 @@
 using GameECS;
-using SampleProject;
 using UnityEngine;
 
 namespace Game.GameEngine.Ecs

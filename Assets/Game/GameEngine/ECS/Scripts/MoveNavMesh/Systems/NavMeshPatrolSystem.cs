@@ -28,11 +28,10 @@ namespace Game.GameEngine.Ecs
 
             Vector3 targetPoint = patrol.GetCurrentPoint();
 
-            // Если агент уже близко к точке, переходим к следующей
             if (!agent.pathPending && Vector3.Distance(agent.transform.position, targetPoint) <= patrol.stoppingDistance)
             {
                 patrol.MoveNext();
-                targetPoint = patrol.GetCurrentPoint();  // новый пункт
+                targetPoint = patrol.GetCurrentPoint();  
             }
 
             agent.SetDestination(targetPoint);

@@ -26,7 +26,7 @@ namespace SampleProject
         {
             if (this.deathPool.HasComponent(entity))
             {                
-                return AnimatorStateId.DEATH;     // если сущность «умирает», ставим death
+                return AnimatorStateId.DEATH;  
             }
 
             if (this.attackPool.HasComponent(entity))
